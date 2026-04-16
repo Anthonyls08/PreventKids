@@ -1,6 +1,6 @@
-package pe.edu.upc.preventkids.servicesinterfaces;
+package upc.edu.pe.preventkids.servicesinterfaces;
 
-import pe.edu.upc.preventkids.entities.Role;
+import upc.edu.pe.preventkids.entities.Role;
 
 import java.util.List;
 import java.util.Optional;

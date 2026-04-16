@@ -1,4 +1,4 @@
-package pe.edu.upc.preventkids.entities;
+package upc.edu.pe.preventkids.entities;
 
 import jakarta.persistence.*;
 

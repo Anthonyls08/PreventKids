@@ -1,4 +1,4 @@
-package pe.edu.upc.preventkids.dtos;
+package upc.edu.pe.preventkids.dtos;
 
 public class RoleInsertDTO {
     private int id;
