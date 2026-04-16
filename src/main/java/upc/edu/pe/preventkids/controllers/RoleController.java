@@ -1,14 +1,14 @@
-package pe.edu.upc.preventkids.controllers;
+package upc.edu.pe.preventkids.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.preventkids.dtos.RoleDTO;
-import pe.edu.upc.preventkids.dtos.RoleInsertDTO;
-import pe.edu.upc.preventkids.entities.Role;
-import pe.edu.upc.preventkids.servicesinterfaces.IRoleService;
+import upc.edu.pe.preventkids.dtos.RoleDTO;
+import upc.edu.pe.preventkids.dtos.RoleInsertDTO;
+import upc.edu.pe.preventkids.entities.Role;
+import upc.edu.pe.preventkids.servicesinterfaces.IRoleService;
 
 import java.util.List;
 import java.util.Optional;

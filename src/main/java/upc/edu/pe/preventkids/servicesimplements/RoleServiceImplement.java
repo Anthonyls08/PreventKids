@@ -1,10 +1,10 @@
-package pe.edu.upc.preventkids.servicesimplements;
+package upc.edu.pe.preventkids.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.edu.upc.preventkids.entities.Role;
-import pe.edu.upc.preventkids.repositories.IRoleRepository;
-import pe.edu.upc.preventkids.servicesinterfaces.IRoleService;
+import upc.edu.pe.preventkids.entities.Role;
+import upc.edu.pe.preventkids.repositories.IRoleRepository;
+import upc.edu.pe.preventkids.servicesinterfaces.IRoleService;
 
 import java.util.List;
 import java.util.Optional;
