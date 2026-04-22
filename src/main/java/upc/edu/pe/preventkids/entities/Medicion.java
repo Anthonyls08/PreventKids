@@ -1,7 +1,6 @@
 package upc.edu.pe.preventkids.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -20,8 +19,8 @@ public class Medicion {
     @Column(name = "imc", nullable = false)
     private float imc;
 
-    @Column(name = "clasificacion_imc", length = 15,nullable = false)
-    private String clasificacion_imc;
+    @Column(name = "clasificacion_imc", length = 15, nullable = false)
+    private String clasificacionimc;
 
     @Column(name = "presion", nullable = false)
     private float presion;
@@ -29,25 +28,26 @@ public class Medicion {
     @Column(name = "temperatura", nullable = false)
     private float temperatura;
 
-    @Column(name = "fecha_medicion",nullable = false)
-    private LocalDate fecha_medicion;
+    @Column(name = "fecha_medicion", nullable = false)
+    private LocalDate fechamedicion;
 
-    //@OneToOne
-    //@Column(name = "usuario_id", nullable = false)
-    //private int usuario_id;
+    @OneToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    private User user;
 
     public Medicion() {
     }
 
-    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacion_imc, float presion, float temperatura, LocalDate fecha_medicion) {
+    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacionimc, float presion, float temperatura, LocalDate fechamedicion, User user) {
         this.idMedicion = idMedicion;
         this.pesoKg = pesoKg;
         this.tallaCm = tallaCm;
         this.imc = imc;
-        this.clasificacion_imc = clasificacion_imc;
+        this.clasificacionimc = clasificacionimc;
         this.presion = presion;
         this.temperatura = temperatura;
-        this.fecha_medicion = fecha_medicion;
+        this.fechamedicion = fechamedicion;
+        this.user = user;
     }
 
     public int getIdMedicion() {
@@ -82,12 +82,12 @@ public class Medicion {
         this.imc = imc;
     }
 
-    public String getClasificacion_imc() {
-        return clasificacion_imc;
+    public String getClasificacionimc() {
+        return clasificacionimc;
     }
 
-    public void setClasificacion_imc(String clasificacion_imc) {
-        this.clasificacion_imc = clasificacion_imc;
+    public void setClasificacionimc(String clasificacionimc) {
+        this.clasificacionimc = clasificacionimc;
     }
 
     public float getPresion() {
@@ -106,11 +106,19 @@ public class Medicion {
         this.temperatura = temperatura;
     }
 
-    public LocalDate getFecha_medicion() {
-        return fecha_medicion;
+    public LocalDate getFechamedicion() {
+        return fechamedicion;
     }
 
-    public void setFecha_medicion(LocalDate fecha_medicion) {
-        this.fecha_medicion = fecha_medicion;
+    public void setFechamedicion(LocalDate fechamedicion) {
+        this.fechamedicion = fechamedicion;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

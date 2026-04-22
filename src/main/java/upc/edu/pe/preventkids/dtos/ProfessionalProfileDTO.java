@@ -1,38 +1,14 @@
-package upc.edu.pe.preventkids.entities;
+package upc.edu.pe.preventkids.dtos;
 
-import jakarta.persistence.*;
+import upc.edu.pe.preventkids.entities.Specialty;
+import upc.edu.pe.preventkids.entities.User;
 
-@Entity
-@Table(name="ProfessionalProfile")
-public class ProfessionalProfile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProfessionalProfileDTO {
     private int idProfessionalProfile;
-
-    @Column(name = "numerocolegiatura", length = 100, nullable = false)
     private String numerocolegiatura;
-
-    @Column(length = 100, nullable = false)
     private String institucion;
-
-    @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "idSpecialty", nullable = false)
     private Specialty specialty;
-
-    public ProfessionalProfile() {
-    }
-
-    public ProfessionalProfile(int idProfessionalProfile, String numerocolegiatura, String institucion, User user, Specialty specialty) {
-        this.idProfessionalProfile = idProfessionalProfile;
-        this.numerocolegiatura = numerocolegiatura;
-        this.institucion = institucion;
-        this.user = user;
-        this.specialty = specialty;
-    }
 
     public int getIdProfessionalProfile() {
         return idProfessionalProfile;
