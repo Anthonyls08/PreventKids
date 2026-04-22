@@ -20,7 +20,7 @@ public class Medicion {
     @Column(name = "imc", nullable = false)
     private float imc;
 
-    @Column(name = "clasificacion_imc", length = 15,nullable = false)
+    @Column(name = "clasificacion_imc", length = 15, nullable = false)
     private String clasificacion_imc;
 
     @Column(name = "presion", nullable = false)
@@ -29,17 +29,17 @@ public class Medicion {
     @Column(name = "temperatura", nullable = false)
     private float temperatura;
 
-    @Column(name = "fecha_medicion",nullable = false)
+    @Column(name = "fecha_medicion", nullable = false)
     private LocalDate fecha_medicion;
 
-    //@OneToOne
-    //@Column(name = "usuario_id", nullable = false)
-    //private int usuario_id;
+    @OneToOne
+    @Column(name = "idUser", nullable = false)
+    private User user;
 
     public Medicion() {
     }
 
-    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacion_imc, float presion, float temperatura, LocalDate fecha_medicion) {
+    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacion_imc, float presion, float temperatura, LocalDate fecha_medicion, User user) {
         this.idMedicion = idMedicion;
         this.pesoKg = pesoKg;
         this.tallaCm = tallaCm;
@@ -48,6 +48,7 @@ public class Medicion {
         this.presion = presion;
         this.temperatura = temperatura;
         this.fecha_medicion = fecha_medicion;
+        this.user = user;
     }
 
     public int getIdMedicion() {
@@ -112,5 +113,13 @@ public class Medicion {
 
     public void setFecha_medicion(LocalDate fecha_medicion) {
         this.fecha_medicion = fecha_medicion;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
