@@ -37,4 +37,9 @@ public class VirtualConsultationServiceImplement implements IVirtualConsultation
     public void delete(int id) {
         vcR.deleteById(id);
     }
+
+    @Override
+    public List<VirtualConsultation> decidirPrioridadConsultaPaciente(String estadoConsulta, String nombrePaciente) {
+        return vcR.decidirPrioridadConsultaPaciente(estadoConsulta, nombrePaciente);
+    }
 }

@@ -11,4 +11,5 @@ public interface IVirtualConsultationService {
     public Optional<VirtualConsultation> listId(int id);
     public void update(VirtualConsultation v);
     public void delete(int id);
+    public List<VirtualConsultation> decidirPrioridadConsultaPaciente(String estadoConsulta, String nombrePaciente);
 }

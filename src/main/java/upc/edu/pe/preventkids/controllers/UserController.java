@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.UserDTO;
 import upc.edu.pe.preventkids.entities.User;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private IUserService uS;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> listar() {
@@ -43,6 +46,7 @@ public class UserController {
 
         ModelMapper m = new ModelMapper();
         User u = m.map(dto, User.class);
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
         User user = uS.insert(u);
         UserDTO responseDTO = m.map(user, UserDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);

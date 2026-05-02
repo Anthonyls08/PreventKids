@@ -28,4 +28,11 @@ public class TipoalertaServiceImplement implements ITipoalertaService {
 
     @Override
     public void delete(int id) {tR.deleteById(id);}
+
+    @Override
+    public List<TipoAlerta> filtrar(int nivelRiesgo, boolean requiereAtencion) {
+        return tR.filtrarPorRiesgoYAtencion(nivelRiesgo, requiereAtencion);
+    }
+
+
 }

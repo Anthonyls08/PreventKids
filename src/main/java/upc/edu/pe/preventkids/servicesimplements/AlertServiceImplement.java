@@ -38,4 +38,9 @@ public class AlertServiceImplement implements IAlertService {
     public void delete(int id) {
         aR.deleteById(id);
     }
+
+    @Override
+    public List<Alert> obtenerAlertasNoLeidasCriticas(int umbralRiesgo) {
+        return aR.obtenerAlertasNoLeidasCriticas(umbralRiesgo);
+    }
 }

@@ -100,4 +100,24 @@ public class VirtualConsultationController {
                     .body("Consulta virtual no encontrada");
         }
     }
+    @GetMapping("/decidir-prioridad")
+    public ResponseEntity<?> decidirPrioridad(@RequestParam String estado,@RequestParam String nombrePaciente) {
+        if (estado == null || estado.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: El estado de la consulta no puede estar vacío.");
+        }
+        if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: El nombre del paciente no puede estar vacío.");
+        }
+
+        ModelMapper m = new ModelMapper();
+        List<VirtualConsultationDTO> listaConsultas = vS.decidirPrioridadConsultaPaciente(estado, nombrePaciente)
+                .stream()
+                .map(y -> m.map(y, VirtualConsultationDTO.class))
+                .collect(Collectors.toList());
+
+        if (listaConsultas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(listaConsultas);
+    }
 }
