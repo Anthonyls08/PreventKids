@@ -11,4 +11,5 @@ public interface IAlertService {
     public Optional<Alert> listId(int id);
     public void update(Alert a);
     public void delete(int id);
+    public List<Alert> obtenerAlertasNoLeidasCriticas(int umbralRiesgo);
 }

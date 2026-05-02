@@ -80,4 +80,21 @@ public class AlertController {
                     .body("Alerta no encontrado");
         }
     }
+    @GetMapping("/criticas")
+    public ResponseEntity<?> obtenerAlertasCriticas(
+            @RequestParam(required = false, defaultValue = "3") Integer umbralRiesgo) {
+        if (umbralRiesgo < 1 || umbralRiesgo > 5) {
+            return ResponseEntity.badRequest()
+                    .body("Error: El umbral de riesgo debe estar entre 1 y 5.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<AlertDTO> alertasCriticas = aS.obtenerAlertasNoLeidasCriticas(umbralRiesgo)
+                .stream()
+                .map(y -> m.map(y, AlertDTO.class))
+                .collect(Collectors.toList());
+        if (alertasCriticas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(alertasCriticas);
+    }
 }

@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 import upc.edu.pe.preventkids.entities.User;
 @Repository
 public interface IUserRepository extends JpaRepository<User,Integer> {
+    User findByEmail(String email);
 }

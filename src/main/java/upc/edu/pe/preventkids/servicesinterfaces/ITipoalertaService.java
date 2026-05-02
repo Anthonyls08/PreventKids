@@ -11,4 +11,5 @@ public interface ITipoalertaService {
     public Optional<TipoAlerta> listId(int id);
     public void update(TipoAlerta t);
     public void delete(int id);
+    public List<TipoAlerta> filtrar(int nivelRiesgo, boolean requiereAtencion);
 }
