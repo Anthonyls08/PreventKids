@@ -29,4 +29,7 @@ public class MedicionServiceImplement implements IMedicionService {
 
     @Override
     public void delete(int id) {medicionRepository.deleteById(id);}
+
+    @Override
+    public List<Medicion> decidirAtencionPrioritaria(float imcMinimo) { return medicionRepository.decidirAtencionPrioritaria(imcMinimo); }
 }

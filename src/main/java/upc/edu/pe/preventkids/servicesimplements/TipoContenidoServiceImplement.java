@@ -28,4 +28,7 @@ public class TipoContenidoServiceImplement implements ITipoContenidoService {
 
     @Override
     public void delete(int id) {tcR.deleteById(id);}
+
+    @Override
+    public List<TipoContenido> decidirContenidoRapido(int duracionMax, String categoria) { return tcR.decidirContenidoRapido(duracionMax, categoria); }
 }
