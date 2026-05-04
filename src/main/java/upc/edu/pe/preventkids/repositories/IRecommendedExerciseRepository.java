@@ -2,7 +2,8 @@ package upc.edu.pe.preventkids.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import upc.edu.pe.preventkids.entities.PhysicalLimitation;
+import upc.edu.pe.preventkids.entities.RecommendedExercise;
+
 @Repository
-public interface IPhysicalLimitationRepository extends JpaRepository<PhysicalLimitation, Integer>  {
+public interface IRecommendedExerciseRepository extends JpaRepository<RecommendedExercise, Integer> {
 }

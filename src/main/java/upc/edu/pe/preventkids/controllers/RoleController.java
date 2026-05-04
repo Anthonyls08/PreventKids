@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.RoleDTO;
-import upc.edu.pe.preventkids.dtos.RoleInsertDTO;
 import upc.edu.pe.preventkids.entities.Role;
 import upc.edu.pe.preventkids.servicesinterfaces.IRoleService;
 
@@ -32,7 +31,7 @@ public class RoleController {
     }
 
     @PostMapping("/web")
-    public ResponseEntity<?> registrar(@RequestBody RoleInsertDTO dto) {
+    public ResponseEntity<?> registrar(@RequestBody RoleDTO dto) {
         if (dto.getNombre() == null ) {
             return ResponseEntity.badRequest()
                     .body("El nombre del rol no puede ser nulo");
@@ -45,7 +44,7 @@ public class RoleController {
         ModelMapper m = new ModelMapper();
         Role r = m.map(dto, Role.class);
         Role role = rS.insert(r);
-        RoleInsertDTO responseDTO = m.map(role, RoleInsertDTO.class);
+        RoleDTO responseDTO = m.map(role, RoleDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
@@ -64,7 +63,7 @@ public class RoleController {
     }
 
     @PutMapping("/actualiza")
-    public ResponseEntity<String> actualizar(@RequestBody RoleInsertDTO dto) {
+    public ResponseEntity<String> actualizar(@RequestBody RoleDTO dto) {
         Optional<Role> existente = rS.listId(dto.getId());
 
         if (existente.isEmpty()) {

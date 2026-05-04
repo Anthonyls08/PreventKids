@@ -30,6 +30,10 @@ public class tipoAlertaController {
     }
     @PostMapping("/insertar")
     public ResponseEntity<?> registrar(@RequestBody tipoAlertaInsertDTO dto){
+        if (dto.getNivelriesgo() < 1 || dto.getNivelriesgo() > 5) {
+            return ResponseEntity.badRequest()
+                    .body("Error: El nivel de riesgo debe estar entre 1 y 5.");
+        }
         ModelMapper m=new ModelMapper();
         TipoAlerta a=m.map(dto, TipoAlerta.class);
         TipoAlerta tipoAlerta= tS.insert(a);
@@ -51,7 +55,10 @@ public class tipoAlertaController {
     }
     @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@RequestBody tipoAlertaInsertDTO dto) {
-
+        if (dto.getNivelriesgo() < 1 || dto.getNivelriesgo() > 5) {
+            return ResponseEntity.badRequest()
+                    .body("Error: El nivel de riesgo debe estar entre 1 y 5.");
+        }
         Optional<TipoAlerta> existente = tS.listId(dto.getIdTipoalerta());
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -81,5 +88,26 @@ public class tipoAlertaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Tipo de alerta no encontrado");
         }
+    }
+
+    @GetMapping("/filtrar-por-nivelriesgo")
+    public ResponseEntity<?> filtrarAlertas(@RequestParam(required = false, defaultValue = "1") Integer nivelRiesgo,@RequestParam(required = false, defaultValue = "false") Boolean requiereAtencion) {
+
+        if (nivelRiesgo < 1 || nivelRiesgo > 5) {
+            return ResponseEntity.badRequest()
+                    .body("Error: El nivel de riesgo debe estar entre 1 y 5.");
+        }
+
+        ModelMapper m = new ModelMapper();
+        List<tipoAlertaDTO> listaFiltrada = tS.filtrar(nivelRiesgo, requiereAtencion)
+                .stream()
+                .map(y -> m.map(y, tipoAlertaDTO.class))
+                .collect(Collectors.toList());
+
+        if (listaFiltrada.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(listaFiltrada);
     }
 }

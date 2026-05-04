@@ -3,11 +3,11 @@ package upc.edu.pe.preventkids.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "Role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idRole;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
@@ -18,18 +18,18 @@ public class Role {
     public Role() {
     }
 
-    public Role(int id, String nombre, String descripcion) {
-        this.id = id;
+    public Role(int idRole, String nombre, String descripcion) {
+        this.idRole = idRole;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    public int getId() {
-        return id;
+    public int getIdRole() {
+        return idRole;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
     }
 
     public String getNombre() {
@@ -47,5 +47,4 @@ public class Role {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
 }

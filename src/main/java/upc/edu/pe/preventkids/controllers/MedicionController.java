@@ -69,16 +69,15 @@ public class MedicionController {
         m.setPesoKg(dto.getPesoKg());
         m.setTallaCm(dto.getTallaCm());
         m.setImc(dto.getImc());
-        m.setClasificacion_imc(dto.getClasificacion_imc());
+        m.setClasificacionimc(dto.getClasificacion_imc());
         m.setPresion(dto.getPresion());
         m.setTemperatura(dto.getTemperatura());
-        m.setFecha_medicion(dto.getFecha_medicion());
+        m.setFechamedicion(dto.getFecha_medicion());
 
         mS.update(m);
         return ResponseEntity.ok("Medición actualizada correctamente");
     }
 
-    // 5. ELIMINAR (DELETE)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Medicion> medicion = mS.listId(id);
