@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.UserDTO;
+import upc.edu.pe.preventkids.dtos.UserRoleCountDTO;
 import upc.edu.pe.preventkids.entities.User;
 import upc.edu.pe.preventkids.servicesinterfaces.IUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,5 +101,22 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Usuario no encontrado");
         }
+    }
+
+    @GetMapping("/conteo-por-rol")
+    public ResponseEntity<?> contarUsuariosPorRol() {
+        List<Object[]> resultados = uS.contarUsuariosPorRol();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay usuarios registrados");
+        }
+        List<UserRoleCountDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            UserRoleCountDTO dto = new UserRoleCountDTO();
+            dto.setNombreRol((String) fila[0]);
+            dto.setCantidadUsuarios(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }

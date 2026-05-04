@@ -100,4 +100,30 @@ public class SpecialtyController {
                     .body("Especialidad no encontrada");
         }
     }
+
+    @GetMapping("/buscar-area")
+    public ResponseEntity<?> buscarPorArea(@RequestParam String area) {
+        ModelMapper m = new ModelMapper();
+        List<SpecialtyDTO> lista = sS.buscarPorArea(area).stream()
+                .map(y -> m.map(y, SpecialtyDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron especialidades en el área: " + area);
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/buscar-atencion-virtual")
+    public ResponseEntity<?> buscarPorAtencionVirtual(@RequestParam boolean virtual) {
+        ModelMapper m = new ModelMapper();
+        List<SpecialtyDTO> lista = sS.buscarPorAtencionVirtual(virtual).stream()
+                .map(y -> m.map(y, SpecialtyDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron especialidades con atención virtual: " + virtual);
+        }
+        return ResponseEntity.ok(lista);
+    }
 }

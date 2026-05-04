@@ -37,4 +37,14 @@ public class SpecialtyServiceImplement implements ISpecialtyService {
     public void delete(int id) {
         sR.deleteById(id);
     }
+
+    @Override
+    public List<Specialty> buscarPorArea(String area) {
+        return sR.findByArea(area);
+    }
+
+    @Override
+    public List<Specialty> buscarPorAtencionVirtual(boolean virtual) {
+        return sR.buscarPorAtencionVirtual(virtual);
+    }
 }
