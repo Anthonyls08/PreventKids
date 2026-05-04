@@ -11,4 +11,5 @@ public interface IEducationalContentService {
     public Optional<educationalContent> listId(int id);
     public void update(educationalContent e);
     public void delete(int id);
+    public List<educationalContent> buscarPorTipo(String tipo);
 }

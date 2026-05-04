@@ -38,4 +38,10 @@ public class RecommendedExerciseServiceImplement implements IRecommendedExercise
     public void delete(int id) {
         reR.deleteById(id);
     }
+
+    @Override
+    public List<RecommendedExercise> buscarPorNombre(String nombre) {
+        return reR.buscarPorNombre(nombre);
+    }
+
 }
