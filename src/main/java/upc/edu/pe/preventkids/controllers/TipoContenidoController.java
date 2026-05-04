@@ -80,4 +80,23 @@ public class TipoContenidoController {
                     .body("Error: Tipo de contenido no encontrado");
         }
     }
+
+    @GetMapping("/decidir-contenido-rapido")
+    public ResponseEntity<?> decidirContenido(@RequestParam int minutos, @RequestParam String categoria) {
+        if (categoria == null || categoria.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: La categoría no puede estar vacía.");
+        }
+        if (minutos <= 0) {
+            return ResponseEntity.badRequest().body("Error: Los minutos deben ser mayores a 0.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<TipoContenidoDTO> lista = tcService.decidirContenidoRapido(minutos, categoria)
+                .stream()
+                .map(y -> m.map(y, TipoContenidoDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
 }

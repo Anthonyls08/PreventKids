@@ -91,4 +91,20 @@ public class MedicionController {
                     .body("Error: Medición no encontrada");
         }
     }
+
+    @GetMapping("/decidir-prioridad-imc")
+    public ResponseEntity<?> decidirPrioridadIMC(@RequestParam float imc) {
+        if (imc <= 0) {
+            return ResponseEntity.badRequest().body("Error: El valor del IMC debe ser mayor a 0.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<MedicionDTO> lista = mS.decidirAtencionPrioritaria(imc)
+                .stream()
+                .map(y -> m.map(y, MedicionDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
 }
