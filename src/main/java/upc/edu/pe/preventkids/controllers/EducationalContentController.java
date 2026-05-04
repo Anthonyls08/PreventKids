@@ -90,4 +90,19 @@ public class EducationalContentController {
         }
     }
 
+    @GetMapping("/buscartipo")
+    public List<educationalContent> buscar(@RequestParam String tipo) {
+
+        // Validación 1: No nulo o vacío
+        if (tipo == null || tipo.trim().isEmpty()) {
+            throw new IllegalArgumentException("El tipo de contenido es obligatorio.");
+        }
+
+        // Validación 2: Longitud mínima (evita búsquedas demasiado genéricas)
+        if (tipo.length() < 3) {
+            throw new IllegalArgumentException("El tipo debe tener al menos 3 caracteres.");
+        }
+
+        return eS.buscarPorTipo(tipo);
+    }
 }

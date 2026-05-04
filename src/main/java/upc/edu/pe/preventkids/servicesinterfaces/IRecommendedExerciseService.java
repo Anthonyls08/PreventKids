@@ -12,6 +12,7 @@ public interface IRecommendedExerciseService{
     public Optional<RecommendedExercise> listId(int id);
     public void update(RecommendedExercise re);
     public void delete(int id);
+    public List<RecommendedExercise> buscarPorNombre(String nombre);
 
 
 }
