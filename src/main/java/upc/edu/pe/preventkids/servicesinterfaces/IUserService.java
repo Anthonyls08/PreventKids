@@ -11,4 +11,5 @@ public interface IUserService {
     public Optional<User> listId(int id);
     public void update(User u);
     public void delete(int id);
+    public List<Object[]> contarUsuariosPorRol();
 }
