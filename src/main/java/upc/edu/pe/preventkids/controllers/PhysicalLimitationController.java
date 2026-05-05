@@ -89,12 +89,11 @@ public class PhysicalLimitationController {
     @GetMapping("/filtrarcategoria")
     public List<PhysicalLimitation> filtrar(@RequestParam String categoria) {
 
-        // Validación 1: Que no sea nulo o vacío
+    
         if (categoria == null || categoria.trim().isEmpty()) {
             throw new IllegalArgumentException("La categoría es obligatoria para filtrar.");
         }
 
-        // Validación 2: Limitar la longitud (opcional, para evitar strings locos)
         if (categoria.length() > 20) {
             throw new IllegalArgumentException("La categoría es demasiado larga.");
         }
