@@ -15,7 +15,7 @@ public class educationalContent {
     @Column(name = "descriptionEC", length = 200, nullable = false)
     private String descriptionEC;
 
-    @Column(name = "urlContent", length = 40, nullable = false)
+    @Column(name = "urlContent", length = 200, nullable = false)
     private String urlContent;
 
     @Column(name = "typeEC", length = 20, nullable = false)
