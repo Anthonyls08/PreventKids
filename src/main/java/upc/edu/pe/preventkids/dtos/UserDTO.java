@@ -9,7 +9,6 @@ public class UserDTO {
     private LocalDate fechanacimiento;
     private String genero;
     private String email;
-    private String password;
     private int telefono;
     private String estado;
 
@@ -64,14 +63,6 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getTelefono() {
