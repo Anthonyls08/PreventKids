@@ -22,7 +22,7 @@ public class educationalContent {
     private String typeEC;
 
     //@ManytoOne
-    //@JoingColumn(name = "idProfessionalProfile");
+    //@JoinColumn(name = "idProfessionalProfile");
     //private ProfessionalProfile professionalprofile;
 
     //@ManytoOne
