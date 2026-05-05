@@ -41,11 +41,11 @@ public class User {
     private District idDistrict;
 
     @ManyToOne
-    @JoinColumn(name = "idchatIA", nullable = false)
+    @JoinColumn(name = "idchatIA", nullable = true)
     private chatIA chatia;
 
     @ManyToOne
-    @JoinColumn(name = "idPhysicalLimitation", nullable = false)
+    @JoinColumn(name = "idPhysicalLimitation", nullable = true)
     private PhysicalLimitation physicallimitation;
 
     public User() {
