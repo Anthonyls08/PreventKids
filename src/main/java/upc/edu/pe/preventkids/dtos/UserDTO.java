@@ -11,7 +11,7 @@ public class UserDTO {
     private String email;
     private int telefono;
     private String estado;
-
+    private String password;
     private RoleDTO idRole;
     private DistrictDTO idDistrict;
     private chatIADTO chatia;
@@ -79,6 +79,14 @@ public class UserDTO {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public RoleDTO getIdRole() {
