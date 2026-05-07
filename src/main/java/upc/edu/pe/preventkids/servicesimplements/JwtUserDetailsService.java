@@ -10,14 +10,17 @@ import org.springframework.stereotype.Service;
 import upc.edu.pe.preventkids.entities.User;
 import upc.edu.pe.preventkids.repositories.IUserRepository;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+//Clase 2
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-
     @Autowired
     private IUserRepository repo;
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -26,17 +29,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("Usuario no existe con email: %s", email));
         }
-
         List<GrantedAuthority> roles = new ArrayList<>();
-        String roleName = user.getIdRole().getNombre();
-        if (!roleName.startsWith("ROLE_")) {
-            roleName = "ROLE_" + roleName;
-        }
-        roles.add(new SimpleGrantedAuthority(roleName));
+        roles.add(new SimpleGrantedAuthority(user.getIdRole().getNombre()));
 
-        boolean isEnabled = user.getEstado() != null && user.getEstado().equalsIgnoreCase("ACTIVO");
+        boolean isEnabled = "Activo".equalsIgnoreCase(user.getEstado());
 
-        return new org.springframework.security.core.userdetails.User(
+        UserDetails ud = new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
                 isEnabled,
@@ -45,5 +43,7 @@ public class JwtUserDetailsService implements UserDetailsService {
                 true,
                 roles
         );
+
+        return ud;
     }
 }
