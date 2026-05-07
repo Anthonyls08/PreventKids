@@ -7,21 +7,22 @@ import java.time.LocalDate;
 @Entity
 @Table(name="Alert")
 public class Alert {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAlert;
 
-    @Column(name="leida", nullable = false)
+    @Column(name="leida", nullable = true)
     private boolean  leida;
 
     @Column(name="generationdate", nullable = false)
     private LocalDate generationdate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idTipoalerta")
     private TipoAlerta tipoalert;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idMedicion")
     private Medicion medicion;
 

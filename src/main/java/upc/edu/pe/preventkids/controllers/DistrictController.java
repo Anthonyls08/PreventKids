@@ -98,4 +98,20 @@ public class DistrictController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Distrito no encontrado");
         }
     }
+
+    @GetMapping("/buscar-por-nombre")
+    public ResponseEntity<?> buscarPorNombre(@RequestParam String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: El nombre del distrito no puede estar vacío.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<DistrictDTO> listaDistritos = dS.buscarPorNombre(nombre)
+                .stream()
+                .map(y -> m.map(y, DistrictDTO.class))
+                .collect(Collectors.toList());
+        if (listaDistritos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(listaDistritos);
+    }
 }

@@ -85,4 +85,19 @@ public class PhysicalLimitationController {
                     .body("Limitacion Fisica no encontrada");
         }
     }
+
+    @GetMapping("/filtrarcategoria")
+    public List<PhysicalLimitation> filtrar(@RequestParam String categoria) {
+
+    
+        if (categoria == null || categoria.trim().isEmpty()) {
+            throw new IllegalArgumentException("La categoría es obligatoria para filtrar.");
+        }
+
+        if (categoria.length() > 20) {
+            throw new IllegalArgumentException("La categoría es demasiado larga.");
+        }
+
+        return phS.buscarPorCategoria(categoria);
+    }
 }

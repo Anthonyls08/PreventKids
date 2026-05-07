@@ -10,10 +10,10 @@ public class chatIA {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idchatIA;
 
-    @Column (name="pregunta", length=100, nullable= false)
+    @Column (name="pregunta", length=300, nullable= false)
     private String pregunta;
 
-    @Column (name="respuesta", length=100, nullable= false)
+    @Column (name="respuesta", length=300, nullable= false)
     private String respuesta;
 
 public chatIA(){

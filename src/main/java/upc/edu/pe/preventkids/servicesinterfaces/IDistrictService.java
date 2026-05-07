@@ -11,4 +11,5 @@ public interface IDistrictService {
     public Optional<District> listId(int id);
     public void update(District d);
     public void delete(int id);
+    public List<District> buscarPorNombre(String nombre);
 }

@@ -12,4 +12,5 @@ public interface IMedicionService {
     public void update(Medicion m);
     public void delete(int id);
     //List<Medicion> buscarNivelService(int nivel); -// FK para la tabla de Dali
+    public List<Medicion> decidirAtencionPrioritaria(float imcMinimo);
 }

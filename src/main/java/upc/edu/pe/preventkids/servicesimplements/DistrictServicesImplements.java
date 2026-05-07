@@ -35,4 +35,7 @@ public class DistrictServicesImplements implements IDistrictService {
 
     @Override
     public void delete(int id) { dR.deleteById(id); }
+
+    @Override
+    public List<District> buscarPorNombre(String nombre) { return dR.buscarPorNombre(nombre); }
 }

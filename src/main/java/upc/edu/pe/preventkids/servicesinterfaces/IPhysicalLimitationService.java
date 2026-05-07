@@ -9,4 +9,5 @@ public interface IPhysicalLimitationService {
     public Optional<PhysicalLimitation> listId(int id);
     public void update(PhysicalLimitation p);
     public void delete(int id);
+    public List<PhysicalLimitation> buscarPorCategoria(String categoria);
 }

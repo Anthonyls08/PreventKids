@@ -15,32 +15,32 @@ public class educationalContent {
     @Column(name = "descriptionEC", length = 200, nullable = false)
     private String descriptionEC;
 
-    @Column(name = "urlContent", length = 40, nullable = false)
+    @Column(name = "urlContent", length = 200, nullable = false)
     private String urlContent;
 
     @Column(name = "typeEC", length = 20, nullable = false)
     private String typeEC;
 
-    //@ManytoOne
-    //@JoingColumn(name = "idProfessionalProfile");
-    //private ProfessionalProfile professionalprofile;
+    @ManyToOne
+    @JoinColumn(name = "idProfessionalProfile")
+    private ProfessionalProfile professionalProfile;
 
-    //@ManytoOne
-    //@JoingColumn(name = "idTipocontenido");
-    //private TipoContenido typecontent;
+    @ManyToOne
+    @JoinColumn(name = "idTipocontenido")
+    private TipoContenido typeContent;
 
 
     public educationalContent() {
     }
 
-    public educationalContent(int idEducationalContent, String tittleEducationalContent, String descriptionEC, String urlContent, String typeEC) {
+    public educationalContent(int idEducationalContent, String tittleEducationalContent, String descriptionEC, String urlContent, String typeEC, ProfessionalProfile professionalProfile, TipoContenido typeContent) {
         this.idEducationalContent = idEducationalContent;
         this.tittleEducationalContent = tittleEducationalContent;
         this.descriptionEC = descriptionEC;
         this.urlContent = urlContent;
         this.typeEC = typeEC;
-        //this.professionalprofile = professionalprofile;
-        //this.typecontent = typecontent;
+        this.professionalProfile = professionalProfile;
+        this.typeContent = typeContent;
     }
 
     public int getIdEducationalContent() {
@@ -83,10 +83,20 @@ public class educationalContent {
         this.typeEC = typeEC;
     }
 
-    //public ProfessionalProfile getProfesionalProfile() {return professionalprofile;}
-    //public void setProfessionalProfile(ProfessionalProfile professionalprofile) { this.professionalprofile = professionalprofile; }
+    public ProfessionalProfile getProfessionalProfile() {
+        return professionalProfile;
+    }
 
-    //public TipoContenido getTipoContenido() {return typecontent;}
-    //public void setTipoContenido(TipoCOntenido typecontent) {this.typecontent = typecontent; }
+    public void setProfessionalProfile(ProfessionalProfile professionalProfile) {
+        this.professionalProfile = professionalProfile;
+    }
+
+    public TipoContenido getTypeContent() {
+        return typeContent;
+    }
+
+    public void setTypeContent(TipoContenido typeContent) {
+        this.typeContent = typeContent;
+    }
 }
 
