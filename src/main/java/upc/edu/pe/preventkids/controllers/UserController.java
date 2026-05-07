@@ -8,7 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.UserDTO;
 import upc.edu.pe.preventkids.dtos.UserRoleCountDTO;
+import upc.edu.pe.preventkids.entities.District;
+import upc.edu.pe.preventkids.entities.Role;
 import upc.edu.pe.preventkids.entities.User;
+import upc.edu.pe.preventkids.repositories.IDistrictRRepository;
+import upc.edu.pe.preventkids.repositories.IRoleRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IUserService;
 
 import java.util.ArrayList;
@@ -23,6 +27,11 @@ public class UserController {
     private IUserService uS;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IRoleRepository roleRepository;
+    @Autowired
+    private IDistrictRRepository districtRepository;
+
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> listar() {
@@ -45,14 +54,25 @@ public class UserController {
         if (dto.getIdRole() == null) {
             return ResponseEntity.badRequest().body("El usuario debe tener un rol asignado");
         }
+        if (dto.getIdDistrict() == null) {
+            return ResponseEntity.badRequest().body("El usuario debe tener un distrito asignado");
+        }
+
+        Role role = roleRepository.findById(dto.getIdRole().getId())
+                .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole().getId()));
+        District district = districtRepository.findById(dto.getIdDistrict().getIdDistrict())
+                .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict().getIdDistrict()));
 
         ModelMapper m = new ModelMapper();
         User u = m.map(dto, User.class);
+        u.setIdRole(role);
+        u.setIdDistrict(district);
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         User user = uS.insert(u);
         UserDTO responseDTO = m.map(user, UserDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
