@@ -1,11 +1,6 @@
 package upc.edu.pe.preventkids.securities;
 
-
 import io.jsonwebtoken.ExpiredJwtException;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,60 +10,63 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import upc.edu.pe.preventkids.servicesimplements.JwtUserDetailsService;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//Clase 6
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+
         final String requestTokenHeader = request.getHeader("Authorization");
+
         String username = null;
         String jwtToken = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get
-        // only the Token
+
+        // Validamos que el header exista y empiece con Bearer
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
+            // Extraemos solo el token (quitando "Bearer ")
+            jwtToken = requestTokenHeader.substring(7).trim();
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("No se puede encontrar el token JWT");
+                logger.warn("No se puede obtener el token JWT");
             } catch (ExpiredJwtException e) {
-                System.out.println("Token JWT ha expirado");
+                logger.warn("El token JWT ha expirado");
+            } catch (Exception e) {
+                logger.warn("Error procesando el token JWT");
             }
         } else {
-            logger.warn("JWT Token no inicia con la palabra Bearer");
-            System.out.println(requestTokenHeader);
+            // No ponemos log de error aquí porque en /login es normal no tener token
+            logger.debug("JWT Token no inicia con Bearer o es nulo");
         }
 
-
-        // Once we get the token validate it.
+        // Si tenemos username y no hay autenticación previa en el contexto
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
 
-            // if token is valid configure Spring Security to manually set
-            // authentication
+            // Si el token es válido, configuramos la autenticación manual
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // After setting the Authentication in the context, we specify
-                // that the current user is authenticated. So it passes the
-                // Spring Security Configurations successfully.
+
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
         chain.doFilter(request, response);
     }
-
-
 }
