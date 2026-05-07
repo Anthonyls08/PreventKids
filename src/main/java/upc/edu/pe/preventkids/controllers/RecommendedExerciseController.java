@@ -110,4 +110,20 @@ public class RecommendedExerciseController {
         }
     }
 
+    @GetMapping("/buscarPorNombre")
+    public List<RecommendedExercise> buscar(@RequestParam String nombre) {
+
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de búsqueda no puede estar vacío");
+        }
+
+        if (nombre.length() < 3) {
+            throw new IllegalArgumentException("Escribe al menos 3 caracteres para buscar");
+        }
+
+        return reS.buscarPorNombre(nombre);
+    }
+
+
+
 }

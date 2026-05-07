@@ -31,7 +31,7 @@ public class Medicion {
     @Column(name = "fecha_medicion", nullable = false)
     private LocalDate fechamedicion;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idUser", nullable = false)
     private User user;
 

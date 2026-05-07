@@ -28,4 +28,9 @@ public class educationalContentServiceImplement implements IEducationalContentSe
 
     @Override
     public void delete(int id) {eR.deleteById(id);}
+
+    @Override
+    public List<educationalContent> buscarPorTipo(String tipo) {
+        return eR.buscarPorTipo(tipo);
+    }
 }

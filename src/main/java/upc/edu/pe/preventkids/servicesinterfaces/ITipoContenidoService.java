@@ -11,4 +11,5 @@ public interface ITipoContenidoService {
     public Optional<TipoContenido> listId(int id);
     public void update(TipoContenido tc);
     public void delete(int id);
+    public List<TipoContenido> decidirContenidoRapido(int duracionMax, String categoria);
 }

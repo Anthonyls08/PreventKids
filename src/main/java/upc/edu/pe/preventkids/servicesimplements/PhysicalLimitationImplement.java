@@ -28,4 +28,9 @@ public class PhysicalLimitationImplement implements IPhysicalLimitationService {
 
     @Override
     public void delete(int id) {phR.deleteById(id);}
+
+    @Override
+    public List<PhysicalLimitation> buscarPorCategoria(String categoria) {
+        return phR.buscarPorCategoria(categoria);
+    }
 }
