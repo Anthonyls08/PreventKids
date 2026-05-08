@@ -1,5 +1,7 @@
 package upc.edu.pe.preventkids.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 public class UserDTO {
@@ -11,7 +13,10 @@ public class UserDTO {
     private String email;
     private int telefono;
     private String estado;
+
+    @JsonIgnore
     private String password;
+
     private RoleDTO idRole;
     private DistrictDTO idDistrict;
     private chatIADTO chatia;
