@@ -1,6 +1,7 @@
 package upc.edu.pe.preventkids.entities;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
 @Entity
@@ -24,6 +25,7 @@ public class User {
     @Column(length = 100, nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(length = 255, nullable = false)
     private String password;
 

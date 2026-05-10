@@ -20,10 +20,10 @@ public class tipoAlertaController {
     @Autowired
     private ITipoalertaService tS;
     @GetMapping("/listar")
-    public ResponseEntity<List<tipoAlertaDTO>> listar(){
+    public ResponseEntity<List<tipoAlertaInsertDTO>> listar(){
         ModelMapper m=new ModelMapper();
-        List<tipoAlertaDTO> listatipo=tS.list().stream()
-                .map(y->m.map(y,tipoAlertaDTO.class))
+        List<tipoAlertaInsertDTO> listatipo=tS.list().stream()
+                .map(y->m.map(y,tipoAlertaInsertDTO.class))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(listatipo);
