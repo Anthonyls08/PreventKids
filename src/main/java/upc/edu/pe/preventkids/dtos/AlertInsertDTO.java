@@ -5,22 +5,14 @@ import upc.edu.pe.preventkids.entities.TipoAlerta;
 
 import java.time.LocalDate;
 
-public class AlertDTO {
+public class AlertInsertDTO {
 
-    private Integer idAlert;
-    private Boolean  leida;
+    private Boolean leida;
     private LocalDate generationdate;
     private TipoAlerta tipoalert;
     private Medicion medicion;
 
-    public Integer getIdAlert() {
-        return idAlert;
-    }
-
-    public void setIdAlert(Integer idAlert) {
-        this.idAlert = idAlert;
-    }
-
+    // Getters y Setters
     public Boolean isLeida() {
         return leida;
     }

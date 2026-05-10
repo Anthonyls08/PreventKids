@@ -10,10 +10,10 @@ public class Alert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAlert;
+    private Integer idAlert;
 
     @Column(name="leida", nullable = true)
-    private boolean  leida;
+    private Boolean leida;
 
     @Column(name="generationdate", nullable = false)
     private LocalDate generationdate;
@@ -29,7 +29,7 @@ public class Alert {
     public Alert(){
     }
 
-    public Alert(int idAlert, boolean leida, LocalDate generationdate, TipoAlerta tipoalert, Medicion medicion) {
+    public Alert(Integer idAlert, Boolean leida, LocalDate generationdate, TipoAlerta tipoalert, Medicion medicion) {
         this.idAlert = idAlert;
         this.leida = leida;
         this.generationdate = generationdate;
@@ -37,19 +37,19 @@ public class Alert {
         this.medicion = medicion;
     }
 
-    public int getIdAlert() {
+    public Integer getIdAlert() {
         return idAlert;
     }
 
-    public void setIdAlert(int idAlert) {
+    public void setIdAlert(Integer idAlert) {
         this.idAlert = idAlert;
     }
 
-    public boolean isLeida() {
+    public Boolean isLeida() {
         return leida;
     }
 
-    public void setLeida(boolean leida) {
+    public void setLeida(Boolean leida) {
         this.leida = leida;
     }
 
