@@ -17,10 +17,10 @@ public class UserDTO {
     @JsonIgnore
     private String password;
 
-    private RoleDTO idRole;
-    private DistrictDTO idDistrict;
-    private chatIADTO chatia;
-    private PhysicalLimitationDTO physicallimitation;
+    private int idRole;
+    private int idDistrict;
+    private int idchatIA;
+    private int idPhysicalLimitation;
 
     public int getIdUser() {
         return idUser;
@@ -94,35 +94,35 @@ public class UserDTO {
         this.password = password;
     }
 
-    public RoleDTO getIdRole() {
+    public int getIdRole() {
         return idRole;
     }
 
-    public void setIdRole(RoleDTO idRole) {
+    public void setIdRole(int idRole) {
         this.idRole = idRole;
     }
 
-    public DistrictDTO getIdDistrict() {
+    public int getIdDistrict() {
         return idDistrict;
     }
 
-    public void setIdDistrict(DistrictDTO idDistrict) {
+    public void setIdDistrict(int idDistrict) {
         this.idDistrict = idDistrict;
     }
 
-    public chatIADTO getChatia() {
-        return chatia;
+    public int getIdchatIA() {
+        return idchatIA;
     }
 
-    public void setChatia(chatIADTO chatia) {
-        this.chatia = chatia;
+    public void setIdchatIA(int idchatIA) {
+        this.idchatIA = idchatIA;
     }
 
-    public PhysicalLimitationDTO getPhysicallimitation() {
-        return physicallimitation;
+    public int getIdPhysicalLimitation() {
+        return idPhysicalLimitation;
     }
 
-    public void setPhysicallimitation(PhysicalLimitationDTO physicallimitation) {
-        this.physicallimitation = physicallimitation;
+    public void setIdPhysicalLimitation(int idPhysicalLimitation) {
+        this.idPhysicalLimitation = idPhysicalLimitation;
     }
 }
