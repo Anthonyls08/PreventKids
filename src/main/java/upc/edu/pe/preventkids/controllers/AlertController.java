@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.AlertDTO;
-import upc.edu.pe.preventkids.dtos.AlertInsertDTO;
 import upc.edu.pe.preventkids.entities.Alert;
 import upc.edu.pe.preventkids.servicesinterfaces.IAlertService;
 
@@ -29,11 +28,11 @@ public class AlertController {
         return ResponseEntity.ok(listaAlert);
     }
     @PostMapping("/ingresar")
-    public ResponseEntity<?> registrar(@RequestBody AlertInsertDTO dto){
+    public ResponseEntity<?> registrar(@RequestBody AlertDTO dto){
         ModelMapper m=new ModelMapper();
         Alert c=m.map(dto, Alert.class);
         Alert alerta= aS.insert(c);
-        AlertInsertDTO responseDTO=m.map(alerta,AlertInsertDTO.class);
+        AlertDTO responseDTO=m.map(alerta,AlertDTO.class);
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
     @GetMapping("/{id}")

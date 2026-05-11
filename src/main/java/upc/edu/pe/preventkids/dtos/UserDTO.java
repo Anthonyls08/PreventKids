@@ -22,6 +22,8 @@ public class UserDTO {
     private chatIADTO chatia;
     private PhysicalLimitationDTO physicallimitation;
 
+    public UserDTO() {
+    }
     public int getIdUser() {
         return idUser;
     }
