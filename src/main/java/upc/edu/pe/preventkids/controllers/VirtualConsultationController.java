@@ -33,6 +33,7 @@ public class VirtualConsultationController {
         List<VirtualConsultationDTO> lista = vS.list().stream()
                 .map(y -> {
                     ModelMapper m = new ModelMapper();
+                    m.getConfiguration().setAmbiguityIgnored(true);
                     VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
                     dto.setIdUser(y.getUser().getIdUser());
                     dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
@@ -63,6 +64,7 @@ public class VirtualConsultationController {
                 .orElseThrow(() -> new RuntimeException("ProfessionalProfile no encontrado con id: " + dto.getIdProfessionalProfile()));
 
         ModelMapper m = new ModelMapper();
+        m.getConfiguration().setAmbiguityIgnored(true);
         VirtualConsultation vc = m.map(dto, VirtualConsultation.class);
         vc.setUser(user);
         vc.setProfessionalprofile(pp);
@@ -79,6 +81,7 @@ public class VirtualConsultationController {
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
             ModelMapper m = new ModelMapper();
+            m.getConfiguration().setAmbiguityIgnored(true);
             VirtualConsultationDTO dto = m.map(consulta.get(), VirtualConsultationDTO.class);
             dto.setIdUser(consulta.get().getUser().getIdUser());
             dto.setIdProfessionalProfile(consulta.get().getProfessionalprofile().getIdProfessionalProfile());
@@ -131,6 +134,7 @@ public class VirtualConsultationController {
                 .stream()
                 .map(y -> {
                     ModelMapper m = new ModelMapper();
+                    m.getConfiguration().setAmbiguityIgnored(true);
                     VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
                     dto.setIdUser(y.getUser().getIdUser());
                     dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
