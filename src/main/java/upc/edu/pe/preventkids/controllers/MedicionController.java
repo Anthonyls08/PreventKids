@@ -30,7 +30,7 @@ public class MedicionController {
         return ResponseEntity.ok(lista);
     }
 
-    @PostMapping
+    @PostMapping("/ingresar")
     public ResponseEntity<?> registrar(@RequestBody MedicionInsertDTO dto) {
         ModelMapper m = new ModelMapper();
         Medicion medicion = m.map(dto, Medicion.class);
@@ -55,7 +55,7 @@ public class MedicionController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody MedicionInsertDTO dto) {
         Optional<Medicion> existente = mS.listId(id);
 
@@ -69,10 +69,10 @@ public class MedicionController {
         m.setPesoKg(dto.getPesoKg());
         m.setTallaCm(dto.getTallaCm());
         m.setImc(dto.getImc());
-        m.setClasificacionimc(dto.getClasificacion_imc());
+        m.setClasificacionimc(dto.getClasificacionimc());
         m.setPresion(dto.getPresion());
         m.setTemperatura(dto.getTemperatura());
-        m.setFechamedicion(dto.getFecha_medicion());
+        m.setFechamedicion(dto.getFechamedicion());
 
         mS.update(m);
         return ResponseEntity.ok("Medición actualizada correctamente");

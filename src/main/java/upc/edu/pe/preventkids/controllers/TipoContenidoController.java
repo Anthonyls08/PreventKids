@@ -53,7 +53,7 @@ public class TipoContenidoController {
         }
     }
 
-    @PutMapping("/{actualizar}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> actualizar(@PathVariable int id, @RequestBody TipoContenidoInsertDTO dto) {
         Optional<TipoContenido> existente = tcService.listId(id);
         if (existente.isEmpty()) {
