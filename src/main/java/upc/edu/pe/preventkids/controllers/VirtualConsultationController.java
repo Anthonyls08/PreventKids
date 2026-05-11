@@ -6,7 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.VirtualConsultationDTO;
+import upc.edu.pe.preventkids.entities.ProfessionalProfile;
+import upc.edu.pe.preventkids.entities.User;
 import upc.edu.pe.preventkids.entities.VirtualConsultation;
+import upc.edu.pe.preventkids.repositories.IProfessionalProfileRepository;
+import upc.edu.pe.preventkids.repositories.IUserRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IVirtualConsultationService;
 
 import java.util.List;
@@ -16,8 +20,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/virtualconsultations")
 public class VirtualConsultationController {
+
     @Autowired
     private IVirtualConsultationService vS;
+    @Autowired
+    private IUserRepository uR;
+    @Autowired
+    private IProfessionalProfileRepository ppR;
 
     @GetMapping("/listar")
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
@@ -25,7 +34,6 @@ public class VirtualConsultationController {
         List<VirtualConsultationDTO> lista = vS.list().stream()
                 .map(y -> m.map(y, VirtualConsultationDTO.class))
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(lista);
     }
 
@@ -39,13 +47,20 @@ public class VirtualConsultationController {
             return ResponseEntity.badRequest()
                     .body("La URL de la sala es obligatoria");
         }
-        if (dto.getUser() == null || dto.getProfessionalprofile() == null) {
+        if (dto.getIdUser() == 0 || dto.getIdProfessionalProfile() == 0) {
             return ResponseEntity.badRequest()
                     .body("La consulta debe tener un usuario y un perfil profesional asociados");
         }
 
+        User user = uR.findById(dto.getIdUser())
+                .orElseThrow(() -> new RuntimeException("User no encontrado con id: " + dto.getIdUser()));
+        ProfessionalProfile pp = ppR.findById(dto.getIdProfessionalProfile())
+                .orElseThrow(() -> new RuntimeException("ProfessionalProfile no encontrado con id: " + dto.getIdProfessionalProfile()));
+
         ModelMapper m = new ModelMapper();
         VirtualConsultation vc = m.map(dto, VirtualConsultation.class);
+        vc.setUser(user);
+        vc.setProfessionalprofile(pp);
         VirtualConsultation virtualConsultation = vS.insert(vc);
         VirtualConsultationDTO responseDTO = m.map(virtualConsultation, VirtualConsultationDTO.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
@@ -55,7 +70,6 @@ public class VirtualConsultationController {
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         ModelMapper m = new ModelMapper();
         Optional<VirtualConsultation> consulta = vS.listId(id);
-
         if (consulta.isPresent()) {
             VirtualConsultationDTO dto = m.map(consulta.get(), VirtualConsultationDTO.class);
             return ResponseEntity.ok(dto);
@@ -68,30 +82,24 @@ public class VirtualConsultationController {
     @PutMapping("/actualiza")
     public ResponseEntity<String> actualizar(@RequestBody VirtualConsultationDTO dto) {
         Optional<VirtualConsultation> existente = vS.listId(dto.getIdVirtualConsultation());
-
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Consulta virtual no encontrada");
         }
-
         if (dto.getFechacita() == null) {
             return ResponseEntity.badRequest()
                     .body("La fecha no puede ser nula");
         }
-
         ModelMapper m = new ModelMapper();
         VirtualConsultation vc = m.map(dto, VirtualConsultation.class);
         vc.setIdVirtualConsultation(existente.get().getIdVirtualConsultation());
-
         vS.update(vc);
-
         return ResponseEntity.ok("Consulta virtual actualizada correctamente");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<VirtualConsultation> consulta = vS.listId(id);
-
         if (consulta.isPresent()) {
             vS.delete(id);
             return ResponseEntity.ok("Consulta virtual eliminada correctamente");
@@ -100,21 +108,20 @@ public class VirtualConsultationController {
                     .body("Consulta virtual no encontrada");
         }
     }
+
     @GetMapping("/decidir-prioridad")
-    public ResponseEntity<?> decidirPrioridad(@RequestParam String estado,@RequestParam String nombrePaciente) {
+    public ResponseEntity<?> decidirPrioridad(@RequestParam String estado, @RequestParam String nombrePaciente) {
         if (estado == null || estado.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El estado de la consulta no puede estar vacío.");
         }
         if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El nombre del paciente no puede estar vacío.");
         }
-
         ModelMapper m = new ModelMapper();
         List<VirtualConsultationDTO> listaConsultas = vS.decidirPrioridadConsultaPaciente(estado, nombrePaciente)
                 .stream()
                 .map(y -> m.map(y, VirtualConsultationDTO.class))
                 .collect(Collectors.toList());
-
         if (listaConsultas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

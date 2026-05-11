@@ -8,8 +8,8 @@ public class VirtualConsultationDTO {
     private String estado;
     private String urlsala;
     private String proveedor;
-    private ProfessionalProfileDTO professionalprofile;
-    private UserDTO user;
+    private int idProfessionalProfile;
+    private int idUser;
 
     public int getIdVirtualConsultation() {
         return idVirtualConsultation;
@@ -51,19 +51,19 @@ public class VirtualConsultationDTO {
         this.proveedor = proveedor;
     }
 
-    public ProfessionalProfileDTO getProfessionalprofile() {
-        return professionalprofile;
+    public int getIdProfessionalProfile() {
+        return idProfessionalProfile;
     }
 
-    public void setProfessionalprofile(ProfessionalProfileDTO professionalprofile) {
-        this.professionalprofile = professionalprofile;
+    public void setIdProfessionalProfile(int idProfessionalProfile) {
+        this.idProfessionalProfile = idProfessionalProfile;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }

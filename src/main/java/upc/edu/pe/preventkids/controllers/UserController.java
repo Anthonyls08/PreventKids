@@ -51,17 +51,17 @@ public class UserController {
         if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
             return ResponseEntity.badRequest().body("El email no puede ser nulo");
         }
-        if (dto.getIdRole() == null) {
+        if (dto.getIdRole() == 0) {
             return ResponseEntity.badRequest().body("El usuario debe tener un rol asignado");
         }
-        if (dto.getIdDistrict() == null) {
+        if (dto.getIdDistrict() == 0) {
             return ResponseEntity.badRequest().body("El usuario debe tener un distrito asignado");
         }
 
-        Role role = roleRepository.findById(dto.getIdRole().getId())
-                .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole().getId()));
-        District district = districtRepository.findById(dto.getIdDistrict().getIdDistrict())
-                .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict().getIdDistrict()));
+        Role role = roleRepository.findById(dto.getIdRole())
+                .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole()));
+        District district = districtRepository.findById(dto.getIdDistrict())
+                .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
 
         ModelMapper m = new ModelMapper();
         User u = m.map(dto, User.class);
