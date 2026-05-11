@@ -1,4 +1,5 @@
 package upc.edu.pe.preventkids.controllers;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,6 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.ProfessionalProfileDTO;
 import upc.edu.pe.preventkids.entities.ProfessionalProfile;
+import upc.edu.pe.preventkids.entities.Specialty;
+import upc.edu.pe.preventkids.entities.User;
+import upc.edu.pe.preventkids.repositories.ISpecialtyRepository;
+import upc.edu.pe.preventkids.repositories.IUserRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IProfessionalProfileService;
 
 import java.util.List;
@@ -18,12 +23,21 @@ public class ProfessionalProfileController {
 
     @Autowired
     private IProfessionalProfileService pS;
+    @Autowired
+    private IUserRepository uR;
+    @Autowired
+    private ISpecialtyRepository sR;
 
     @GetMapping
     public ResponseEntity<List<ProfessionalProfileDTO>> listar() {
-        ModelMapper m = new ModelMapper();
         List<ProfessionalProfileDTO> lista = pS.list().stream()
-                .map(y -> m.map(y, ProfessionalProfileDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    ProfessionalProfileDTO dto = m.map(y, ProfessionalProfileDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdSpecialty(y.getSpecialty().getIdSpecialty());
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(lista);
@@ -35,29 +49,41 @@ public class ProfessionalProfileController {
             return ResponseEntity.badRequest()
                     .body("El número de colegiatura no puede ser nulo");
         }
-        if (dto.getUser() == null) {
+        if (dto.getIdUser() == 0) {
             return ResponseEntity.badRequest()
                     .body("El perfil debe estar asociado a un usuario");
         }
-        if (dto.getSpecialty() == null) {
+        if (dto.getIdSpecialty() == 0) {
             return ResponseEntity.badRequest()
                     .body("La especialidad no puede ser nula");
         }
 
+        User user = uR.findById(dto.getIdUser())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + dto.getIdUser()));
+        Specialty specialty = sR.findById(dto.getIdSpecialty())
+                .orElseThrow(() -> new RuntimeException("Especialidad no encontrada con id: " + dto.getIdSpecialty()));
+
         ModelMapper m = new ModelMapper();
         ProfessionalProfile pp = m.map(dto, ProfessionalProfile.class);
+        pp.setUser(user);
+        pp.setSpecialty(specialty);
         ProfessionalProfile profile = pS.insert(pp);
+
         ProfessionalProfileDTO responseDTO = m.map(profile, ProfessionalProfileDTO.class);
+        responseDTO.setIdUser(profile.getUser().getIdUser());
+        responseDTO.setIdSpecialty(profile.getSpecialty().getIdSpecialty());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
         Optional<ProfessionalProfile> profile = pS.listId(id);
 
         if (profile.isPresent()) {
+            ModelMapper m = new ModelMapper();
             ProfessionalProfileDTO dto = m.map(profile.get(), ProfessionalProfileDTO.class);
+            dto.setIdUser(profile.get().getUser().getIdUser());
+            dto.setIdSpecialty(profile.get().getSpecialty().getIdSpecialty());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -79,9 +105,16 @@ public class ProfessionalProfileController {
                     .body("El número de colegiatura no puede ser nulo");
         }
 
-        ModelMapper m = new ModelMapper();
-        ProfessionalProfile pp = m.map(dto, ProfessionalProfile.class);
-        pp.setIdProfessionalProfile(existente.get().getIdProfessionalProfile());
+        User user = uR.findById(dto.getIdUser())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + dto.getIdUser()));
+        Specialty specialty = sR.findById(dto.getIdSpecialty())
+                .orElseThrow(() -> new RuntimeException("Especialidad no encontrada con id: " + dto.getIdSpecialty()));
+
+        ProfessionalProfile pp = existente.get();
+        pp.setNumerocolegiatura(dto.getNumerocolegiatura());
+        pp.setInstitucion(dto.getInstitucion());
+        pp.setUser(user);
+        pp.setSpecialty(specialty);
 
         pS.update(pp);
 

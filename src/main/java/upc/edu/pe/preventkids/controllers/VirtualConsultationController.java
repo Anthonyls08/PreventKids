@@ -30,9 +30,14 @@ public class VirtualConsultationController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
-        ModelMapper m = new ModelMapper();
         List<VirtualConsultationDTO> lista = vS.list().stream()
-                .map(y -> m.map(y, VirtualConsultationDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
+                    return dto;
+                })
                 .collect(Collectors.toList());
         return ResponseEntity.ok(lista);
     }
@@ -62,16 +67,21 @@ public class VirtualConsultationController {
         vc.setUser(user);
         vc.setProfessionalprofile(pp);
         VirtualConsultation virtualConsultation = vS.insert(vc);
+
         VirtualConsultationDTO responseDTO = m.map(virtualConsultation, VirtualConsultationDTO.class);
+        responseDTO.setIdUser(virtualConsultation.getUser().getIdUser());
+        responseDTO.setIdProfessionalProfile(virtualConsultation.getProfessionalprofile().getIdProfessionalProfile());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
+            ModelMapper m = new ModelMapper();
             VirtualConsultationDTO dto = m.map(consulta.get(), VirtualConsultationDTO.class);
+            dto.setIdUser(consulta.get().getUser().getIdUser());
+            dto.setIdProfessionalProfile(consulta.get().getProfessionalprofile().getIdProfessionalProfile());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -117,10 +127,15 @@ public class VirtualConsultationController {
         if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El nombre del paciente no puede estar vacío.");
         }
-        ModelMapper m = new ModelMapper();
         List<VirtualConsultationDTO> listaConsultas = vS.decidirPrioridadConsultaPaciente(estado, nombrePaciente)
                 .stream()
-                .map(y -> m.map(y, VirtualConsultationDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
+                    return dto;
+                })
                 .collect(Collectors.toList());
         if (listaConsultas.isEmpty()) {
             return ResponseEntity.noContent().build();

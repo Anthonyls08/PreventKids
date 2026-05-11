@@ -35,9 +35,14 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> listar() {
-        ModelMapper m = new ModelMapper();
         List<UserDTO> listaUsers = uS.list().stream()
-                .map(y -> m.map(y, UserDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    UserDTO dto = m.map(y, UserDTO.class);
+                    dto.setIdDistrict(y.getIdDistrict().getIdDistrict());
+                    dto.setIdRole(y.getIdRole().getIdRole());
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(listaUsers);
@@ -69,18 +74,23 @@ public class UserController {
         u.setIdDistrict(district);
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         User user = uS.insert(u);
+
         UserDTO responseDTO = m.map(user, UserDTO.class);
+        responseDTO.setIdDistrict(user.getIdDistrict().getIdDistrict());
+        responseDTO.setIdRole(user.getIdRole().getIdRole());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
         Optional<User> user = uS.listId(id);
 
         if (user.isPresent()) {
+            ModelMapper m = new ModelMapper();
             UserDTO dto = m.map(user.get(), UserDTO.class);
+            dto.setIdDistrict(user.get().getIdDistrict().getIdDistrict());
+            dto.setIdRole(user.get().getIdRole().getIdRole());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
