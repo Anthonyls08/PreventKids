@@ -33,6 +33,7 @@ public class ProfessionalProfileController {
         List<ProfessionalProfileDTO> lista = pS.list().stream()
                 .map(y -> {
                     ModelMapper m = new ModelMapper();
+                    m.getConfiguration().setAmbiguityIgnored(true);
                     ProfessionalProfileDTO dto = m.map(y, ProfessionalProfileDTO.class);
                     dto.setIdUser(y.getUser().getIdUser());
                     dto.setIdSpecialty(y.getSpecialty().getIdSpecialty());
@@ -64,6 +65,7 @@ public class ProfessionalProfileController {
                 .orElseThrow(() -> new RuntimeException("Especialidad no encontrada con id: " + dto.getIdSpecialty()));
 
         ModelMapper m = new ModelMapper();
+        m.getConfiguration().setAmbiguityIgnored(true);
         ProfessionalProfile pp = m.map(dto, ProfessionalProfile.class);
         pp.setUser(user);
         pp.setSpecialty(specialty);
@@ -81,6 +83,7 @@ public class ProfessionalProfileController {
 
         if (profile.isPresent()) {
             ModelMapper m = new ModelMapper();
+            m.getConfiguration().setAmbiguityIgnored(true);
             ProfessionalProfileDTO dto = m.map(profile.get(), ProfessionalProfileDTO.class);
             dto.setIdUser(profile.get().getUser().getIdUser());
             dto.setIdSpecialty(profile.get().getSpecialty().getIdSpecialty());

@@ -38,6 +38,7 @@ public class UserController {
         List<UserDTO> listaUsers = uS.list().stream()
                 .map(y -> {
                     ModelMapper m = new ModelMapper();
+                    m.getConfiguration().setAmbiguityIgnored(true);
                     UserDTO dto = m.map(y, UserDTO.class);
                     dto.setIdDistrict(y.getIdDistrict().getIdDistrict());
                     dto.setIdRole(y.getIdRole().getIdRole());
@@ -69,6 +70,7 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
 
         ModelMapper m = new ModelMapper();
+        m.getConfiguration().setAmbiguityIgnored(true);
         User u = m.map(dto, User.class);
         u.setIdRole(role);
         u.setIdDistrict(district);
@@ -88,6 +90,7 @@ public class UserController {
 
         if (user.isPresent()) {
             ModelMapper m = new ModelMapper();
+            m.getConfiguration().setAmbiguityIgnored(true);
             UserDTO dto = m.map(user.get(), UserDTO.class);
             dto.setIdDistrict(user.get().getIdDistrict().getIdDistrict());
             dto.setIdRole(user.get().getIdRole().getIdRole());
