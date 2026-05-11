@@ -33,20 +33,16 @@ public class UserController {
     private IDistrictRRepository districtRepository;
 
 
-    private ModelMapper createUserMapper() {
-        ModelMapper m = new ModelMapper();
-        m.typeMap(User.class, UserDTO.class).addMappings(mapper -> {
-            mapper.map(src -> src.getIdDistrict().getIdDistrict(), UserDTO::setIdDistrict);
-            mapper.map(src -> src.getIdRole().getIdRole(), UserDTO::setIdRole);
-        });
-        return m;
-    }
-
     @GetMapping
     public ResponseEntity<List<UserDTO>> listar() {
-        ModelMapper m = createUserMapper();
         List<UserDTO> listaUsers = uS.list().stream()
-                .map(y -> m.map(y, UserDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    UserDTO dto = m.map(y, UserDTO.class);
+                    dto.setIdDistrict(y.getIdDistrict().getIdDistrict());
+                    dto.setIdRole(y.getIdRole().getIdRole());
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(listaUsers);
@@ -72,24 +68,29 @@ public class UserController {
         District district = districtRepository.findById(dto.getIdDistrict())
                 .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
 
-        ModelMapper m = createUserMapper();
+        ModelMapper m = new ModelMapper();
         User u = m.map(dto, User.class);
         u.setIdRole(role);
         u.setIdDistrict(district);
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         User user = uS.insert(u);
+
         UserDTO responseDTO = m.map(user, UserDTO.class);
+        responseDTO.setIdDistrict(user.getIdDistrict().getIdDistrict());
+        responseDTO.setIdRole(user.getIdRole().getIdRole());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = createUserMapper();
         Optional<User> user = uS.listId(id);
 
         if (user.isPresent()) {
+            ModelMapper m = new ModelMapper();
             UserDTO dto = m.map(user.get(), UserDTO.class);
+            dto.setIdDistrict(user.get().getIdDistrict().getIdDistrict());
+            dto.setIdRole(user.get().getIdRole().getIdRole());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

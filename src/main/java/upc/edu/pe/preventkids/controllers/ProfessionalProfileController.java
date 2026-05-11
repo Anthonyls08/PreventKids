@@ -28,20 +28,16 @@ public class ProfessionalProfileController {
     @Autowired
     private ISpecialtyRepository sR;
 
-    private ModelMapper createPPMapper() {
-        ModelMapper m = new ModelMapper();
-        m.typeMap(ProfessionalProfile.class, ProfessionalProfileDTO.class).addMappings(mapper -> {
-            mapper.map(src -> src.getUser().getIdUser(), ProfessionalProfileDTO::setIdUser);
-            mapper.map(src -> src.getSpecialty().getIdSpecialty(), ProfessionalProfileDTO::setIdSpecialty);
-        });
-        return m;
-    }
-
     @GetMapping
     public ResponseEntity<List<ProfessionalProfileDTO>> listar() {
-        ModelMapper m = createPPMapper();
         List<ProfessionalProfileDTO> lista = pS.list().stream()
-                .map(y -> m.map(y, ProfessionalProfileDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    ProfessionalProfileDTO dto = m.map(y, ProfessionalProfileDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdSpecialty(y.getSpecialty().getIdSpecialty());
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(lista);
@@ -67,22 +63,27 @@ public class ProfessionalProfileController {
         Specialty specialty = sR.findById(dto.getIdSpecialty())
                 .orElseThrow(() -> new RuntimeException("Especialidad no encontrada con id: " + dto.getIdSpecialty()));
 
-        ModelMapper m = createPPMapper();
+        ModelMapper m = new ModelMapper();
         ProfessionalProfile pp = m.map(dto, ProfessionalProfile.class);
         pp.setUser(user);
         pp.setSpecialty(specialty);
         ProfessionalProfile profile = pS.insert(pp);
+
         ProfessionalProfileDTO responseDTO = m.map(profile, ProfessionalProfileDTO.class);
+        responseDTO.setIdUser(profile.getUser().getIdUser());
+        responseDTO.setIdSpecialty(profile.getSpecialty().getIdSpecialty());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = createPPMapper();
         Optional<ProfessionalProfile> profile = pS.listId(id);
 
         if (profile.isPresent()) {
+            ModelMapper m = new ModelMapper();
             ProfessionalProfileDTO dto = m.map(profile.get(), ProfessionalProfileDTO.class);
+            dto.setIdUser(profile.get().getUser().getIdUser());
+            dto.setIdSpecialty(profile.get().getSpecialty().getIdSpecialty());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

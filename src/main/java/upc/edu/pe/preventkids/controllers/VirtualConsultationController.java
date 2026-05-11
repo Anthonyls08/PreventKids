@@ -28,20 +28,16 @@ public class VirtualConsultationController {
     @Autowired
     private IProfessionalProfileRepository ppR;
 
-    private ModelMapper createVCMapper() {
-        ModelMapper m = new ModelMapper();
-        m.typeMap(VirtualConsultation.class, VirtualConsultationDTO.class).addMappings(mapper -> {
-            mapper.map(src -> src.getUser().getIdUser(), VirtualConsultationDTO::setIdUser);
-            mapper.map(src -> src.getProfessionalprofile().getIdProfessionalProfile(), VirtualConsultationDTO::setIdProfessionalProfile);
-        });
-        return m;
-    }
-
     @GetMapping
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
-        ModelMapper m = createVCMapper();
         List<VirtualConsultationDTO> lista = vS.list().stream()
-                .map(y -> m.map(y, VirtualConsultationDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
+                    return dto;
+                })
                 .collect(Collectors.toList());
         return ResponseEntity.ok(lista);
     }
@@ -66,21 +62,26 @@ public class VirtualConsultationController {
         ProfessionalProfile pp = ppR.findById(dto.getIdProfessionalProfile())
                 .orElseThrow(() -> new RuntimeException("ProfessionalProfile no encontrado con id: " + dto.getIdProfessionalProfile()));
 
-        ModelMapper m = createVCMapper();
+        ModelMapper m = new ModelMapper();
         VirtualConsultation vc = m.map(dto, VirtualConsultation.class);
         vc.setUser(user);
         vc.setProfessionalprofile(pp);
         VirtualConsultation virtualConsultation = vS.insert(vc);
+
         VirtualConsultationDTO responseDTO = m.map(virtualConsultation, VirtualConsultationDTO.class);
+        responseDTO.setIdUser(virtualConsultation.getUser().getIdUser());
+        responseDTO.setIdProfessionalProfile(virtualConsultation.getProfessionalprofile().getIdProfessionalProfile());
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = createVCMapper();
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
+            ModelMapper m = new ModelMapper();
             VirtualConsultationDTO dto = m.map(consulta.get(), VirtualConsultationDTO.class);
+            dto.setIdUser(consulta.get().getUser().getIdUser());
+            dto.setIdProfessionalProfile(consulta.get().getProfessionalprofile().getIdProfessionalProfile());
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -99,7 +100,7 @@ public class VirtualConsultationController {
             return ResponseEntity.badRequest()
                     .body("La fecha no puede ser nula");
         }
-        ModelMapper m = createVCMapper();
+        ModelMapper m = new ModelMapper();
         VirtualConsultation vc = m.map(dto, VirtualConsultation.class);
         vc.setIdVirtualConsultation(existente.get().getIdVirtualConsultation());
         vS.update(vc);
@@ -126,10 +127,15 @@ public class VirtualConsultationController {
         if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El nombre del paciente no puede estar vacío.");
         }
-        ModelMapper m = createVCMapper();
         List<VirtualConsultationDTO> listaConsultas = vS.decidirPrioridadConsultaPaciente(estado, nombrePaciente)
                 .stream()
-                .map(y -> m.map(y, VirtualConsultationDTO.class))
+                .map(y -> {
+                    ModelMapper m = new ModelMapper();
+                    VirtualConsultationDTO dto = m.map(y, VirtualConsultationDTO.class);
+                    dto.setIdUser(y.getUser().getIdUser());
+                    dto.setIdProfessionalProfile(y.getProfessionalprofile().getIdProfessionalProfile());
+                    return dto;
+                })
                 .collect(Collectors.toList());
         if (listaConsultas.isEmpty()) {
             return ResponseEntity.noContent().build();
