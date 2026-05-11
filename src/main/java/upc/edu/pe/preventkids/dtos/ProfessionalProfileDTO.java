@@ -1,14 +1,11 @@
 package upc.edu.pe.preventkids.dtos;
 
-import upc.edu.pe.preventkids.entities.Specialty;
-import upc.edu.pe.preventkids.entities.User;
-
 public class ProfessionalProfileDTO {
     private int idProfessionalProfile;
     private String numerocolegiatura;
     private String institucion;
-    private User user;
-    private Specialty specialty;
+    private int idUser;
+    private int idSpecialty;
 
     public int getIdProfessionalProfile() {
         return idProfessionalProfile;
@@ -34,19 +31,19 @@ public class ProfessionalProfileDTO {
         this.institucion = institucion;
     }
 
-    public User getUser() {
-        return user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
-    public Specialty getSpecialty() {
-        return specialty;
+    public int getIdSpecialty() {
+        return idSpecialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
+    public void setIdSpecialty(int idSpecialty) {
+        this.idSpecialty = idSpecialty;
     }
 }

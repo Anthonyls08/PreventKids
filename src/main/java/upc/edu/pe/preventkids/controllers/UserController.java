@@ -33,9 +33,18 @@ public class UserController {
     private IDistrictRRepository districtRepository;
 
 
+    private ModelMapper createUserMapper() {
+        ModelMapper m = new ModelMapper();
+        m.typeMap(User.class, UserDTO.class).addMappings(mapper -> {
+            mapper.map(src -> src.getIdDistrict().getIdDistrict(), UserDTO::setIdDistrict);
+            mapper.map(src -> src.getIdRole().getIdRole(), UserDTO::setIdRole);
+        });
+        return m;
+    }
+
     @GetMapping
     public ResponseEntity<List<UserDTO>> listar() {
-        ModelMapper m = new ModelMapper();
+        ModelMapper m = createUserMapper();
         List<UserDTO> listaUsers = uS.list().stream()
                 .map(y -> m.map(y, UserDTO.class))
                 .collect(Collectors.toList());
@@ -63,7 +72,7 @@ public class UserController {
         District district = districtRepository.findById(dto.getIdDistrict())
                 .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
 
-        ModelMapper m = new ModelMapper();
+        ModelMapper m = createUserMapper();
         User u = m.map(dto, User.class);
         u.setIdRole(role);
         u.setIdDistrict(district);
@@ -76,7 +85,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
+        ModelMapper m = createUserMapper();
         Optional<User> user = uS.listId(id);
 
         if (user.isPresent()) {
