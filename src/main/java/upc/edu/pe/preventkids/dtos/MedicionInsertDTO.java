@@ -1,5 +1,7 @@
 package upc.edu.pe.preventkids.dtos;
 
+import upc.edu.pe.preventkids.entities.User;
+
 import java.time.LocalDate;
 
 public class MedicionInsertDTO {
@@ -7,10 +9,11 @@ public class MedicionInsertDTO {
     private float pesoKg;
     private float tallaCm;
     private float imc;
-    private String clasificacion_imc;
+    private String clasificacionimc;
     private float presion;
     private float temperatura;
-    private LocalDate fecha_medicion;
+    private LocalDate fechamedicion;
+    private User user;
 
     public int getIdMedicion() {
         return idMedicion;
@@ -44,12 +47,12 @@ public class MedicionInsertDTO {
         this.imc = imc;
     }
 
-    public String getClasificacion_imc() {
-        return clasificacion_imc;
+    public String getClasificacionimc() {
+        return clasificacionimc;
     }
 
-    public void setClasificacion_imc(String clasificacion_imc) {
-        this.clasificacion_imc = clasificacion_imc;
+    public void setClasificacionimc(String clasificacionimc) {
+        this.clasificacionimc = clasificacionimc;
     }
 
     public float getPresion() {
@@ -68,11 +71,19 @@ public class MedicionInsertDTO {
         this.temperatura = temperatura;
     }
 
-    public LocalDate getFecha_medicion() {
-        return fecha_medicion;
+    public LocalDate getFechamedicion() {
+        return fechamedicion;
     }
 
-    public void setFecha_medicion(LocalDate fecha_medicion) {
-        this.fecha_medicion = fecha_medicion;
+    public void setFechamedicion(LocalDate fechamedicion) {
+        this.fechamedicion = fechamedicion;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
