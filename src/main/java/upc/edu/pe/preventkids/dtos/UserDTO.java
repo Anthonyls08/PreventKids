@@ -22,6 +22,8 @@ public class UserDTO {
     private int idchatIA;
     private int idPhysicalLimitation;
 
+    public UserDTO() {
+    }
     public int getIdUser() {
         return idUser;
     }

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface IMedicionRepository extends JpaRepository<Medicion,Integer> {
-    @Query("SELECT m FROM Medicion m WHERE m.imc >= :imcMinimo AND m.clasificacionimc = 'Obesidad'")
+    @Query("SELECT m FROM Medicion m WHERE m.imc >= :imcMinimo AND m.clasificacionimc = 'Sobrepeso'")
     List<Medicion> decidirAtencionPrioritaria(@Param("imcMinimo") float imcMinimo);
 }

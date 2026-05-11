@@ -97,7 +97,7 @@ public class RecommendedExerciseController {
         return ResponseEntity.ok("Ejercicio actualizado correctamente");
     }
 
-    @DeleteMapping("/{deleteEjercicio}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<RecommendedExercise> ejercicioR = reS.listId(id);
 

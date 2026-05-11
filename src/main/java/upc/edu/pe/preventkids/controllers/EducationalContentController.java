@@ -15,11 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/contenido-educativo")
 public class EducationalContentController {
     @Autowired
     private IEducationalContentService eS;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<EducationalContentDTO>> listarEC(){
         ModelMapper m = new ModelMapper();
         List<EducationalContentDTO> listaEC = eS.list().stream()
@@ -29,7 +30,7 @@ public class EducationalContentController {
         return ResponseEntity.ok(listaEC);
 
     }
-    @PostMapping("/registrarEC")
+    @PostMapping("/registrar")
     public ResponseEntity<?> registrar(@RequestBody EducationalContentInsertDTO dto){
         ModelMapper m = new ModelMapper();
         educationalContent e = m.map(dto, educationalContent.class);
@@ -38,7 +39,7 @@ public class EducationalContentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    @GetMapping("/idEC")
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id){
         ModelMapper m = new ModelMapper();
         Optional<educationalContent> eduContent = eS.listId(id);
@@ -52,7 +53,7 @@ public class EducationalContentController {
         }
     }
 
-    @PutMapping("/actualizarEC")
+    @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@RequestBody EducationalContentInsertDTO dto) {
 
         Optional<educationalContent> existente = null;
@@ -77,7 +78,7 @@ public class EducationalContentController {
 
         return ResponseEntity.ok("Actualizado correctamente");
     }
-    @DeleteMapping("/{deleteEC}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<educationalContent> eduContent = eS.listId(id);
 

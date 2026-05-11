@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "VirtualConsultation")
 public class VirtualConsultation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVirtualConsultation;

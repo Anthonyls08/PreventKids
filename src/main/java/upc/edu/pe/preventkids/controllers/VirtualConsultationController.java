@@ -28,7 +28,7 @@ public class VirtualConsultationController {
     @Autowired
     private IProfessionalProfileRepository ppR;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
         List<VirtualConsultationDTO> lista = vS.list().stream()
                 .map(y -> {
