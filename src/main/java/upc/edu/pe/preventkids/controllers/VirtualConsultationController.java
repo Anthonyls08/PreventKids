@@ -19,7 +19,7 @@ public class VirtualConsultationController {
     @Autowired
     private IVirtualConsultationService vS;
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
         ModelMapper m = new ModelMapper();
         List<VirtualConsultationDTO> lista = vS.list().stream()
