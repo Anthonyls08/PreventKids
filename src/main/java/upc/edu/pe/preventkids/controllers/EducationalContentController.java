@@ -92,8 +92,7 @@ public class EducationalContentController {
     }
 
     @GetMapping("/buscartipo")
-    public List<educationalContent> buscar(@RequestParam String tipo) {
-
+    public ResponseEntity<?> buscar(@RequestParam String tipo) {
 
         if (tipo == null || tipo.trim().isEmpty()) {
             throw new IllegalArgumentException("El tipo de contenido es obligatorio.");
@@ -103,6 +102,10 @@ public class EducationalContentController {
             throw new IllegalArgumentException("El tipo debe tener al menos 3 caracteres.");
         }
 
-        return eS.buscarPorTipo(tipo);
+        ModelMapper m = new ModelMapper();
+        List<EducationalContentDTO> lista = eS.buscarPorTipo(tipo).stream()
+                .map(y -> m.map(y, EducationalContentDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(lista);
     }
 }
