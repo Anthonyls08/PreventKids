@@ -11,7 +11,11 @@ import upc.edu.pe.preventkids.dtos.UserRoleCountDTO;
 import upc.edu.pe.preventkids.entities.District;
 import upc.edu.pe.preventkids.entities.Role;
 import upc.edu.pe.preventkids.entities.User;
+import upc.edu.pe.preventkids.entities.PhysicalLimitation;
+import upc.edu.pe.preventkids.entities.chatIA;
+import upc.edu.pe.preventkids.repositories.IChatIARepository;
 import upc.edu.pe.preventkids.repositories.IDistrictRRepository;
+import upc.edu.pe.preventkids.repositories.IPhysicalLimitationRepository;
 import upc.edu.pe.preventkids.repositories.IRoleRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IUserService;
 
@@ -28,9 +32,13 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private IRoleRepository roleRepository;
+    private IRoleRepository rR;
     @Autowired
-    private IDistrictRRepository districtRepository;
+    private IDistrictRRepository dR;
+    @Autowired
+    private IPhysicalLimitationRepository plR;
+    @Autowired
+    private IChatIARepository ciaR;
 
 
     @GetMapping
@@ -64,16 +72,20 @@ public class UserController {
             return ResponseEntity.badRequest().body("El usuario debe tener un distrito asignado");
         }
 
-        Role role = roleRepository.findById(dto.getIdRole())
+        Role role = rR.findById(dto.getIdRole())
                 .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole()));
-        District district = districtRepository.findById(dto.getIdDistrict())
+        District district = dR.findById(dto.getIdDistrict())
                 .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
+        PhysicalLimitation physicalLimitation = plR.findById(dto.getIdPhysicalLimitation()).orElse(null);
+        chatIA chatia = ciaR.findById(dto.getIdchatIA()).orElse(null);
 
         ModelMapper m = new ModelMapper();
         m.getConfiguration().setAmbiguityIgnored(true);
         User u = m.map(dto, User.class);
         u.setIdRole(role);
         u.setIdDistrict(district);
+        u.setPhysicallimitation(physicalLimitation);
+        u.setChatia(chatia);
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         User user = uS.insert(u);
 
@@ -114,9 +126,21 @@ public class UserController {
             return ResponseEntity.badRequest().body("El email no puede ser nulo");
         }
 
+        Role role = rR.findById(dto.getIdRole())
+                .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole()));
+        District district = dR.findById(dto.getIdDistrict())
+                .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
+        PhysicalLimitation physicalLimitation = plR.findById(dto.getIdPhysicalLimitation()).orElse(null);
+        chatIA chatia = ciaR.findById(dto.getIdchatIA()).orElse(null);
+
         ModelMapper m = new ModelMapper();
+        m.getConfiguration().setAmbiguityIgnored(true);
         User u = m.map(dto, User.class);
         u.setIdUser(existente.get().getIdUser());
+        u.setIdRole(role);
+        u.setIdDistrict(district);
+        u.setPhysicallimitation(physicalLimitation);
+        u.setChatia(chatia);
 
         uS.update(u);
 

@@ -1,6 +1,7 @@
 package upc.edu.pe.preventkids.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
@@ -14,7 +15,6 @@ public class UserDTO {
     private int telefono;
     private String estado;
 
-    @JsonIgnore
     private String password;
 
     private int idRole;
@@ -88,10 +88,12 @@ public class UserDTO {
         this.estado = estado;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
