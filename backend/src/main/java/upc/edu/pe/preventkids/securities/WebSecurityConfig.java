@@ -59,9 +59,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         //Desde Spring Boot 3.1+
         httpSecurity
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/login","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/login","/swagger-ui/**", "/v3/api-docs/**",
+                                "/tipos-alerta/**","/chatIA/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
