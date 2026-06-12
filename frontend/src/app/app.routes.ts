@@ -9,6 +9,9 @@ import { ChatIAInsertar } from './components/chatiacomponent/chat-ia-insertar/ch
 import { Districtcomponent } from './components/districtcomponent/districtcomponent';
 import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
 import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
+import { Rolecomponent } from './components/rolecomponent/rolecomponent';
+import { RoleListar } from './components/rolecomponent/role-listar/role-listar';
+import { RoleInsertar } from './components/rolecomponent/role-insertar/role-insertar';
 
 export const routes: Routes = [
     {
@@ -61,5 +64,19 @@ export const routes: Routes = [
                 component:DistrictInsertar
             }
         ]
-    }   
+    },
+    {
+        path: 'roles',
+        component: Rolecomponent,
+        children:[
+            {
+                path:'listar',
+                component:RoleListar
+            },
+            {
+                path:'nuevo',
+                component:RoleInsertar
+            }
+        ]
+    }
 ];
