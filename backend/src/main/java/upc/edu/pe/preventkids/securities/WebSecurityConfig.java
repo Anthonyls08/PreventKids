@@ -62,8 +62,9 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
+                        // ¡AQUÍ AGREGAMOS "/distritos/**"!
                         .requestMatchers("/login","/swagger-ui/**", "/v3/api-docs/**",
-                                "/tipos-alerta/**","/chatIA/**").permitAll()
+                                "/tipos-alerta/**","/chatIA/**", "/distritos/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
