@@ -29,6 +29,14 @@
         <mat-icon aria-hidden="false" aria-label="Example city icon" fontIcon="location_city"></mat-icon>
         Distrito
         </button>
+        <button
+        matButton
+        class="btn-rojo"
+        [matMenuTriggerFor]="menuEspecialidad">
+
+        <mat-icon>medical_services</mat-icon>
+        Especialidad
+        </button>
 
         <button
         matButton
@@ -40,6 +48,12 @@
         Roles
         </button>
     </mat-toolbar>
+        [matMenuTriggerFor]="menuTipoContenido">
+
+        <mat-icon>movie</mat-icon>
+        Tipo Contenido
+        </button>
+        </mat-toolbar>
 
     <mat-menu #menuTipoAlerta="matMenu">
         <button
@@ -83,5 +97,27 @@
         </button>
         <button mat-menu-item routerLink="/roles/listar">
             <mat-icon>list</mat-icon>Listar</button>
+    <mat-menu #menuEspecialidad="matMenu">
+    <button mat-menu-item routerLink="/specialties/nuevo">
+        <mat-icon>add</mat-icon>
+        Registrar
+    </button>
+
+    <button mat-menu-item routerLink="/specialties/listar">
+        <mat-icon>list</mat-icon>
+        Listar
+    </button>
+    </mat-menu>
+
+    <mat-menu #menuTipoContenido="matMenu">
+    <button mat-menu-item routerLink="/tipos-contenido/nuevo">
+        <mat-icon>add</mat-icon>
+        Registrar
+    </button>
+
+    <button mat-menu-item routerLink="/tipos-contenido/listar">
+        <mat-icon>list</mat-icon>
+        Listar
+    </button>
     </mat-menu>
 </div>
