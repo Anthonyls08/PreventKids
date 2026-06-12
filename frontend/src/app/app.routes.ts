@@ -6,6 +6,9 @@ import { TipoAlertaInsertar } from './components/tipoalertacomponent/tipo-alerta
 import { Chatiacomponent } from './components/chatiacomponent/chatiacomponent';
 import { ChatIAListar } from './components/chatiacomponent/chat-ia-listar/chat-ia-listar';
 import { ChatIAInsertar } from './components/chatiacomponent/chat-ia-insertar/chat-ia-insertar';
+import { Districtcomponent } from './components/districtcomponent/districtcomponent';
+import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
+import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
 
 export const routes: Routes = [
     {
@@ -44,5 +47,19 @@ export const routes: Routes = [
                 component:ChatIAInsertar
             }
         ]
-    }
+    },
+    {
+        path: 'district',
+        component: Districtcomponent,
+        children:[
+            {
+                path:'listar',
+                component:DistrictListar
+            },
+            {
+                path:'nuevo',
+                component:DistrictInsertar
+            }
+        ]
+    }   
 ];
