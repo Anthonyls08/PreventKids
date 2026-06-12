@@ -64,8 +64,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> req
                         // ¡AQUÍ AGREGAMOS "/distritos/**"!
                         .requestMatchers("/login","/swagger-ui/**", "/v3/api-docs/**",
-                                "/tipos-alerta/**","/chatIA/**", "/distritos/**").permitAll()
-                        .anyRequest().authenticated()
+                                "/tipos-alerta/**",
+                                "/chatIA/**",
+                                "/distritos/**",
+                                "/tipos-contenido/**",
+                                "/specialties/**")
+                        .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
