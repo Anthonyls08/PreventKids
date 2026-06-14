@@ -5,13 +5,15 @@ import { Roleservice } from '../../../services/roleservice';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-role-insertar',
   imports: [
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   templateUrl: './role-insertar.html',
   styleUrl: './role-insertar.css',
@@ -38,6 +40,9 @@ export class RoleInsertar implements OnInit {
       this.rS.insert(this.role).subscribe({
         next: () => {
           this.router.navigate(['/roles/listar']);
+        },
+        error: (e) => {
+          console.error('Error al registrar el rol', e);
         },
       });
     }

@@ -85,7 +85,7 @@ export const routes: Routes = [
                 component:RoleInsertar
             }
         ]
-    }
+    },
 {
     path: 'tipos-contenido',
     component: Tipocontenidocomponent,

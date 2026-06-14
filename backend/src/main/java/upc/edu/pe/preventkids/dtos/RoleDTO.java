@@ -2,16 +2,16 @@ package upc.edu.pe.preventkids.dtos;
 
 public class RoleDTO {
 
-    private int id;
+    private int idRole;
     private String nombre;
     private String descripcion;
 
-    public int getId() {
-        return id;
+    public int getIdRole() {
+        return idRole;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
     }
 
     public String getNombre() {

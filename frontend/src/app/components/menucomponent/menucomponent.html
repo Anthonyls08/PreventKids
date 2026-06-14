@@ -29,6 +29,7 @@
         <mat-icon aria-hidden="false" aria-label="Example city icon" fontIcon="location_city"></mat-icon>
         Distrito
         </button>
+
         <button
         matButton
         class="btn-rojo"
@@ -47,15 +48,16 @@
         <mat-icon aria-hidden="false" aria-label="Example role icon" fontIcon="manage_accounts"></mat-icon>
         Roles
         </button>
-    </mat-toolbar>
+
+        <button
+        matButton
+        class="btn-rojo"
         [matMenuTriggerFor]="menuTipoContenido">
 
         <mat-icon>movie</mat-icon>
         Tipo Contenido
         </button>
-        </mat-toolbar>
-
-    <mat-menu #menuTipoAlerta="matMenu">
+    </mat-toolbar> <mat-menu #menuTipoAlerta="matMenu">
         <button
             mat-menu-item
             routerLink="/tipos-alerta/nuevo">
@@ -97,27 +99,27 @@
         </button>
         <button mat-menu-item routerLink="/roles/listar">
             <mat-icon>list</mat-icon>Listar</button>
-    <mat-menu #menuEspecialidad="matMenu">
-    <button mat-menu-item routerLink="/specialties/nuevo">
-        <mat-icon>add</mat-icon>
-        Registrar
-    </button>
+    </mat-menu> <mat-menu #menuEspecialidad="matMenu">
+        <button mat-menu-item routerLink="/specialties/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
 
-    <button mat-menu-item routerLink="/specialties/listar">
-        <mat-icon>list</mat-icon>
-        Listar
-    </button>
+        <button mat-menu-item routerLink="/specialties/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
     </mat-menu>
 
     <mat-menu #menuTipoContenido="matMenu">
-    <button mat-menu-item routerLink="/tipos-contenido/nuevo">
-        <mat-icon>add</mat-icon>
-        Registrar
-    </button>
+        <button mat-menu-item routerLink="/tipos-contenido/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
 
-    <button mat-menu-item routerLink="/tipos-contenido/listar">
-        <mat-icon>list</mat-icon>
-        Listar
-    </button>
+        <button mat-menu-item routerLink="/tipos-contenido/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
     </mat-menu>
 </div>

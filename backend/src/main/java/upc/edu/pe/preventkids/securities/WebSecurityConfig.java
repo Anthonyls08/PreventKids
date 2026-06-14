@@ -68,7 +68,8 @@ public class WebSecurityConfig {
                                 "/chatIA/**",
                                 "/distritos/**",
                                 "/tipos-contenido/**",
-                                "/specialties/**")
+                                "/specialties/**",
+                                "/roles/**")
                         .permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
