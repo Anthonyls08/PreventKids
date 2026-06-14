@@ -1,5 +1,5 @@
 export class Role{
-    id:number=0
+    idRole:number=0
     nombre:string=''
     descripcion:string=''
 }

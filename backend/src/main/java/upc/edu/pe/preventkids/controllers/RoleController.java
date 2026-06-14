@@ -64,7 +64,7 @@ public class RoleController {
 
     @PutMapping("/actualiza")
     public ResponseEntity<String> actualizar(@RequestBody RoleDTO dto) {
-        Optional<Role> existente = rS.listId(dto.getId());
+        Optional<Role> existente = rS.listId(dto.getIdRole());
 
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

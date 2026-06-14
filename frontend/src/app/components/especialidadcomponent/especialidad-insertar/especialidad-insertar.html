@@ -24,14 +24,12 @@
       </mat-form-field>
       <br />
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Atención Virtual</mat-label>
-        <input matInput formControlName="atencionvirtual" />
-      </mat-form-field>
+      <mat-checkbox formControlName="atencionvirtual">Atención Virtual</mat-checkbox>
+      <br />
       <br />
 
       <div>
-        <button matButton="elevated">Registrar</button>
+        <button mat-raised-button color="primary" type="submit">Registrar</button>
       </div>
 
     </form>

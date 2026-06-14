@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { Specialty } from '../../../models/Specialty';
 import { Specialtyservice } from '../../../services/specialtyservice';
@@ -12,6 +13,7 @@ import { Specialtyservice } from '../../../services/specialtyservice';
   imports: [
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     ReactiveFormsModule
   ],
   templateUrl: './especialidad-insertar.html',
@@ -33,7 +35,7 @@ export class EspecialidadInsertar implements OnInit {
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       area: ['', Validators.required],
-      atencionvirtual: ['', Validators.required],
+      atencionvirtual: [false],
     });
   }
 
@@ -47,6 +49,9 @@ export class EspecialidadInsertar implements OnInit {
       this.sS.insert(this.specialty).subscribe({
         next: () => {
           this.router.navigate(['/specialties/listar']);
+        },
+        error: (e) => {
+          console.error('Error al registrar la especialidad', e);
         }
       });
     }
