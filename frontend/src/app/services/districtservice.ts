@@ -23,4 +23,12 @@ export class Districtservice {
   eliminar(id:number){
     return this.http.delete(`${this.url}/${id}`,{responseType:'text'})
   }
-}
+
+  listId(id: number) {
+    return this.http.get<District>(`${this.url}/${id}`)
+  }
+
+  update(d: District) {
+    return this.http.put(`${this.url}/actualiza`, d, { responseType: 'text' });
+  }
+} 
