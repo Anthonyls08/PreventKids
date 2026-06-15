@@ -11,6 +11,9 @@ import { ChatIAActualizar } from './components/chatiacomponent/chat-ia-actualiza
 import { Districtcomponent } from './components/districtcomponent/districtcomponent';
 import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
 import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
+
+import { DitrictActualizar } from './components/districtcomponent/ditrict-actualizar/ditrict-actualizar';
+
 import { Rolecomponent } from './components/rolecomponent/rolecomponent';
 import { RoleListar } from './components/rolecomponent/role-listar/role-listar';
 import { RoleInsertar } from './components/rolecomponent/role-insertar/role-insertar';
@@ -77,11 +80,15 @@ export const routes: Routes = [
         children:[
             {
                 path:'listar',
-                component:DistrictListar
+                component: DistrictListar 
             },
             {
                 path:'nuevo',
-                component:DistrictInsertar
+                component: DistrictInsertar
+            },
+            {
+                path:'actualizar/:id',
+                component: DitrictActualizar 
             }
         ]
     },
@@ -99,7 +106,6 @@ export const routes: Routes = [
             }
         ]
     },
-{
     path: 'tipos-contenido',
     component: Tipocontenidocomponent,
     children:[
@@ -134,5 +140,34 @@ export const routes: Routes = [
     { path: 'listar', component: PhysicalLimitationListar },
     { path: 'nuevo', component: PhysicalLimitationInsertar } 
   ]
-}
+},
+    {
+        path: 'tipos-contenido',
+        component: Tipocontenidocomponent,
+        children:[
+            {
+                path:'listar',
+                component: TipocontenidoListar
+            },
+            {
+                path:'nuevo',
+                component: TipocontenidoInsertar
+            }
+        ]
+    },
+    {
+        path: 'specialties',
+        component: Especialidadcomponent,
+        children:[
+            {
+                path:'listar',
+                component: EspecialidadListar
+            },
+            {
+                path:'nuevo',
+                component: EspecialidadInsertar
+            }
+        ]
+    }
 ];
+
