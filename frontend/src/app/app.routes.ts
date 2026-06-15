@@ -6,6 +6,8 @@ import { TipoAlertaInsertar } from './components/tipoalertacomponent/tipo-alerta
 import { Chatiacomponent } from './components/chatiacomponent/chatiacomponent';
 import { ChatIAListar } from './components/chatiacomponent/chat-ia-listar/chat-ia-listar';
 import { ChatIAInsertar } from './components/chatiacomponent/chat-ia-insertar/chat-ia-insertar';
+import { TipoAlertaActualizar } from './components/tipoalertacomponent/tipo-alerta-actualizar/tipo-alerta-actualizar';
+import { ChatIAActualizar } from './components/chatiacomponent/chat-ia-actualizar/chat-ia-actualizar';
 import { Districtcomponent } from './components/districtcomponent/districtcomponent';
 import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
 import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
@@ -45,6 +47,10 @@ export const routes: Routes = [
             {
                 path:'nuevo',
                 component:TipoAlertaInsertar
+            },
+            {
+                path:'edits/:id',
+                component:TipoAlertaActualizar
             }
         ]
     },
@@ -59,6 +65,10 @@ export const routes: Routes = [
             {
                 path:'nuevo',
                 component:ChatIAInsertar
+            },
+            {
+                path:'edits/:id',
+                component:ChatIAActualizar
             }
         ]
     },

@@ -1,0 +1,34 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Actualizar Chat IA</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Pregunta</mat-label>
+        <textarea matInput placeholder="¿Qué ejercicios son recomendables?" formControlName="pregunta"></textarea>
+        <mat-error>
+          @if (form.get('pregunta')?.hasError('required')) {
+            Ingrese la pregunta!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Respuesta</mat-label>
+        <textarea matInput formControlName="respuesta"></textarea>
+        <mat-error>
+          @if (form.get('respuesta')?.hasError('required')) {
+            Ingrese la respuesta!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

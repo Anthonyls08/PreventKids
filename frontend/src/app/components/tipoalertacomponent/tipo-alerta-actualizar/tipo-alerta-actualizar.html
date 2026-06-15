@@ -1,0 +1,72 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Actualizar Tipos de Alerta</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Caída" formControlName="nombre" />
+        <mat-error>
+          @if (form.get('nombre')?.hasError('required')) {
+            Ingrese nombre del tipo de alerta!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Nivel de riesgo</mat-label>
+        <mat-select formControlName="nivelriesgo">
+          @for (nivel of niveles; track nivel) {
+            <mat-option [value]="nivel.value">{{ nivel.viewValue }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('nivelriesgo')?.hasError('required')) {
+            Seleccione el nivel de riesgo!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Descripci&oacute;n</mat-label>
+        <textarea matInput formControlName="descripcion"></textarea>
+        <mat-error>
+          @if (form.get('descripcion')?.hasError('required')) {
+            Ingrese la descripci&oacute;n!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Requiere atenci&oacute;n profesional</mat-label>
+        <mat-select formControlName="atencionprof">
+          @for (opcion of opcionesAtencion; track opcion) {
+            <mat-option [value]="opcion.value">{{ opcion.viewValue }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('atencionprof')?.hasError('required')) {
+            Seleccione una opci&oacute;n!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Mensaje</mat-label>
+        <input matInput placeholder="Acuda a un especialista" formControlName="mensaje" />
+        <mat-error>
+          @if (form.get('mensaje')?.hasError('required')) {
+            Ingrese el mensaje!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

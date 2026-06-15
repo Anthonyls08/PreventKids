@@ -110,4 +110,19 @@ public class tipoAlertaController {
 
         return ResponseEntity.ok(listaFiltrada);
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<?> buscar(@RequestParam(required = false, defaultValue = "") String nombre) {
+        if (nombre.trim().isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body("Error: Ingrese un nombre para buscar.");
+        }
+
+        ModelMapper m = new ModelMapper();
+        List<tipoAlertaInsertDTO> lista = tS.buscar(nombre.trim()).stream()
+                .map(y -> m.map(y, tipoAlertaInsertDTO.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(lista);
+    }
 }

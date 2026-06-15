@@ -23,4 +23,16 @@ export class Tipoalertaservice {
   eliminar(id:number){
     return this.http.delete(`${this.url}/${id}`,{responseType:'text'})
   }
+
+  listId(id: number) {
+    return this.http.get<TipoAlerta>(`${this.url}/${id}`);
+  }
+
+  update(t: TipoAlerta) {
+    return this.http.put(`${this.url}/actualizar`, t, { responseType: 'text' });
+  }
+
+  buscar(nombre: string) {
+    return this.http.get<TipoAlerta[]>(`${this.url}/buscar?nombre=${nombre}`);
+  }
 }

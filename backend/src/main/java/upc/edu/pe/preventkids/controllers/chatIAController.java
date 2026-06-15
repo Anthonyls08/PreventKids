@@ -20,10 +20,10 @@ public class chatIAController {
     @Autowired
     private IChatIAService cS;
     @GetMapping("/listar")
-    public ResponseEntity<List<chatIADTO>> listar(){
+    public ResponseEntity<List<chatIAInsertDTO>> listar(){
         ModelMapper m=new ModelMapper();
-        List<chatIADTO> listaChat=cS.list().stream()
-                .map(y->m.map(y,chatIADTO.class))
+        List<chatIAInsertDTO> listaChat=cS.list().stream()
+                .map(y->m.map(y,chatIAInsertDTO.class))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(listaChat);

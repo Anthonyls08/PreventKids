@@ -12,4 +12,5 @@ public interface ITipoalertaService {
     public void update(TipoAlerta t);
     public void delete(int id);
     public List<TipoAlerta> filtrar(int nivelRiesgo, boolean requiereAtencion);
+    public List<TipoAlerta> buscar(String nombre);
 }

@@ -23,4 +23,12 @@ export class Chatiaservice {
   eliminar(id:number){
     return this.http.delete(`${this.url}/${id}`,{responseType:'text'})
   }
+
+  listId(id: number) {
+    return this.http.get<ChatIA>(`${this.url}/${id}`);
+  }
+
+  update(c: ChatIA) {
+    return this.http.put(`${this.url}/actualizar`, c, { responseType: 'text' });
+  }
 }
