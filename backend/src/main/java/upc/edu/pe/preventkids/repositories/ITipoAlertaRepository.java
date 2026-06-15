@@ -15,4 +15,7 @@ public interface ITipoAlertaRepository extends JpaRepository <TipoAlerta,Integer
             @Param("nivelRiesgo") int nivelRiesgo,
             @Param("requiereAtencion") boolean requiereAtencion);
 
+    @Query("SELECT t FROM TipoAlerta t WHERE LOWER(t.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))")
+    List<TipoAlerta> buscarPorNombre(@Param("nombre") String nombre);
+
 }
