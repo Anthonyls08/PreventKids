@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== Estilos globales ===== */
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f5f7;
+  color: #2b2b2b;
+}
+
+/* --- Contenedor de las páginas --- */
+.container {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+
+.container h2 {
+  color: #fb0800;
+  font-weight: 600;
+}
+
+/* --- Tablas --- */
+table.mat-mdc-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mat-mdc-header-row {
+  background-color: #fb0800 !important;
+}
+
+.mat-mdc-header-cell {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+}
+
+.mat-mdc-row {
+  transition: background-color 0.15s ease;
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(251, 8, 0, 0.05);
+}
+
+/* --- Botones de acción de las tablas (editar / eliminar) --- */
+.btn-eliminar {
+  min-width: 40px !important;
+  border-radius: 8px !important;
+  transition: background-color 0.15s ease;
+}
+
+.btn-eliminar:hover {
+  background-color: rgba(251, 8, 0, 0.1) !important;
+}
+
+.btn-eliminar mat-icon {
+  color: #fb0800;
+}
+
+/* ===== Menú desplegable (overlay global, fondo sólido) ===== */
+.mat-mdc-menu-panel {
+  background-color: #ffffff !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(251, 8, 0, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.mat-mdc-menu-item {
+  color: #2b2b2b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+.mat-mdc-menu-item .mat-icon {
+  color: #fb0800;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: rgba(251, 8, 0, 0.08);
+}
