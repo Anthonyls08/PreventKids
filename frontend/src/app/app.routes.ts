@@ -12,7 +12,6 @@ import { Districtcomponent } from './components/districtcomponent/districtcompon
 import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
 import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
 
-// 👇 1. AQUÍ ESTÁ LA NUEVA IMPORTACIÓN (Verifica que la ruta coincida con el nombre de tu carpeta)
 import { DitrictActualizar } from './components/districtcomponent/ditrict-actualizar/ditrict-actualizar';
 
 import { Rolecomponent } from './components/rolecomponent/rolecomponent';
@@ -25,6 +24,9 @@ import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipoc
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
+import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
+import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
+import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
 
 export const routes: Routes = [
     {
@@ -104,6 +106,41 @@ export const routes: Routes = [
             }
         ]
     },
+    path: 'tipos-contenido',
+    component: Tipocontenidocomponent,
+    children:[
+        {
+            path:'listar',
+            component: TipocontenidoListar
+        },
+        {
+            path:'nuevo',
+            component: TipocontenidoInsertar
+        }
+    ]
+},
+{
+    path: 'specialties',
+    component: Especialidadcomponent,
+    children:[
+        {
+            path:'listar',
+            component: EspecialidadListar
+        },
+        {
+            path:'nuevo',
+            component: EspecialidadInsertar
+        }
+    ]
+},
+{
+  path: 'limitacion-fisica',
+  component: Physicallimitationcomponent,
+  children: [
+    { path: 'listar', component: PhysicalLimitationListar },
+    { path: 'nuevo', component: PhysicalLimitationInsertar } 
+  ]
+},
     {
         path: 'tipos-contenido',
         component: Tipocontenidocomponent,
@@ -133,3 +170,4 @@ export const routes: Routes = [
         ]
     }
 ];
+

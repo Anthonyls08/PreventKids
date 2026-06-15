@@ -1,66 +1,51 @@
 <div class="container">
     <mat-toolbar class="custom-toolbar">
-        <button
-        matButton
-        class="btn-rojo"
-        aria-label="Example icon-button with menu icon"
-        [matMenuTriggerFor]="menuTipoAlerta">
+        <button matButton class="btn-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuTipoAlerta">
 
-        <mat-icon aria-hidden="false" aria-label="Example warning icon" fontIcon="warning"></mat-icon>
-        Tipo Alerta
+            <mat-icon aria-hidden="false" aria-label="Example warning icon" fontIcon="warning"></mat-icon>
+            Tipo Alerta
         </button>
 
-        <button
-        matButton
-        class="btn-rojo"
-        aria-label="Example icon-button with menu icon"
-        [matMenuTriggerFor]="menuChatIA">
+        <button matButton class="btn-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuChatIA">
 
-        <mat-icon aria-hidden="false" aria-label="Example chat icon" fontIcon="smart_toy"></mat-icon>
-        Chat IA
+            <mat-icon aria-hidden="false" aria-label="Example chat icon" fontIcon="smart_toy"></mat-icon>
+            Chat IA
         </button>
 
-        <button
-        matButton
-        class="btn-rojo"
-        aria-label="Example icon-button with menu icon"
-        [matMenuTriggerFor]="menuDistrict">
+        <button matButton class="btn-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuDistrict">
 
-        <mat-icon aria-hidden="false" aria-label="Example city icon" fontIcon="location_city"></mat-icon>
-        Distrito
+            <mat-icon aria-hidden="false" aria-label="Example city icon" fontIcon="location_city"></mat-icon>
+            Distrito
         </button>
 
-        <button
-        matButton
-        class="btn-rojo"
-        [matMenuTriggerFor]="menuEspecialidad">
+        <button matButton class="btn-rojo" [matMenuTriggerFor]="menuEspecialidad">
 
-        <mat-icon>medical_services</mat-icon>
-        Especialidad
+            <mat-icon>medical_services</mat-icon>
+            Especialidad
         </button>
 
-        <button
-        matButton
-        class="btn-rojo"
-        aria-label="Example icon-button with menu icon"
-        [matMenuTriggerFor]="menuRole">
+        <button matButton class="btn-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuRole">
 
-        <mat-icon aria-hidden="false" aria-label="Example role icon" fontIcon="manage_accounts"></mat-icon>
-        Roles
+            <mat-icon aria-hidden="false" aria-label="Example role icon" fontIcon="manage_accounts"></mat-icon>
+            Roles
         </button>
 
-        <button
-        matButton
-        class="btn-rojo"
-        [matMenuTriggerFor]="menuTipoContenido">
+        <button matButton class="btn-rojo" [matMenuTriggerFor]="menuTipoContenido">
 
-        <mat-icon>movie</mat-icon>
-        Tipo Contenido
+            <mat-icon>movie</mat-icon>
+            Tipo Contenido
+        </button>
+
+        <button matButton class="btn-rojo" [matMenuTriggerFor]="menuLimitation">
+            <mat-icon>accessibility_new</mat-icon>
+            Limitación Física
         </button>
     </mat-toolbar> <mat-menu #menuTipoAlerta="matMenu">
-        <button
-            mat-menu-item
-            routerLink="/tipos-alerta/nuevo">
+        <button mat-menu-item routerLink="/tipos-alerta/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
@@ -69,9 +54,7 @@
     </mat-menu>
 
     <mat-menu #menuChatIA="matMenu">
-        <button
-            mat-menu-item
-            routerLink="/chatia/nuevo">
+        <button mat-menu-item routerLink="/chatia/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
@@ -80,9 +63,7 @@
     </mat-menu>
 
     <mat-menu #menuDistrict="matMenu">
-        <button
-            mat-menu-item
-            routerLink="/district/nuevo">
+        <button mat-menu-item routerLink="/district/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
@@ -91,9 +72,7 @@
     </mat-menu>
 
     <mat-menu #menuRole="matMenu">
-        <button
-            mat-menu-item
-            routerLink="/roles/nuevo">
+        <button mat-menu-item routerLink="/roles/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
@@ -118,6 +97,16 @@
         </button>
 
         <button mat-menu-item routerLink="/tipos-contenido/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+    <mat-menu #menuLimitation="matMenu">
+        <button mat-menu-item routerLink="/limitacion-fisica/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/limitacion-fisica/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
