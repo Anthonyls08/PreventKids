@@ -50,18 +50,31 @@ table.mat-mdc-table {
 }
 
 /* --- Botones de acción de las tablas (editar / eliminar) --- */
-.btn-eliminar {
+.btn-eliminar,
+.btn-editar {
+  background-color: transparent !important;
+  box-shadow: none !important;
   min-width: 40px !important;
   border-radius: 8px !important;
   transition: background-color 0.15s ease;
 }
 
-.btn-eliminar:hover {
-  background-color: rgba(251, 8, 0, 0.1) !important;
+/* Eliminar -> rojo */
+.btn-eliminar mat-icon {
+  color: #e53935 !important;
 }
 
-.btn-eliminar mat-icon {
-  color: #fb0800;
+.btn-eliminar:hover {
+  background-color: rgba(229, 57, 53, 0.12) !important;
+}
+
+/* Actualizar -> azul */
+.btn-editar mat-icon {
+  color: #1565c0 !important;
+}
+
+.btn-editar:hover {
+  background-color: rgba(21, 101, 192, 0.12) !important;
 }
 
 /* ===== Menú desplegable (overlay global, fondo sólido) ===== */
