@@ -34,5 +34,10 @@ public class TipoalertaServiceImplement implements ITipoalertaService {
         return tR.filtrarPorRiesgoYAtencion(nivelRiesgo, requiereAtencion);
     }
 
+    @Override
+    public List<TipoAlerta> buscar(String nombre) {
+        return tR.buscarPorNombre(nombre);
+    }
+
 
 }
