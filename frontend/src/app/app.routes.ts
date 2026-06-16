@@ -24,6 +24,7 @@ import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipoc
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
+import { EspecialidadActualizar } from './components/especialidadcomponent/especialidad-actualizar/especialidad-actualizar';
 import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
 import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
 import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
@@ -155,6 +156,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: EspecialidadInsertar
+        },
+        {
+             path:'edits/:id',
+            component: EspecialidadActualizar
         }
     ]
 },
