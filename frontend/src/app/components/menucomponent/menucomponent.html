@@ -1,7 +1,15 @@
-<div class="container">
+<div class="menu-wrap">
     <mat-toolbar class="custom-toolbar">
-        <button matButton class="btn-rojo" aria-label="Example icon-button with menu icon"
-            [matMenuTriggerFor]="menuTipoAlerta">
+        <a class="menu-brand" routerLink="/app/homes">
+            <mat-icon aria-hidden="true">health_and_safety</mat-icon>
+            PreventKids
+        </a>
+
+        <button
+        matButton
+        class="btn-rojo"
+        aria-label="Example icon-button with menu icon"
+        [matMenuTriggerFor]="menuTipoAlerta">
 
             <mat-icon aria-hidden="false" aria-label="Example warning icon" fontIcon="warning"></mat-icon>
             Tipo Alerta
@@ -44,63 +52,87 @@
             <mat-icon>accessibility_new</mat-icon>
             Limitación Física
         </button>
+
+        <span class="menu-spacer"></span>
+
+        <button
+        matButton
+        class="btn-rojo btn-logout"
+        aria-label="Cerrar sesion"
+        (click)="cerrarSesion()">
+        <mat-icon>logout</mat-icon>
+        Salir
+        </button>
     </mat-toolbar> <mat-menu #menuTipoAlerta="matMenu">
+        <button
+            mat-menu-item
+            routerLink="/app/tipos-alerta/nuevo">
         <button mat-menu-item routerLink="/tipos-alerta/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
-        <button mat-menu-item routerLink="/tipos-alerta/listar">
+        <button mat-menu-item routerLink="/app/tipos-alerta/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu>
 
     <mat-menu #menuChatIA="matMenu">
+        <button
+            mat-menu-item
+            routerLink="/app/chatia/nuevo">
         <button mat-menu-item routerLink="/chatia/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
-        <button mat-menu-item routerLink="/chatia/listar">
+        <button mat-menu-item routerLink="/app/chatia/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu>
 
     <mat-menu #menuDistrict="matMenu">
+        <button
+            mat-menu-item
+            routerLink="/app/district/nuevo">
         <button mat-menu-item routerLink="/district/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
-        <button mat-menu-item routerLink="/district/listar">
+        <button mat-menu-item routerLink="/app/district/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu>
 
     <mat-menu #menuRole="matMenu">
+        <button
+            mat-menu-item
+            routerLink="/app/roles/nuevo">
         <button mat-menu-item routerLink="/roles/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
-        <button mat-menu-item routerLink="/roles/listar">
+        <button mat-menu-item routerLink="/app/roles/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu> <mat-menu #menuEspecialidad="matMenu">
-        <button mat-menu-item routerLink="/specialties/nuevo">
+        <button mat-menu-item routerLink="/app/specialties/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
 
-        <button mat-menu-item routerLink="/specialties/listar">
+        <button mat-menu-item routerLink="/app/specialties/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
     </mat-menu>
 
     <mat-menu #menuTipoContenido="matMenu">
-        <button mat-menu-item routerLink="/tipos-contenido/nuevo">
+        <button mat-menu-item routerLink="/app/tipos-contenido/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
 
-        <button mat-menu-item routerLink="/tipos-contenido/listar">
+        <button mat-menu-item routerLink="/app/tipos-contenido/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
     </mat-menu>
+</div>
     <mat-menu #menuLimitation="matMenu">
         <button mat-menu-item routerLink="/limitacion-fisica/nuevo">
             <mat-icon>add</mat-icon>

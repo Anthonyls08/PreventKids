@@ -28,7 +28,30 @@ import { Physicallimitationcomponent } from './components/physicallimitationcomp
 import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
 import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
 
+import { Landing } from './components/landing/landing';
+import { Login } from './components/auth/login/login';
+import { Register } from './components/auth/register/register';
+import { Shell } from './components/shell/shell';
+import { authGuard } from './core/auth-guard';
+
 export const routes: Routes = [
+    {
+        path: '',
+        component: Landing
+    },
+    {
+        path: 'login',
+        component: Login
+    },
+    {
+        path: 'register',
+        component: Register
+    },
+    {
+        path: 'app',
+        component: Shell,
+        canActivate: [authGuard],
+        children: [
     {
         path: '',
         redirectTo: 'homes',
@@ -132,41 +155,7 @@ export const routes: Routes = [
             component: EspecialidadInsertar
         }
     ]
-},
-{
-  path: 'limitacion-fisica',
-  component: Physicallimitationcomponent,
-  children: [
-    { path: 'listar', component: PhysicalLimitationListar },
-    { path: 'nuevo', component: PhysicalLimitationInsertar } 
-  ]
-},
-    {
-        path: 'tipos-contenido',
-        component: Tipocontenidocomponent,
-        children:[
-            {
-                path:'listar',
-                component: TipocontenidoListar
-            },
-            {
-                path:'nuevo',
-                component: TipocontenidoInsertar
-            }
-        ]
-    },
-    {
-        path: 'specialties',
-        component: Especialidadcomponent,
-        children:[
-            {
-                path:'listar',
-                component: EspecialidadListar
-            },
-            {
-                path:'nuevo',
-                component: EspecialidadInsertar
-            }
+}
         ]
     }
 ];

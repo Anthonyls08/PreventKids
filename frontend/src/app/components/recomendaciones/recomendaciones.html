@@ -1,0 +1,48 @@
+<section class="reco-panel" aria-label="Recomendaciones de salud y ejercicio">
+  <header class="reco-header">
+    <mat-icon aria-hidden="true">fitness_center</mat-icon>
+    <h3>Recomendaciones</h3>
+  </header>
+
+  @if (cargando()) {
+    <p class="reco-estado">Cargando recomendaciones...</p>
+  } @else if (actual(); as r) {
+    <article class="reco-card">
+      @if (r.imagen) {
+        <img class="reco-img" [src]="r.imagen" [alt]="r.titulo" />
+      } @else {
+        <div class="reco-img reco-img-placeholder" aria-hidden="true">
+          <mat-icon>health_and_safety</mat-icon>
+        </div>
+      }
+
+      <h4 class="reco-titulo">{{ r.titulo }}</h4>
+      <p class="reco-desc">{{ r.descripcion }}</p>
+      <span class="reco-fuente">Fuente: {{ r.fuente }}</span>
+    </article>
+
+    <div class="reco-controles">
+      <button matIconButton aria-label="Recomendacion anterior" (click)="anterior()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="reco-puntos" role="tablist">
+        @for (item of recomendaciones(); track $index) {
+          <button
+            class="reco-punto"
+            [class.activo]="$index === indice()"
+            [attr.aria-label]="'Ir a recomendacion ' + ($index + 1)"
+            [attr.aria-selected]="$index === indice()"
+            (click)="irA($index)"
+          ></button>
+        }
+      </div>
+
+      <button matIconButton aria-label="Recomendacion siguiente" (click)="siguiente()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  } @else {
+    <p class="reco-estado">No hay recomendaciones disponibles.</p>
+  }
+</section>

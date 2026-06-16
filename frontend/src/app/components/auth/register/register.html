@@ -1,0 +1,106 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <a class="brand" routerLink="/">
+      <mat-icon aria-hidden="true">health_and_safety</mat-icon>
+      PreventKids
+    </a>
+    <h2>Crear cuenta</h2>
+    <p class="auth-sub">Registrate para empezar a prevenir la obesidad infantil.</p>
+
+    @if (error()) {
+      <div class="auth-error" role="alert">{{ error() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="registrar()">
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" />
+          @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+            <mat-error>El nombre es obligatorio.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellido" />
+          @if (form.controls.apellido.touched && form.controls.apellido.invalid) {
+            <mat-error>El apellido es obligatorio.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Correo electronico</mat-label>
+        <input matInput type="email" formControlName="email" autocomplete="email" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <mat-error>Ingresa un correo valido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Contrasena</mat-label>
+        <input matInput type="password" formControlName="password" autocomplete="new-password" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <mat-error>Minimo 4 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Genero</mat-label>
+          <mat-select formControlName="genero">
+            @for (g of generos; track g) {
+              <mat-option [value]="g">{{ g }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput type="date" formControlName="fechanacimiento" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Telefono</mat-label>
+        <input matInput type="number" formControlName="telefono" />
+      </mat-form-field>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Rol</mat-label>
+          <mat-select formControlName="idRole">
+            @for (r of roles(); track r.idRole) {
+              <mat-option [value]="r.idRole">{{ r.nombre }}</mat-option>
+            }
+          </mat-select>
+          @if (form.controls.idRole.touched && form.controls.idRole.invalid) {
+            <mat-error>Selecciona un rol.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Distrito</mat-label>
+          <mat-select formControlName="idDistrict">
+            @for (d of distritos(); track d.idDistrict) {
+              <mat-option [value]="d.idDistrict">{{ d.nameDistrict }}</mat-option>
+            }
+          </mat-select>
+          @if (form.controls.idDistrict.touched && form.controls.idDistrict.invalid) {
+            <mat-error>Selecciona un distrito.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <button matButton="filled" type="submit" class="btn-cta" [disabled]="cargando()">
+        {{ cargando() ? 'Registrando...' : 'Crear cuenta' }}
+      </button>
+    </form>
+
+    <p class="auth-foot">
+      Ya tienes cuenta?
+      <a routerLink="/login">Inicia sesion</a>
+    </p>
+  </div>
+</div>

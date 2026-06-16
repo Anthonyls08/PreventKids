@@ -2,11 +2,12 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: 'tipos-alerta/edits/:id',
+    // El area autenticada depende de localStorage/JWT: se renderiza en el cliente.
+    path: 'app',
     renderMode: RenderMode.Client
   },
   {
-    path: 'chatia/edits/:id',
+    path: 'app/**',
     renderMode: RenderMode.Client
   },
   {
