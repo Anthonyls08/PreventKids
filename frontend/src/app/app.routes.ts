@@ -11,6 +11,9 @@ import { ChatIAActualizar } from './components/chatiacomponent/chat-ia-actualiza
 import { Districtcomponent } from './components/districtcomponent/districtcomponent';
 import { DistrictListar } from './components/districtcomponent/district-listar/district-listar';
 import { DistrictInsertar } from './components/districtcomponent/district-insertar/district-insertar';
+
+import { DitrictActualizar } from './components/districtcomponent/ditrict-actualizar/ditrict-actualizar';
+
 import { Rolecomponent } from './components/rolecomponent/rolecomponent';
 import { RoleListar } from './components/rolecomponent/role-listar/role-listar';
 import { RoleInsertar } from './components/rolecomponent/role-insertar/role-insertar';
@@ -21,6 +24,9 @@ import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipoc
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
+import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
+import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
+import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
 
 import { Landing } from './components/landing/landing';
 import { Login } from './components/auth/login/login';
@@ -97,11 +103,15 @@ export const routes: Routes = [
         children:[
             {
                 path:'listar',
-                component:DistrictListar
+                component: DistrictListar 
             },
             {
                 path:'nuevo',
-                component:DistrictInsertar
+                component: DistrictInsertar
+            },
+            {
+                path:'actualizar/:id',
+                component: DitrictActualizar 
             }
         ]
     },
@@ -119,7 +129,6 @@ export const routes: Routes = [
             }
         ]
     },
-{
     path: 'tipos-contenido',
     component: Tipocontenidocomponent,
     children:[
@@ -150,3 +159,4 @@ export const routes: Routes = [
         ]
     }
 ];
+

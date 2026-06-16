@@ -1,0 +1,45 @@
+.container {
+  max-width: 90%;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h2 {
+  color: #3f51b5; 
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+tr.mat-row:hover {
+  background-color: #f5f5f5;
+  transition: background-color 0.2s ease;
+}
+
+
+.btn-eliminar {
+  background-color: #f44336 !important;
+  color: white !important;
+  border-radius: 8px;
+  min-width: 40px;
+  transition: 0.3s;
+  border: none; 
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background-color: #d32f2f !important;
+  transform: scale(1.05);
+}
