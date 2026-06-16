@@ -29,21 +29,9 @@ export class PhysicalLimitationListar implements OnInit {
     });
   }
 
-eliminar(element: any) {
-  // Imprimimos el objeto completo para ver cómo se llama el campo del ID
-  console.log("Objeto recibido:", element); 
-  
-  // Aquí usamos el ID. Si en el log el campo se llama 'id' usa element.id
-  // Si se llama 'idPhysicalLimitation' usa element.idPhysicalLimitation
-  const id = element.idPhysicalLimitation; 
-
-  if (!id) {
-    alert("¡ERROR! El campo del ID no se llama 'idPhysicalLimitation'. Mira la consola.");
-    return;
+  eliminar(id: number) {
+    this.pS.eliminar(id).subscribe(() => {
+      this.cargar();
+    });
   }
-
-  this.pS.eliminar(id).subscribe(() => {
-    this.cargar(); // Usamos tu método cargar() original para refrescar
-  });
-}
 }

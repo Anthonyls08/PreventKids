@@ -1,0 +1,47 @@
+<div class="container">
+  <section class="videos-head">
+    <div>
+      <h2>Videos y recomendaciones</h2>
+      <p>
+        Contenido educativo sobre obesidad infantil, nutrición y actividad
+        física, reproducido con el <strong>reproductor de YouTube</strong>.
+      </p>
+    </div>
+    <mat-icon class="videos-head-icon" aria-hidden="true">smart_display</mat-icon>
+  </section>
+
+  <div class="videos-cuerpo">
+    <!-- Reproductor principal -->
+    <div class="video-player">
+      <div class="video-frame">
+        <iframe
+          [src]="urlActual()"
+          title="Reproductor de video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <h3>{{ seleccionado().titulo }}</h3>
+      <p>{{ seleccionado().descripcion }}</p>
+    </div>
+
+    <!-- Lista de videos -->
+    <aside class="videos-lista">
+      <h3>Más videos</h3>
+      @for (v of videos; track v.youtubeId) {
+        <button
+          type="button"
+          class="video-item"
+          [class.activo]="v.youtubeId === seleccionado().youtubeId"
+          (click)="seleccionar(v)">
+          <span class="video-thumb">
+            <img [src]="miniatura(v.youtubeId)" [alt]="v.titulo" />
+            <mat-icon aria-hidden="true">play_circle</mat-icon>
+          </span>
+          <span class="video-item-texto">{{ v.titulo }}</span>
+        </button>
+      }
+    </aside>
+  </div>
+</div>

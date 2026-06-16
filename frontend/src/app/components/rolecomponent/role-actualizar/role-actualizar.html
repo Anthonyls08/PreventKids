@@ -1,0 +1,34 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Actualizar Rol</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Padre de familia" formControlName="nombre" />
+        <mat-error>
+          @if (form.get('nombre')?.hasError('required')) {
+            Ingrese nombre del rol!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Descripci&oacute;n</mat-label>
+        <textarea matInput formControlName="descripcion"></textarea>
+        <mat-error>
+          @if (form.get('descripcion')?.hasError('required')) {
+            Ingrese la descripci&oacute;n!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

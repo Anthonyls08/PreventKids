@@ -1,0 +1,33 @@
+<div class="container">
+  <section class="ejer-head">
+    <div>
+      <h2>Actividad física</h2>
+      <p>
+        Ejercicios recomendados para mantener activos a los niños. Datos reales
+        de la API pública <strong>wger</strong>.
+      </p>
+    </div>
+    <mat-icon class="ejer-head-icon" aria-hidden="true">fitness_center</mat-icon>
+  </section>
+
+  @if (cargando()) {
+    <p class="ejer-msg">Cargando ejercicios...</p>
+  }
+
+  <div class="ejer-grid">
+    @for (e of ejercicios(); track $index) {
+      <article class="ejer-card">
+        <div class="ejer-img">
+          @if (e.imagen) {
+            <img [src]="e.imagen" [alt]="e.nombre" />
+          } @else {
+            <mat-icon aria-hidden="true">sports_gymnastics</mat-icon>
+          }
+        </div>
+        <span class="ejer-cat">{{ e.categoria }}</span>
+        <h3>{{ e.nombre }}</h3>
+        <p>{{ e.descripcion }}</p>
+      </article>
+    }
+  </div>
+</div>

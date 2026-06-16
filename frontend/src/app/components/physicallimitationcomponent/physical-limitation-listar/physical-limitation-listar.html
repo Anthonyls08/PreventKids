@@ -21,7 +21,7 @@
             <ng-container matColumnDef="c4">
                 <th mat-header-cell *matHeaderCellDef>Eliminar</th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button (click)="eliminar(element)" class="btn-eliminar">
+                    <button mat-icon-button (click)="eliminar(element.idPhysicalLimitation)" class="btn-eliminar">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

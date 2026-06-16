@@ -23,4 +23,12 @@ export class Roleservice {
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
+
+  listId(id: number) {
+    return this.http.get<Role>(`${this.url}/${id}`);
+  }
+
+  update(r: Role) {
+    return this.http.put(`${this.url}/actualiza`, r, { responseType: 'text' });
+  }
 }

@@ -17,13 +17,16 @@ import { DitrictActualizar } from './components/districtcomponent/ditrict-actual
 import { Rolecomponent } from './components/rolecomponent/rolecomponent';
 import { RoleListar } from './components/rolecomponent/role-listar/role-listar';
 import { RoleInsertar } from './components/rolecomponent/role-insertar/role-insertar';
+import { RoleActualizar } from './components/rolecomponent/role-actualizar/role-actualizar';
 import { Tipocontenidocomponent } from './components/tipocontenidocomponent/tipocontenidocomponent';
 import { TipocontenidoListar } from './components/tipocontenidocomponent/tipocontenido-listar/tipocontenido-listar';
 import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipocontenido-insertar/tipocontenido-insertar';
+import { TipocontenidoActualizar } from './components/tipocontenidocomponent/tipocontenido-actualizar/tipocontenido-actualizar';
 
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
+import { EspecialidadActualizar } from './components/especialidadcomponent/especialidad-actualizar/especialidad-actualizar';
 import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
 import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
 import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
@@ -34,6 +37,11 @@ import { Login } from './components/auth/login/login';
 import { Register } from './components/auth/register/register';
 import { Shell } from './components/shell/shell';
 import { authGuard } from './core/auth-guard';
+
+import { Dietacomponent } from './components/dietacomponent/dietacomponent';
+import { Ejercicioscomponent } from './components/ejercicioscomponent/ejercicioscomponent';
+import { Videoscomponent } from './components/videoscomponent/videoscomponent';
+import { Videollamadacomponent } from './components/videollamadacomponent/videollamadacomponent';
 
 export const routes: Routes = [
     {
@@ -61,6 +69,22 @@ export const routes: Routes = [
     {
         path: 'homes',
         component: Homecomponent
+    },
+    {
+        path: 'dieta',
+        component: Dietacomponent
+    },
+    {
+        path: 'ejercicios',
+        component: Ejercicioscomponent
+    },
+    {
+        path: 'videos',
+        component: Videoscomponent
+    },
+    {
+        path: 'videollamada',
+        component: Videollamadacomponent
     },
     {
         path: 'tipos-alerta',
@@ -127,6 +151,10 @@ export const routes: Routes = [
             {
                 path:'nuevo',
                 component:RoleInsertar
+            },
+            {
+                path:'edits/:id',
+                component:RoleActualizar
             }
         ]
     },
@@ -141,6 +169,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: TipocontenidoInsertar
+        },
+        {
+            path:'edits/:id',
+            component: TipocontenidoActualizar
         }
     ]
 },
@@ -155,6 +187,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: EspecialidadInsertar
+        },
+        {
+            path:'edits/:id',
+            component: EspecialidadActualizar
         }
     ]
 },

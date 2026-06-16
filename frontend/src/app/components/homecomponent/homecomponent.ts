@@ -10,6 +10,37 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Homecomponent {
+  readonly destacados = [
+    {
+      icono: 'restaurant',
+      titulo: 'Control de dieta',
+      texto: 'Busca alimentos y controla calorías y azúcar de tu día.',
+      link: '/app/dieta',
+      color: '#2e7d32',
+    },
+    {
+      icono: 'fitness_center',
+      titulo: 'Actividad física',
+      texto: 'Ejercicios recomendados para mantener activos a los niños.',
+      link: '/app/ejercicios',
+      color: '#ff8f00',
+    },
+    {
+      icono: 'smart_display',
+      titulo: 'Videos educativos',
+      texto: 'Contenido sobre obesidad, nutrición y hábitos saludables.',
+      link: '/app/videos',
+      color: '#e53935',
+    },
+    {
+      icono: 'video_camera_front',
+      titulo: 'Videollamada',
+      texto: 'Consulta en línea con un especialista de la salud.',
+      link: '/app/videollamada',
+      color: '#00897b',
+    },
+  ];
+
   readonly accesos = [
     {
       icono: 'warning',

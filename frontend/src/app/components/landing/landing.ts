@@ -50,6 +50,41 @@ export class Landing {
     },
   ];
 
+  readonly funciones = [
+    {
+      titulo: 'Control de dieta',
+      texto:
+        'Busca cualquier alimento y conoce sus calorias, azucar y grasa con datos reales de Open Food Facts.',
+      imagen:
+        'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=70',
+      color: '#2e7d32',
+    },
+    {
+      titulo: 'Actividad fisica',
+      texto:
+        'Rutinas y ejercicios recomendados desde la API wger para mantener a los ninos en movimiento.',
+      imagen:
+        'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=70',
+      color: '#ff8f00',
+    },
+    {
+      titulo: 'Videos educativos',
+      texto:
+        'Biblioteca de videos sobre obesidad infantil, nutricion y habitos saludables.',
+      imagen:
+        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=70',
+      color: '#e53935',
+    },
+    {
+      titulo: 'Consulta por videollamada',
+      texto:
+        'Conecta con especialistas en una videollamada segura, sin instalar nada.',
+      imagen:
+        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=70',
+      color: '#00897b',
+    },
+  ];
+
   readonly pasos = [
     {
       numero: '1',

@@ -1,0 +1,97 @@
+<div class="container">
+  <section class="dieta-head">
+    <div>
+      <h2>Control de dieta</h2>
+      <p>
+        Busca un alimento y agrégalo a tu día para controlar las calorías y el
+        azúcar. Datos reales de la API pública <strong>Open Food Facts</strong>.
+      </p>
+    </div>
+    <mat-icon class="dieta-head-icon" aria-hidden="true">restaurant</mat-icon>
+  </section>
+
+  <form class="dieta-buscador" (submit)="buscar(); $event.preventDefault()">
+    <mat-form-field class="dieta-input" appearance="outline">
+      <mat-label>Buscar alimento</mat-label>
+      <input
+        matInput
+        [ngModel]="termino()"
+        (ngModelChange)="termino.set($event)"
+        name="termino"
+        placeholder="Ej: yogurt, manzana, cereal" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>search</mat-icon> Buscar
+    </button>
+  </form>
+
+  <div class="dieta-cuerpo">
+    <!-- Resultados de la API -->
+    <div class="dieta-resultados">
+      @if (cargando()) {
+        <p class="dieta-msg">Buscando alimentos...</p>
+      } @else if (buscado() && resultados().length === 0) {
+        <p class="dieta-msg">No se encontraron alimentos. Prueba otro término.</p>
+      }
+
+      <div class="alimentos-grid">
+        @for (a of resultados(); track $index) {
+          <article class="alimento-card">
+            <div class="alimento-img">
+              @if (a.imagen) {
+                <img [src]="a.imagen" [alt]="a.nombre" />
+              } @else {
+                <mat-icon aria-hidden="true">lunch_dining</mat-icon>
+              }
+              <span
+                class="nutriscore"
+                [style.background-color]="colorNutriscore(a.nutriscore)">
+                {{ a.nutriscore.toUpperCase() }}
+              </span>
+            </div>
+            <h3>{{ a.nombre }}</h3>
+            <span class="alimento-marca">{{ a.marca }}</span>
+            <ul class="alimento-datos">
+              <li><strong>{{ a.calorias }}</strong> kcal</li>
+              <li>Azúcar: {{ a.azucar }} g</li>
+              <li>Grasa: {{ a.grasa }} g</li>
+              <li>Proteína: {{ a.proteina }} g</li>
+            </ul>
+            <button mat-stroked-button color="primary" (click)="agregar(a)">
+              <mat-icon>add</mat-icon> Agregar a mi día
+            </button>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- Mi día (lo que ingresa el usuario) -->
+    <aside class="dieta-midia">
+      <h3>Mi día</h3>
+      <div class="midia-total">
+        <span class="midia-kcal">{{ totalCalorias() }}</span>
+        <span class="midia-kcal-label">kcal totales</span>
+        <span class="midia-azucar">Azúcar: {{ totalAzucar() }} g</span>
+      </div>
+
+      @if (miDia().length === 0) {
+        <p class="dieta-msg">Aún no agregas alimentos a tu día.</p>
+      }
+
+      <ul class="midia-lista">
+        @for (a of miDia(); track $index) {
+          <li>
+            <span class="midia-nombre">{{ a.nombre }}</span>
+            <span class="midia-cal">{{ a.calorias }} kcal</span>
+            <button
+              mat-icon-button
+              aria-label="Quitar"
+              (click)="quitar($index)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </li>
+        }
+      </ul>
+    </aside>
+  </div>
+</div>

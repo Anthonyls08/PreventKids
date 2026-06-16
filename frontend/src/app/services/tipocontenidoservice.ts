@@ -27,4 +27,12 @@ export class Tipocontenidoservice {
       responseType: 'text',
     });
   }
+
+  listId(id: number) {
+    return this.http.get<TipoContenido>(`${this.url}/${id}`);
+  }
+
+  update(t: TipoContenido) {
+    return this.http.put(`${this.url}/${t.idTipocontenido}`, t, { responseType: 'text' });
+  }
 }

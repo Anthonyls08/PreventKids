@@ -1,0 +1,43 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%">
+    <h2>Actualizar Especialidad</h2>
+  </div>
+
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="descripcion" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Área</mat-label>
+        <input matInput formControlName="area" />
+      </mat-form-field>
+      <br />
+
+      <mat-checkbox formControlName="atencionvirtual">Atención Virtual</mat-checkbox>
+      <br />
+      <br />
+
+      <div>
+        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
