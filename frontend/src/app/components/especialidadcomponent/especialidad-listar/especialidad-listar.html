@@ -5,46 +5,33 @@
 
     <ng-container matColumnDef="c1">
       <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.idSpecialty }}
-      </td>
+      <td mat-cell *matCellDef="let element">{{ element.idSpecialty }}</td>
     </ng-container>
 
     <ng-container matColumnDef="c2">
       <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.nombre }}
-      </td>
+      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
     </ng-container>
 
     <ng-container matColumnDef="c3">
       <th mat-header-cell *matHeaderCellDef>Descripción</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.descripcion }}
-      </td>
+      <td mat-cell *matCellDef="let element">{{ element.descripcion }}</td>
     </ng-container>
 
     <ng-container matColumnDef="c4">
       <th mat-header-cell *matHeaderCellDef>Área</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.area }}
-      </td>
+      <td mat-cell *matCellDef="let element">{{ element.area }}</td>
     </ng-container>
 
     <ng-container matColumnDef="c5">
       <th mat-header-cell *matHeaderCellDef>Atención Virtual</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.atencionvirtual }}
-      </td>
+      <td mat-cell *matCellDef="let element">{{ element.atencionvirtual }}</td>
     </ng-container>
 
     <ng-container matColumnDef="c6">
       <th mat-header-cell *matHeaderCellDef>Editar</th>
       <td mat-cell *matCellDef="let element">
-        <button
-          matButton
-          [routerLink]="['/app/specialties/edits', element.idSpecialty]"
-        >
+        <button matButton [routerLink]="['/app/specialties/edits', element.idSpecialty]" class="btn-editar">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
@@ -53,21 +40,8 @@
     <ng-container matColumnDef="c7">
       <th mat-header-cell *matHeaderCellDef>Eliminar</th>
       <td mat-cell *matCellDef="let element">
-        <button
-          matButton
-          (click)="eliminar(element.idSpecialty)"
-          class="btn-eliminar"
-        >
+        <button matButton (click)="eliminar(element.idSpecialty)" class="btn-eliminar">
           <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="c7">
-      <th mat-header-cell *matHeaderCellDef>Actualizar</th>
-      <td mat-cell *matCellDef="let element">
-        <button matButton [routerLink]="['/app/specialties/edits', element.idSpecialty]" class="btn-eliminar">
-          <mat-icon>edit</mat-icon>
         </button>
       </td>
     </ng-container>

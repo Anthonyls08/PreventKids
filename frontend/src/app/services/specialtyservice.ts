@@ -26,23 +26,10 @@ export class Specialtyservice {
   }
 
   update(s: Specialty) {
-    return this.http.put(`${this.url}/actualiza`, s, {
-      responseType: 'text',
-    });
+    return this.http.put(`${this.url}/actualiza`, s, { responseType: 'text' });
   }
 
   eliminar(id: number) {
-    return this.http.delete(`${this.url}/${id}`, {
-      responseType: 'text',
-
-    });
-  }
-
-  listId(id: number) {
-    return this.http.get<Specialty>(`${this.url}/${id}`);
-  }
-
-  update(s: Specialty) {
-    return this.http.put(`${this.url}/actualiza`, s, { responseType: 'text' });
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 }
