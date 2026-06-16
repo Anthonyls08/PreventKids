@@ -20,6 +20,7 @@ import { RoleInsertar } from './components/rolecomponent/role-insertar/role-inse
 import { Tipocontenidocomponent } from './components/tipocontenidocomponent/tipocontenidocomponent';
 import { TipocontenidoListar } from './components/tipocontenidocomponent/tipocontenido-listar/tipocontenido-listar';
 import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipocontenido-insertar/tipocontenido-insertar';
+import { TipocontenidoActualizar } from './components/tipocontenidocomponent/tipocontenido-actualizar/tipocontenido-actualizar';
 
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
@@ -142,6 +143,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: TipocontenidoInsertar
+        },
+        {
+            path:'edits/:id',
+            component: TipocontenidoActualizar
         }
     ]
 },
