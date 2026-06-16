@@ -53,5 +53,12 @@ export class Homecomponent {
       link: '/app/tipos-contenido/listar',
       color: '#3949ab',
     },
+    {
+      icono: 'accessibility_new',
+      titulo: 'Limitacion fisica',
+      texto: 'Registra limitaciones fisicas y ejercicios a evitar.',
+      link: '/app/limitacion-fisica/listar',
+      color: '#6d4c41',
+    },
   ];
 }

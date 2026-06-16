@@ -27,6 +27,7 @@ import { EspecialidadInsertar } from './components/especialidadcomponent/especia
 import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
 import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
 import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
+import { PhysicalLimitationActualizar } from './components/physicallimitationcomponent/physical-limitation-actualizar/physical-limitation-actualizar';
 
 import { Landing } from './components/landing/landing';
 import { Login } from './components/auth/login/login';
@@ -129,6 +130,7 @@ export const routes: Routes = [
             }
         ]
     },
+    {
     path: 'tipos-contenido',
     component: Tipocontenidocomponent,
     children:[
@@ -153,6 +155,24 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: EspecialidadInsertar
+        }
+    ]
+},
+{
+    path: 'limitacion-fisica',
+    component: Physicallimitationcomponent,
+    children:[
+        {
+            path:'listar',
+            component: PhysicalLimitationListar
+        },
+        {
+            path:'nuevo',
+            component: PhysicalLimitationInsertar
+        },
+        {
+            path:'edits/:id',
+            component: PhysicalLimitationActualizar
         }
     ]
 }

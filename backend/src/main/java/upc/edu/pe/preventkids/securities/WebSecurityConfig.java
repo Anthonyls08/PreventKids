@@ -72,6 +72,7 @@ public class WebSecurityConfig {
                                 "/distritos/**",
                                 "/tipos-contenido/**",
                                 "/specialties/**",
+                                "/LimitacionFisica/**",
                                 "/roles/**")
                         .permitAll()
                 )

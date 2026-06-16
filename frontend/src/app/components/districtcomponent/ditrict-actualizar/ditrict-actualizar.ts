@@ -71,7 +71,7 @@ displayedColumns: any;
       this.aut.ubigeo=this.form.value.ubigeo,
       this.dS.update(this.aut).subscribe({
         next: () => {
-          this.router.navigate(['/distrito/listar']);
+          this.router.navigate(['/app/district/listar']);
         },
       });
     }

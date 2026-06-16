@@ -25,4 +25,11 @@ export class PhysicalLimitationService {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 
+  listId(id: number) {
+    return this.http.get<PhysicalLimitation>(`${this.url}/${id}`);
+  }
+
+  update(p: PhysicalLimitation) {
+    return this.http.put(`${this.url}/actualiza`, p, { responseType: 'text' });
+  }
 }

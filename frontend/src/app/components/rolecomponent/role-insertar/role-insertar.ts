@@ -39,7 +39,7 @@ export class RoleInsertar implements OnInit {
       this.role.descripcion = this.form.value.descripcion;
       this.rS.insert(this.role).subscribe({
         next: () => {
-          this.router.navigate(['/roles/listar']);
+          this.router.navigate(['/app/roles/listar']);
         },
         error: (e) => {
           console.error('Error al registrar el rol', e);

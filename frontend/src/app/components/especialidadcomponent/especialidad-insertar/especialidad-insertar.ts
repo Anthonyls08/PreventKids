@@ -48,7 +48,7 @@ export class EspecialidadInsertar implements OnInit {
 
       this.sS.insert(this.specialty).subscribe({
         next: () => {
-          this.router.navigate(['/specialties/listar']);
+          this.router.navigate(['/app/specialties/listar']);
         },
         error: (e) => {
           console.error('Error al registrar la especialidad', e);

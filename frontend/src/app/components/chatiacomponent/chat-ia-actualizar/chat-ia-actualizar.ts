@@ -46,7 +46,7 @@ export class ChatIAActualizar implements OnInit {
       this.chat.respuesta = this.form.value.respuesta;
       this.cS.update(this.chat).subscribe({
         next: () => {
-          this.router.navigate(['/chatia/listar']);
+          this.router.navigate(['/app/chatia/listar']);
         },
       });
     }
