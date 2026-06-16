@@ -22,7 +22,30 @@ import { Especialidadcomponent } from './components/especialidadcomponent/especi
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
 
+import { Landing } from './components/landing/landing';
+import { Login } from './components/auth/login/login';
+import { Register } from './components/auth/register/register';
+import { Shell } from './components/shell/shell';
+import { authGuard } from './core/auth-guard';
+
 export const routes: Routes = [
+    {
+        path: '',
+        component: Landing
+    },
+    {
+        path: 'login',
+        component: Login
+    },
+    {
+        path: 'register',
+        component: Register
+    },
+    {
+        path: 'app',
+        component: Shell,
+        canActivate: [authGuard],
+        children: [
     {
         path: '',
         redirectTo: 'homes',
@@ -124,4 +147,6 @@ export const routes: Routes = [
         }
     ]
 }
+        ]
+    }
 ];

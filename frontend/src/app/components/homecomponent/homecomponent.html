@@ -1,3 +1,22 @@
 <div class="container">
-    <p>PreventKids - Arquitectura de aplicaciones web</p>
+  <section class="home-hero">
+    <div>
+      <h2>Bienvenido a PreventKids</h2>
+      <p>Panel de gestion para la prevencion de la obesidad infantil. Selecciona un modulo para comenzar.</p>
+    </div>
+    <mat-icon class="home-hero-icon" aria-hidden="true">health_and_safety</mat-icon>
+  </section>
+
+  <section class="accesos-grid">
+    @for (a of accesos; track a.titulo) {
+      <a class="acceso-card" [routerLink]="a.link">
+        <span class="acceso-icon" [style.background-color]="a.color">
+          <mat-icon aria-hidden="true">{{ a.icono }}</mat-icon>
+        </span>
+        <h3>{{ a.titulo }}</h3>
+        <p>{{ a.texto }}</p>
+        <span class="acceso-link">Abrir <mat-icon aria-hidden="true">arrow_forward</mat-icon></span>
+      </a>
+    }
+  </section>
 </div>

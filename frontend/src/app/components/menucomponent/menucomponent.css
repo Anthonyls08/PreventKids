@@ -12,6 +12,28 @@
   z-index: 100;
 }
 
+/* --- Marca / logo --- */
+.menu-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-decoration: none;
+  padding: 0 10px;
+  margin-right: 6px;
+}
+
+/* --- Empuja el boton de salir a la derecha --- */
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+.btn-logout {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
 /* --- Botón principal --- */
 .btn-rojo {
   background-color: transparent;
