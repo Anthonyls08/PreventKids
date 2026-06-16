@@ -20,10 +20,12 @@ import { RoleInsertar } from './components/rolecomponent/role-insertar/role-inse
 import { Tipocontenidocomponent } from './components/tipocontenidocomponent/tipocontenidocomponent';
 import { TipocontenidoListar } from './components/tipocontenidocomponent/tipocontenido-listar/tipocontenido-listar';
 import { TipocontenidoInsertar } from './components/tipocontenidocomponent/tipocontenido-insertar/tipocontenido-insertar';
+import { TipocontenidoActualizar } from './components/tipocontenidocomponent/tipocontenido-actualizar/tipocontenido-actualizar';
 
 import { Especialidadcomponent } from './components/especialidadcomponent/especialidadcomponent';
 import { EspecialidadListar } from './components/especialidadcomponent/especialidad-listar/especialidad-listar';
 import { EspecialidadInsertar } from './components/especialidadcomponent/especialidad-insertar/especialidad-insertar';
+import { EspecialidadActualizar } from './components/especialidadcomponent/especialidad-actualizar/especialidad-actualizar';
 import { Physicallimitationcomponent } from './components/physicallimitationcomponent/physicallimitationcomponent';
 import { PhysicalLimitationListar } from './components/physicallimitationcomponent/physical-limitation-listar/physical-limitation-listar';
 import { PhysicalLimitationInsertar } from './components/physicallimitationcomponent/physical-limitation-insertar/physical-limitation-insertar';
@@ -141,6 +143,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: TipocontenidoInsertar
+        },
+        {
+            path:'edits/:id',
+            component: TipocontenidoActualizar
         }
     ]
 },
@@ -155,6 +161,10 @@ export const routes: Routes = [
         {
             path:'nuevo',
             component: EspecialidadInsertar
+        },
+        {
+             path:'edits/:id',
+            component: EspecialidadActualizar
         }
     ]
 },

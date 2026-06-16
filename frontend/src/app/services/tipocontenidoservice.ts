@@ -22,6 +22,16 @@ export class Tipocontenidoservice {
     return this.http.post(`${this.url}/insertar`, t);
   }
 
+  listId(id: number) {
+    return this.http.get<TipoContenido>(`${this.url}/${id}`);
+  }
+
+  update(id: number, t: TipoContenido) {
+    return this.http.put(`${this.url}/${id}`, t, {
+      responseType: 'text',
+    });
+  }
+
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, {
       responseType: 'text',

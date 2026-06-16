@@ -9,7 +9,6 @@ const base_url = environment.base;
   providedIn: 'root',
 })
 export class Specialtyservice {
-
   private url = `${base_url}/specialties`;
 
   constructor(private http: HttpClient) {}
@@ -22,10 +21,19 @@ export class Specialtyservice {
     return this.http.post(`${this.url}/web`, s);
   }
 
+  listId(id: number) {
+    return this.http.get<Specialty>(`${this.url}/${id}`);
+  }
+
+  update(s: Specialty) {
+    return this.http.put(`${this.url}/actualiza`, s, {
+      responseType: 'text',
+    });
+  }
+
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, {
       responseType: 'text',
-    
     });
   }
 }
