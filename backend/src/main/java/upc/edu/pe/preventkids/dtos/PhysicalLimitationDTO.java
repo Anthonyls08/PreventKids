@@ -1,9 +1,18 @@
 package upc.edu.pe.preventkids.dtos;
 
 public class PhysicalLimitationDTO {
+    private int idPhysicalLimitation;
     private String nameLimitation;
     private String descriptionLimitation;
     private String categoryLimitation;
+
+    public int getIdPhysicalLimitation() {
+        return idPhysicalLimitation;
+    }
+
+    public void setIdPhysicalLimitation(int idPhysicalLimitation) {
+        this.idPhysicalLimitation = idPhysicalLimitation;
+    }
 
     public String getNameLimitation() {
         return nameLimitation;

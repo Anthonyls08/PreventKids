@@ -37,7 +37,7 @@ export class ChatIAInsertar implements OnInit {
       this.chat.respuesta = this.form.value.respuesta;
       this.cS.insert(this.chat).subscribe({
         next: () => {
-          this.router.navigate(['/chatia/listar']);
+          this.router.navigate(['/app/chatia/listar']);
         },
       });
     }

@@ -65,7 +65,7 @@ export class TipoAlertaActualizar implements OnInit {
       this.tipo.mensaje = this.form.value.mensaje;
       this.tS.update(this.tipo).subscribe({
         next: () => {
-          this.router.navigate(['/tipos-alerta/listar']);
+          this.router.navigate(['/app/tipos-alerta/listar']);
         },
       });
     }

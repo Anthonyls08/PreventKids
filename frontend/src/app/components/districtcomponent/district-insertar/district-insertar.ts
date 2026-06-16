@@ -41,7 +41,7 @@ export class DistrictInsertar implements OnInit{
       this.district.ubigeo = this.form.value.ubigeo;
       this.dS.insert(this.district).subscribe({
         next: () => {
-          this.router.navigate(['/district/listar'])
+          this.router.navigate(['/app/district/listar'])
         }
       })
     }

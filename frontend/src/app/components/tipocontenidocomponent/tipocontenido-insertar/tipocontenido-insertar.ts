@@ -48,7 +48,7 @@ export class TipocontenidoInsertar implements OnInit {
     this.tcS.insert(this.tipoContenido).subscribe({
       next: () => {
         alert('Registrado');
-        this.router.navigate(['/tipos-contenido/listar']);
+        this.router.navigate(['/app/tipos-contenido/listar']);
       },
       error: (err) => {
         console.log(err);
