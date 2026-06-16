@@ -1,9 +1,20 @@
 package upc.edu.pe.preventkids.dtos;
 
 public class TipoContenidoDTO {
+
+    private int idTipocontenido;
     private String nombre;
     private String descripcion;
     private int duracion;
+
+    public int getIdTipocontenido() {
+        return idTipocontenido;
+    }
+
+    public void setIdTipocontenido(int idTipocontenido) {
+        this.idTipocontenido = idTipocontenido;
+    }
+
     public String getNombre() {
         return nombre;
     }

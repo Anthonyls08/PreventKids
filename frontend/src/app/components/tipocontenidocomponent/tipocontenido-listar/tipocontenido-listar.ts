@@ -13,6 +13,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './tipocontenido-listar.css',
 })
 export class TipocontenidoListar implements OnInit {
+  dataSource: MatTableDataSource<TipoContenido> =
+    new MatTableDataSource();
 
   dataSource: MatTableDataSource<TipoContenido> = new MatTableDataSource();
 
@@ -22,15 +24,15 @@ export class TipocontenidoListar implements OnInit {
 
   ngOnInit(): void {
     this.cargarTiposContenido();
-  }
+  } 
 
   cargarTiposContenido() {
-    this.tcS.list().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-    });
-  }
+  this.tcS.list().subscribe(data => {
+    console.log(data);
+    console.log(data[0]);
+    this.dataSource.data = data;
+  });
+}
 
   eliminar(id: number) {
     this.tcS.eliminar(id).subscribe(() => {
