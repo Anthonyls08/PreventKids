@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +9,6 @@ import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
 
 @Component({
   selector: 'app-tipocontenido-actualizar',
-  standalone: true,
   imports: [
     MatInputModule,
     MatButtonModule,
@@ -32,20 +26,20 @@ export class TipocontenidoActualizar implements OnInit {
     private tcS: Tipocontenidoservice,
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       codigo: [''],
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       duracion: ['', Validators.required],
+    });
+
+    this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this.init();
     });
   }
 
@@ -55,17 +49,19 @@ export class TipocontenidoActualizar implements OnInit {
       this.tipoContenido.nombre = this.form.value.nombre;
       this.tipoContenido.descripcion = this.form.value.descripcion;
       this.tipoContenido.duracion = this.form.value.duracion;
-
-      this.tcS.update(this.id, this.tipoContenido).subscribe({
+      this.tcS.update(this.tipoContenido).subscribe({
         next: () => {
           this.router.navigate(['/app/tipos-contenido/listar']);
+        },
+        error: (e) => {
+          console.error('Error al actualizar el tipo de contenido', e);
         },
       });
     }
   }
 
   init() {
-    this.tcS.listId(this.id).subscribe((data: TipoContenido) => {
+    this.tcS.listId(this.id).subscribe((data) => {
       this.form.patchValue({
         codigo: data.idTipocontenido,
         nombre: data.nombre,

@@ -1,0 +1,50 @@
+<div class="container">
+  <section class="vc-head">
+    <div>
+      <h2>Consulta por videollamada</h2>
+      <p>
+        Conéctate con un especialista en una sala segura. Videollamada real con
+        <strong>Jitsi Meet</strong> (sin instalar nada ni crear cuenta).
+      </p>
+    </div>
+    <mat-icon class="vc-head-icon" aria-hidden="true">video_camera_front</mat-icon>
+  </section>
+
+  @if (!enLlamada()) {
+    <div class="vc-sala-form">
+      <mat-icon class="vc-sala-icon" aria-hidden="true">groups</mat-icon>
+      <h3>Crea o únete a una sala</h3>
+      <p>Comparte el nombre de la sala con la otra persona para reunirse en la misma videollamada.</p>
+
+      <mat-form-field appearance="outline" class="vc-input">
+        <mat-label>Nombre de la sala</mat-label>
+        <input
+          matInput
+          [ngModel]="sala()"
+          (ngModelChange)="sala.set($event)"
+          name="sala"
+          placeholder="PreventKids-Consulta" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="iniciar()">
+        <mat-icon>videocam</mat-icon> Entrar a la videollamada
+      </button>
+    </div>
+  } @else {
+    <div class="vc-llamada">
+      <div class="vc-barra">
+        <span><mat-icon aria-hidden="true">fiber_manual_record</mat-icon> Sala: {{ sala() }}</span>
+        <button mat-stroked-button color="warn" (click)="salir()">
+          <mat-icon>call_end</mat-icon> Salir
+        </button>
+      </div>
+      <div class="vc-frame">
+        <iframe
+          [src]="urlSala()"
+          title="Videollamada"
+          allow="camera; microphone; fullscreen; display-capture; autoplay">
+        </iframe>
+      </div>
+    </div>
+  }
+</div>

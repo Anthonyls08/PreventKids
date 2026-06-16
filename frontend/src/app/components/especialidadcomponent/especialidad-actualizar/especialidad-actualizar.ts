@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { Specialty } from '../../../models/Specialty';
 import { Specialtyservice } from '../../../services/specialtyservice';
@@ -17,6 +13,7 @@ import { Specialtyservice } from '../../../services/specialtyservice';
   imports: [
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
   ],
   templateUrl: './especialidad-actualizar.html',
@@ -31,21 +28,21 @@ export class EspecialidadActualizar implements OnInit {
     private sS: Specialtyservice,
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       codigo: [''],
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       area: ['', Validators.required],
-      atencionvirtual: ['', Validators.required],
+      atencionvirtual: [false],
+    });
+
+    this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this.init();
     });
   }
 
@@ -56,24 +53,26 @@ export class EspecialidadActualizar implements OnInit {
       this.specialty.descripcion = this.form.value.descripcion;
       this.specialty.area = this.form.value.area;
       this.specialty.atencionvirtual = this.form.value.atencionvirtual;
-
       this.sS.update(this.specialty).subscribe({
         next: () => {
           this.router.navigate(['/app/specialties/listar']);
+        },
+        error: (e) => {
+          console.error('Error al actualizar la especialidad', e);
         },
       });
     }
   }
 
-    init() {
-      this.sS.listId(this.id).subscribe((data: Specialty) => {
+  init() {
+    this.sS.listId(this.id).subscribe((data) => {
       this.form.patchValue({
-      codigo: data.idSpecialty,
-      nombre: data.nombre,
-      descripcion: data.descripcion,
-      area: data.area,
-      atencionvirtual: data.atencionvirtual,
+        codigo: data.idSpecialty,
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        area: data.area,
+        atencionvirtual: data.atencionvirtual,
+      });
     });
-  });
-}
+  }
 }

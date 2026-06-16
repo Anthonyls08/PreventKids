@@ -1,0 +1,95 @@
+.ejer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.ejer-head p {
+  color: #5a5a5a;
+  max-width: 620px;
+  margin: 6px 0 0;
+}
+
+.ejer-head-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: var(--pk-accent);
+  flex-shrink: 0;
+}
+
+.ejer-msg {
+  color: #888;
+}
+
+.ejer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.ejer-card {
+  border: 1px solid #e6ece8;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ejer-card:hover {
+  box-shadow: 0 8px 22px rgba(46, 125, 50, 0.12);
+  transform: translateY(-3px);
+}
+
+.ejer-img {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ejer-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.ejer-img mat-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: #b7c9bd;
+}
+
+.ejer-cat {
+  align-self: flex-start;
+  background: var(--pk-secondary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ejer-card h3 {
+  margin: 2px 0 0;
+  font-size: 1.05rem;
+  color: var(--pk-primary-dark);
+}
+
+.ejer-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.4;
+}

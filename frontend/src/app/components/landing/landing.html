@@ -7,6 +7,7 @@
 
     <nav class="landing-links" aria-label="Secciones">
       <a href="#servicios">Servicios</a>
+      <a href="#funcionalidades">Funcionalidades</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#contacto">Contacto</a>
@@ -34,8 +35,15 @@
         <a matButton="outlined" href="#como-funciona">Ver como funciona</a>
       </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <mat-icon>directions_run</mat-icon>
+    <div class="hero-art">
+      <img
+        class="hero-img"
+        src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=760&q=70"
+        alt="Ninos jugando y haciendo actividad fisica al aire libre" />
+      <span class="hero-art-badge">
+        <mat-icon aria-hidden="true">favorite</mat-icon>
+        Salud en familia
+      </span>
     </div>
   </section>
 
@@ -59,6 +67,26 @@
           <mat-icon class="servicio-icon" aria-hidden="true">{{ s.icono }}</mat-icon>
           <h3>{{ s.titulo }}</h3>
           <p>{{ s.texto }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="seccion" id="funcionalidades">
+    <div class="seccion-head">
+      <h2>Una app completa contra la obesidad infantil</h2>
+      <p>Herramientas reales conectadas a APIs para prevenir y combatir el sobrepeso.</p>
+    </div>
+    <div class="funciones-grid">
+      @for (f of funciones; track f.titulo) {
+        <article class="funcion-card">
+          <div class="funcion-img" [style.background-color]="f.color">
+            <img [src]="f.imagen" [alt]="f.titulo" loading="lazy" />
+          </div>
+          <div class="funcion-texto">
+            <h3 [style.color]="f.color">{{ f.titulo }}</h3>
+            <p>{{ f.texto }}</p>
+          </div>
         </article>
       }
     </div>

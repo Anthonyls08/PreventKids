@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #fb0800;
+  color: #2e7d32;
 }
 
 .reco-header h3 {
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fb0800 0%, #ff6f61 100%);
+  background: linear-gradient(135deg, #2e7d32 0%, #00897b 100%);
 }
 
 .reco-img-placeholder mat-icon {
@@ -117,6 +117,6 @@
 }
 
 .reco-punto.activo {
-  background: #fb0800;
+  background: #2e7d32;
   transform: scale(1.25);
 }

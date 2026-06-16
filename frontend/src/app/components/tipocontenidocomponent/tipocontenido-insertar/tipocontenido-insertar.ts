@@ -36,25 +36,19 @@ export class TipocontenidoInsertar implements OnInit {
     });
   }
   aceptar() {
-  alert("Entré a aceptar");
+    if (this.form.valid) {
+      this.tipoContenido.nombre = this.form.value.nombre;
+      this.tipoContenido.descripcion = this.form.value.descripcion;
+      this.tipoContenido.duracion = this.form.value.duracion;
 
-  if (this.form.valid) {
-    alert('Formulario válido');
-
-    this.tipoContenido.nombre = this.form.value.nombre;
-    this.tipoContenido.descripcion = this.form.value.descripcion;
-    this.tipoContenido.duracion = this.form.value.duracion;
-
-    this.tcS.insert(this.tipoContenido).subscribe({
-      next: () => {
-        alert('Registrado');
-        this.router.navigate(['/app/tipos-contenido/listar']);
-      },
-      error: (err) => {
-        console.log(err);
-        alert('Error');
-      }
-    });
+      this.tcS.insert(this.tipoContenido).subscribe({
+        next: () => {
+          this.router.navigate(['/app/tipos-contenido/listar']);
+        },
+        error: (e) => {
+          console.error('Error al registrar el tipo de contenido', e);
+        },
+      });
+    }
   }
-}
 }

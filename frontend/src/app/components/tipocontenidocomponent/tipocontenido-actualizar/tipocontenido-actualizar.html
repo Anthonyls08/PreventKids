@@ -7,54 +7,32 @@
     <form [formGroup]="form" (submit)="aceptar()">
 
       <mat-form-field class="example-full-width">
-        <mat-label>ID</mat-label>
-        <input matInput formControlName="codigo" readonly />
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" />
-
-        <mat-error>
-          @if (form.get('nombre')?.hasError('required')) {
-            Ingrese el nombre
-          }
-        </mat-error>
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Descripción</mat-label>
-        <textarea matInput formControlName="descripcion"></textarea>
-
-        <mat-error>
-          @if (form.get('descripcion')?.hasError('required')) {
-            Ingrese la descripción
-          }
-        </mat-error>
+        <input matInput formControlName="descripcion" />
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Duración</mat-label>
         <input matInput type="number" formControlName="duracion" />
-
-        <mat-error>
-          @if (form.get('duracion')?.hasError('required')) {
-            Ingrese la duración
-          }
-        </mat-error>
       </mat-form-field>
-
       <br />
 
-      <button matButton="elevated">
-        Actualizar
-      </button>
+      <div>
+        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      </div>
 
     </form>
   </div>

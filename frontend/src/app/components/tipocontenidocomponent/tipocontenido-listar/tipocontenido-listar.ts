@@ -8,18 +8,15 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tipocontenido-listar',
-  imports: [
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    RouterLink,
-  ],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './tipocontenido-listar.html',
   styleUrl: './tipocontenido-listar.css',
 })
 export class TipocontenidoListar implements OnInit {
   dataSource: MatTableDataSource<TipoContenido> =
     new MatTableDataSource();
+
+  dataSource: MatTableDataSource<TipoContenido> = new MatTableDataSource();
 
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'];
 

@@ -7,43 +7,36 @@
     <form [formGroup]="form" (submit)="aceptar()">
 
       <mat-form-field class="example-full-width">
-        <mat-label>ID</mat-label>
-        <input matInput formControlName="codigo" readonly />
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" />
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Descripción</mat-label>
         <input matInput formControlName="descripcion" />
       </mat-form-field>
-
       <br />
 
       <mat-form-field class="example-full-width">
         <mat-label>Área</mat-label>
         <input matInput formControlName="area" />
       </mat-form-field>
-
       <br />
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Atención Virtual</mat-label>
-        <input matInput formControlName="atencionvirtual" />
-      </mat-form-field>
-
+      <mat-checkbox formControlName="atencionvirtual">Atención Virtual</mat-checkbox>
+      <br />
       <br />
 
-      <button matButton="elevated">
-        Actualizar
-      </button>
+      <div>
+        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      </div>
 
     </form>
   </div>
