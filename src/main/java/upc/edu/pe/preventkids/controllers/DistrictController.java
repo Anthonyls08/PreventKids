@@ -63,15 +63,15 @@ public class DistrictController {
     }
 
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> actualizar(@PathVariable int id, @RequestBody DistrictInsertDTO dto) {
-
-        Optional<District> existente = dS.listId(id);
+    @PutMapping("/actualiza")
+    public ResponseEntity<String> actualizar(@RequestBody District dto) {
+        Optional<District> existente = dS.listId(dto.getIdDistrict());
 
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Distrito no encontrado");
         }
-        if (dto.getNameDistrict() == null || dto.getNameDistrict().isEmpty()) {
+
+        if (dto.getNameDistrict() == null || dto.getNameDistrict().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El nombre del distrito es obligatorio");
         }
 
@@ -81,7 +81,6 @@ public class DistrictController {
         d.setNameDepartment(dto.getNameDepartment());
         d.setUbigeo(dto.getUbigeo());
         d.setZone(dto.getZone());
-
         dS.update(d);
 
         return ResponseEntity.ok("Distrito actualizado correctamente");
