@@ -1,0 +1,68 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%">
+    <h2>Actualizar Limitación Física</h2>
+  </div>
+
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" placeholder="Ej. Asma">
+        <mat-error>
+          @if (form.get('nombre')?.hasError('required')) {
+            Ingrese el nombre!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion" placeholder="Descripción breve"></textarea>
+        <mat-error>
+          @if (form.get('descripcion')?.hasError('required')) {
+            Ingrese la descripción!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Categoría</mat-label>
+        <input matInput formControlName="categoria" placeholder="Ej. Respiratoria">
+        <mat-error>
+          @if (form.get('categoria')?.hasError('required')) {
+            Ingrese la categoría!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Ejercicios Prohibidos</mat-label>
+        <textarea matInput formControlName="ejerciciosProhibidos" placeholder="Ej. Carrera de larga distancia"></textarea>
+        <mat-error>
+          @if (form.get('ejerciciosProhibidos')?.hasError('required')) {
+            Ingrese los ejercicios prohibidos!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Intensidad</mat-label>
+        <input matInput formControlName="intensidad" placeholder="Ej. Alta/Media/Baja">
+        <mat-error>
+          @if (form.get('intensidad')?.hasError('required')) {
+            Ingrese la intensidad!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <div>
+        <button mat-raised-button type="submit" class="btn-rojo">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

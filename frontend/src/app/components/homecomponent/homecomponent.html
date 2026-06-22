@@ -1,0 +1,37 @@
+<div class="container">
+  <section class="home-hero">
+    <div>
+      <h2>Bienvenido a PreventKids</h2>
+      <p>Panel de gestion para la prevencion de la obesidad infantil. Selecciona un modulo para comenzar.</p>
+    </div>
+    <mat-icon class="home-hero-icon" aria-hidden="true">health_and_safety</mat-icon>
+  </section>
+
+  <h3 class="seccion-titulo">Herramientas de prevención</h3>
+  <section class="accesos-grid destacados-grid">
+    @for (a of destacados; track a.titulo) {
+      <a class="acceso-card destacado-card" [routerLink]="a.link">
+        <span class="acceso-icon" [style.background-color]="a.color">
+          <mat-icon aria-hidden="true">{{ a.icono }}</mat-icon>
+        </span>
+        <h3>{{ a.titulo }}</h3>
+        <p>{{ a.texto }}</p>
+        <span class="acceso-link">Abrir <mat-icon aria-hidden="true">arrow_forward</mat-icon></span>
+      </a>
+    }
+  </section>
+
+  <h3 class="seccion-titulo">Gestión del sistema</h3>
+  <section class="accesos-grid">
+    @for (a of accesos; track a.titulo) {
+      <a class="acceso-card" [routerLink]="a.link">
+        <span class="acceso-icon" [style.background-color]="a.color">
+          <mat-icon aria-hidden="true">{{ a.icono }}</mat-icon>
+        </span>
+        <h3>{{ a.titulo }}</h3>
+        <p>{{ a.texto }}</p>
+        <span class="acceso-link">Abrir <mat-icon aria-hidden="true">arrow_forward</mat-icon></span>
+      </a>
+    }
+  </section>
+</div>

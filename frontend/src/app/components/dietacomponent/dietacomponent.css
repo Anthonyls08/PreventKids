@@ -1,0 +1,210 @@
+.dieta-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dieta-head p {
+  color: #5a5a5a;
+  max-width: 620px;
+  margin: 6px 0 0;
+}
+
+.dieta-head-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: var(--pk-secondary);
+  flex-shrink: 0;
+}
+
+.dieta-buscador {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.dieta-input {
+  flex: 1;
+  min-width: 240px;
+}
+
+.dieta-cuerpo {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.dieta-msg {
+  color: #888;
+  padding: 8px 0;
+}
+
+.alimentos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.alimento-card {
+  border: 1px solid #e6ece8;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.alimento-card:hover {
+  box-shadow: 0 8px 22px rgba(46, 125, 50, 0.12);
+  transform: translateY(-3px);
+}
+
+.alimento-img {
+  position: relative;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.alimento-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.alimento-img mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #b7c9bd;
+}
+
+.nutriscore {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alimento-card h3 {
+  font-size: 0.98rem;
+  margin: 4px 0 0;
+  line-height: 1.2;
+}
+
+.alimento-marca {
+  font-size: 0.8rem;
+  color: #8a8a8a;
+}
+
+.alimento-datos {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.alimento-datos strong {
+  color: var(--pk-primary);
+  font-size: 1.05rem;
+}
+
+/* Mi día */
+.dieta-midia {
+  position: sticky;
+  top: 16px;
+  border: 1px solid #e6ece8;
+  border-radius: 14px;
+  padding: 16px;
+  background: #fff;
+}
+
+.dieta-midia h3 {
+  margin: 0 0 10px;
+  color: var(--pk-primary-dark);
+}
+
+.midia-total {
+  background: linear-gradient(135deg, var(--pk-primary), var(--pk-secondary));
+  color: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.midia-kcal {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.midia-kcal-label {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.midia-azucar {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+}
+
+.midia-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.midia-lista li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.88rem;
+}
+
+.midia-nombre {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.midia-cal {
+  color: var(--pk-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .dieta-cuerpo {
+    grid-template-columns: 1fr;
+  }
+  .dieta-midia {
+    position: static;
+  }
+}

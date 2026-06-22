@@ -1,0 +1,142 @@
+<div class="menu-wrap">
+    <mat-toolbar class="custom-toolbar">
+        <a class="menu-brand" routerLink="/app/homes">
+            <mat-icon aria-hidden="true">health_and_safety</mat-icon>
+            PreventKids
+        </a>
+
+        <nav class="menu-nav">
+            <a class="nav-link" routerLink="/app/dieta" routerLinkActive="activo">
+                <mat-icon>restaurant</mat-icon>
+                <span>Dieta</span>
+            </a>
+            <a class="nav-link" routerLink="/app/ejercicios" routerLinkActive="activo">
+                <mat-icon>fitness_center</mat-icon>
+                <span>Ejercicios</span>
+            </a>
+            <a class="nav-link" routerLink="/app/videos" routerLinkActive="activo">
+                <mat-icon>smart_display</mat-icon>
+                <span>Videos</span>
+            </a>
+            <a class="nav-link" routerLink="/app/videollamada" routerLinkActive="activo">
+                <mat-icon>video_camera_front</mat-icon>
+                <span>Videollamada</span>
+            </a>
+        </nav>
+
+        <span class="menu-spacer"></span>
+
+        <button matButton class="btn-gestion" aria-label="Gestion"
+            [matMenuTriggerFor]="menuGestion">
+            <mat-icon>settings</mat-icon>
+            Gestión
+            <mat-icon class="caret">arrow_drop_down</mat-icon>
+        </button>
+
+        <button matButton class="btn-logout" aria-label="Cerrar sesion"
+            (click)="cerrarSesion()">
+            <mat-icon>logout</mat-icon>
+            Salir
+        </button>
+    </mat-toolbar>
+
+    <mat-menu #menuGestion="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="menuTipoAlerta">
+            <mat-icon>warning</mat-icon>
+            Tipo Alerta
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuChatIA">
+            <mat-icon>smart_toy</mat-icon>
+            Chat IA
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuDistrict">
+            <mat-icon>location_city</mat-icon>
+            Distrito
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuEspecialidad">
+            <mat-icon>medical_services</mat-icon>
+            Especialidad
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuRole">
+            <mat-icon>manage_accounts</mat-icon>
+            Roles
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuTipoContenido">
+            <mat-icon>movie</mat-icon>
+            Tipo Contenido
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuLimitation">
+            <mat-icon>accessibility_new</mat-icon>
+            Limitación Física
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuTipoAlerta="matMenu">
+        <button mat-menu-item routerLink="/app/tipos-alerta/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/tipos-alerta/listar">
+            <mat-icon>list</mat-icon>Listar</button>
+    </mat-menu>
+
+    <mat-menu #menuChatIA="matMenu">
+        <button mat-menu-item routerLink="/app/chatia/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/chatia/listar">
+            <mat-icon>list</mat-icon>Listar</button>
+    </mat-menu>
+
+    <mat-menu #menuDistrict="matMenu">
+        <button mat-menu-item routerLink="/app/district/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/district/listar">
+            <mat-icon>list</mat-icon>Listar</button>
+    </mat-menu>
+
+    <mat-menu #menuRole="matMenu">
+        <button mat-menu-item routerLink="/app/roles/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/roles/listar">
+            <mat-icon>list</mat-icon>Listar</button>
+    </mat-menu>
+
+    <mat-menu #menuEspecialidad="matMenu">
+        <button mat-menu-item routerLink="/app/specialties/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/specialties/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuTipoContenido="matMenu">
+        <button mat-menu-item routerLink="/app/tipos-contenido/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/tipos-contenido/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuLimitation="matMenu">
+        <button mat-menu-item routerLink="/app/limitacion-fisica/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/limitacion-fisica/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+</div>

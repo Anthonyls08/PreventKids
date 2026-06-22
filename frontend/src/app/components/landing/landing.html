@@ -1,0 +1,164 @@
+<div class="landing">
+  <header class="landing-nav">
+    <a class="brand" href="#inicio">
+      <mat-icon aria-hidden="true">health_and_safety</mat-icon>
+      PreventKids
+    </a>
+
+    <nav class="landing-links" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="landing-nav-actions">
+      <a matButton routerLink="/login">Iniciar sesion</a>
+      <a matButton="filled" class="btn-cta" routerLink="/register">Registrarse</a>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="hero-text">
+      <span class="hero-badge">Salud infantil &middot; Prevencion</span>
+      <h1>Prevenir la obesidad infantil empieza hoy</h1>
+      <p>
+        PreventKids es la plataforma que ayuda a familias y profesionales de la
+        salud a monitorear, prevenir y combatir el sobrepeso en ninos y
+        adolescentes con datos, ejercicio y acompanamiento.
+      </p>
+      <div class="hero-actions">
+        <a matButton="filled" class="btn-cta" routerLink="/register">
+          Comenzar ahora
+        </a>
+        <a matButton="outlined" href="#como-funciona">Ver como funciona</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img
+        class="hero-img"
+        src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=760&q=70"
+        alt="Ninos jugando y haciendo actividad fisica al aire libre" />
+      <span class="hero-art-badge">
+        <mat-icon aria-hidden="true">favorite</mat-icon>
+        Salud en familia
+      </span>
+    </div>
+  </section>
+
+  <section class="estadisticas">
+    @for (e of estadisticas; track e.etiqueta) {
+      <div class="stat">
+        <span class="stat-valor">{{ e.valor }}</span>
+        <span class="stat-label">{{ e.etiqueta }}</span>
+      </div>
+    }
+  </section>
+
+  <section class="seccion" id="servicios">
+    <div class="seccion-head">
+      <h2>Nuestros servicios</h2>
+      <p>Todo lo que necesitas para cuidar la salud de los mas pequenos en un solo lugar.</p>
+    </div>
+    <div class="servicios-grid">
+      @for (s of servicios; track s.titulo) {
+        <article class="servicio-card">
+          <mat-icon class="servicio-icon" aria-hidden="true">{{ s.icono }}</mat-icon>
+          <h3>{{ s.titulo }}</h3>
+          <p>{{ s.texto }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="seccion" id="funcionalidades">
+    <div class="seccion-head">
+      <h2>Una app completa contra la obesidad infantil</h2>
+      <p>Herramientas reales conectadas a APIs para prevenir y combatir el sobrepeso.</p>
+    </div>
+    <div class="funciones-grid">
+      @for (f of funciones; track f.titulo) {
+        <article class="funcion-card">
+          <div class="funcion-img" [style.background-color]="f.color">
+            <img [src]="f.imagen" [alt]="f.titulo" loading="lazy" />
+          </div>
+          <div class="funcion-texto">
+            <h3 [style.color]="f.color">{{ f.titulo }}</h3>
+            <p>{{ f.texto }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="seccion seccion-alt" id="como-funciona">
+    <div class="seccion-head">
+      <h2>Como funciona</h2>
+      <p>Empezar a prevenir es muy sencillo, solo cuatro pasos.</p>
+    </div>
+    <div class="pasos-grid">
+      @for (p of pasos; track p.numero) {
+        <article class="paso-card">
+          <span class="paso-num">{{ p.numero }}</span>
+          <h3>{{ p.titulo }}</h3>
+          <p>{{ p.texto }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="seccion" id="testimonios">
+    <div class="seccion-head">
+      <h2>Lo que dicen nuestros usuarios</h2>
+      <p>Familias y profesionales que ya confian en PreventKids.</p>
+    </div>
+    <div class="testimonios-grid">
+      @for (t of testimonios; track t.nombre) {
+        <article class="testimonio-card">
+          <p class="testimonio-texto">&ldquo;{{ t.texto }}&rdquo;</p>
+          <div class="testimonio-autor">
+            <span class="avatar" aria-hidden="true">{{ t.inicial }}</span>
+            <div>
+              <strong>{{ t.nombre }}</strong>
+              <span class="testimonio-rol">{{ t.rol }}</span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="cta-final">
+    <h2>Listo para cuidar la salud de tus ninos?</h2>
+    <p>Unete a PreventKids y comienza a prevenir la obesidad infantil hoy mismo.</p>
+    <a matButton="filled" class="btn-cta-blanco" routerLink="/register">
+      Crear cuenta gratis
+    </a>
+  </section>
+
+  <footer class="landing-footer" id="contacto">
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <span class="brand brand-footer">
+          <mat-icon aria-hidden="true">health_and_safety</mat-icon>
+          PreventKids
+        </span>
+        <p>Prevencion de la obesidad infantil con datos, ejercicio y acompanamiento.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Plataforma</h4>
+        <a href="#servicios">Servicios</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#testimonios">Testimonios</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <span>contacto&#64;preventkids.pe</span>
+        <span>Lima, Peru</span>
+        <span>+51 999 999 999</span>
+      </div>
+    </div>
+    <p class="footer-base">PreventKids &middot; Arquitectura de aplicaciones web</p>
+  </footer>
+</div>

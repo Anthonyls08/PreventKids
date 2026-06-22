@@ -1,0 +1,131 @@
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(120deg, #2e7d32 0%, #00897b 100%);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+}
+
+.home-hero h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 1.7rem;
+}
+
+.home-hero p {
+  margin: 0;
+  opacity: 0.95;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+.home-hero-icon {
+  font-size: 72px;
+  width: 72px;
+  height: 72px;
+  opacity: 0.9;
+}
+
+.seccion-titulo {
+  margin: 4px 0 14px;
+  color: var(--pk-primary-dark);
+  font-size: 1.15rem;
+  position: relative;
+  padding-left: 12px;
+}
+
+.seccion-titulo::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--pk-accent);
+}
+
+.accesos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.destacados-grid {
+  margin-bottom: 28px;
+}
+
+.destacado-card {
+  border: 1px solid #d6e8da;
+  background: linear-gradient(180deg, #ffffff 0%, #f3faf4 100%);
+}
+
+.acceso-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 22px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acceso-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.acceso-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.acceso-icon mat-icon {
+  color: #ffffff;
+}
+
+.acceso-card h3 {
+  margin: 0;
+  color: #1f1f1f;
+}
+
+.acceso-card p {
+  margin: 0;
+  color: #5a5a5a;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.acceso-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.acceso-link mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .home-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+}
