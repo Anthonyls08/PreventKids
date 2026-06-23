@@ -1,56 +1,72 @@
-<div class="container">
-  <div style="text-align: center; margin: 3%"><h2>Actualizar Distrito</h2></div>
-  <div style="text-align: center">
-    <form [formGroup]="form" (submit)="aceptar()">
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Nombre del Distrito</mat-label>
-        <input matInput placeholder="Ej. San Isidro" formControlName="nombreDistrito" />
-        <mat-error>
-          @if (form.get('nombreDistrito')?.hasError('required')) {
-            Ingrese el nombre del distrito!!
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Departamento</mat-label>
-        <input matInput placeholder="Ej. Lima" formControlName="nombreDepartamento" />
-        <mat-error>
-          @if (form.get('nombreDepartamento')?.hasError('required')) {
-            Ingrese el nombre del departamento!!
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Zona</mat-label>
-        <input matInput placeholder="Ej. Centro" formControlName="zona" />
-        <mat-error>
-          @if (form.get('zona')?.hasError('required')) {
-            Ingrese la zona!!
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Ubigeo</mat-label>
-        <input matInput type="number" placeholder="Ej. 150101" formControlName="ubigeo" />
-        <mat-error>
-          @if (form.get('ubigeo')?.hasError('required')) {
-            Ingrese el código ubigeo!!
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <div>
-        <button matButton="elevated">Actualizar</button>
-      </div>
-
-    </form>
+<div class="container" style="max-width: 500px; margin: 0 auto; padding: 20px;">
+  
+  <div style="text-align: center; margin-bottom: 5%;">
+    <h2>Actualizar Distrito</h2>
   </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" style="display: flex; flex-direction: column; gap: 15px;">
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Código del Distrito</mat-label>
+      <input matInput formControlName="codigo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Nombre del Distrito</mat-label>
+      <input matInput placeholder="Ej. Carabayllo" formControlName="nombreDistrito" />
+      <mat-error>
+        @if (form.get('nombreDistrito')?.hasError('required')) {
+          Ingrese el nombre del distrito!!
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Departamento</mat-label>
+      <input matInput placeholder="Ej. Lima" formControlName="nombreDepartamento" />
+      <mat-error>
+        @if (form.get('nombreDepartamento')?.hasError('required')) {
+          Ingrese el nombre del departamento!!
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Zona</mat-label>
+      <mat-select formControlName="zona">
+        @for (z of zonas; track z) {
+          <mat-option [value]="z">{{z}}</mat-option>
+        }
+      </mat-select>
+      <mat-error>
+        @if (form.get('zona')?.hasError('required')) {
+          Seleccione una zona!!
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Ubigeo</mat-label>
+      <input matInput placeholder="Ej. 150101" formControlName="ubigeo" />
+      <mat-error>
+        @if (form.get('ubigeo')?.hasError('required')) {
+          Ingrese el código ubigeo!!
+        }
+        @if (form.get('ubigeo')?.hasError('pattern')) {
+          El ubigeo debe tener exactamente 6 dígitos numéricos!!
+        }
+      </mat-error>
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        <mat-icon>save</mat-icon> Actualizar
+      </button>
+      
+      <button mat-button color="warn" type="button" routerLink="/app/district/listar">
+        <mat-icon>cancel</mat-icon> Cancelar
+      </button>
+    </div>
+
+  </form>
 </div>
