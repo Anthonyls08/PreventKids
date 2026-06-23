@@ -27,10 +27,14 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Zona</mat-label>
-        <input matInput placeholder="Ej. Centro" formControlName="zone" />
+        <mat-select formControlName="zone">
+          @for (z of zonas; track z) {
+            <mat-option [value]="z">{{z}}</mat-option>
+          }
+        </mat-select>
         <mat-error>
           @if (form.get('zone')?.hasError('required')) {
-            Ingrese la zona!!
+            Seleccione una zona!!
           }
         </mat-error>
       </mat-form-field>
@@ -38,17 +42,21 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Ubigeo</mat-label>
-        <input matInput type="number" placeholder="Ej. 150101" formControlName="ubigeo" />
+        <input matInput placeholder="Ej. 150101" formControlName="ubigeo" />
         <mat-error>
           @if (form.get('ubigeo')?.hasError('required')) {
             Ingrese el código ubigeo!!
+          }
+          @if (form.get('ubigeo')?.hasError('pattern')) {
+            El ubigeo debe ser un número de exactamente 6 dígitos!!
           }
         </mat-error>
       </mat-form-field>
       <br />
 
-      <div>
-        <button matButton="elevated">Registrar</button>
+      <div style="margin-top: 2%">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" style="margin-right: 10px;">Registrar</button>
+        <button mat-button color="warn" type="button" routerLink="/app/district/listar">Cancelar</button>
       </div>
       
     </form>
