@@ -1,41 +1,40 @@
 <div class="container">
   <h2 style="text-align: center">Lista de chats IA</h2>
-  <div>
-    <!--tabla-->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <!-- Pregunta Column -->
-      <ng-container matColumnDef="c1">
-        <th mat-header-cell *matHeaderCellDef>Pregunta</th>
-        <td mat-cell *matCellDef="let element">{{ element.pregunta }}</td>
-      </ng-container>
-
-      <!-- Respuesta Column -->
-      <ng-container matColumnDef="c2">
-        <th mat-header-cell *matHeaderCellDef>Respuesta</th>
-        <td mat-cell *matCellDef="let element">{{ element.respuesta }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c3">
-        <th mat-header-cell *matHeaderCellDef>Eliminar</th>
-        <td mat-cell *matCellDef="let element">
-          <button matButton (click)="eliminar(element.idchatIA)" class="btn-eliminar">
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (chat of pagedChats(); track chat.idchatIA) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>{{ chat.pregunta }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-desc">{{ chat.respuesta }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(chat.idchatIA)" class="btn-eliminar">
             <mat-icon>delete</mat-icon>
-        </button>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="c4">
-        <th mat-header-cell *matHeaderCellDef>Actualizar</th>
-        <td mat-cell *matCellDef="let element">
-          <button matButton [routerLink]="['/app/chatia/edits', element.idchatIA]" class="btn-editar">
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/chatia/edits', chat.idchatIA]" class="btn-editar">
             <mat-icon>edit</mat-icon>
-        </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">No hay chats registrados.</p>
+    }
   </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="chats().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de chats">
+  </mat-paginator>
 </div>

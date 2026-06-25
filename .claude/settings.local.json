@@ -4,7 +4,10 @@
       "WebFetch(domain:api.trello.com)",
       "Bash(findstr /i \".java\")",
       "Bash(Get-ChildItem C:\\\\Users\\\\Dalí\\\\workspace\\\\PreventKids\\\\src\\\\main\\\\java\\\\upc\\\\edu\\\\pe\\\\preventkids\\\\servicesinterfaces *)",
-      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\Dalí\\\\.claude\" -Recurse -Force | Where-Object { !$_.PSIsContainer } | Format-Table FullName, LastWriteTime -AutoSize)"
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\Dalí\\\\.claude\" -Recurse -Force | Where-Object { !$_.PSIsContainer } | Format-Table FullName, LastWriteTime -AutoSize)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(New-Item *)",
+      "Bash(grep -iE '\\\\.\\(java|kt|py|js|ts|xml|properties|yml|yaml\\)$')"
     ]
   }
 }
