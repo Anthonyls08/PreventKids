@@ -1,34 +1,31 @@
 import {
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
-} from "./chunk-GDAMWUW3.js";
-import {
-  _MatInternalFormField
-} from "./chunk-ZBAVEROX.js";
-import {
   MatRipple,
   _StructuralStylesLoader
-} from "./chunk-VFL7LQCL.js";
+} from "./chunk-WEQZCZA6.js";
 import {
   _IdGenerator,
   _animationsDisabled
-} from "./chunk-6JQY6OGV.js";
-import "./chunk-JUTGYH5W.js";
-import "./chunk-I5PGAXSR.js";
-import "./chunk-KVL7JR6F.js";
-import "./chunk-APLVGYYE.js";
-import "./chunk-7YOIZIC7.js";
+} from "./chunk-MBJ6PR5V.js";
+import "./chunk-2SCIKDTE.js";
+import "./chunk-44GVCHSB.js";
+import "./chunk-TBFASC3N.js";
+import "./chunk-HCLE4WAE.js";
 import {
   _CdkPrivateStyleLoader
-} from "./chunk-5LOCPD3U.js";
-import "./chunk-GUGIMSVJ.js";
+} from "./chunk-N6PTZGM2.js";
+import "./chunk-K3EHEM7D.js";
+import "./chunk-G5G7CKKD.js";
+import "./chunk-JF5IKKBG.js";
 import {
   BidiModule
-} from "./chunk-EHHMT5QH.js";
-import "./chunk-5GP7FWBZ.js";
-import "./chunk-XEUZR5MC.js";
-import "./chunk-4EQFKC6I.js";
-import "./chunk-CH4YL7OE.js";
+} from "./chunk-IA3ZHOBN.js";
+import "./chunk-P2CWS332.js";
+import {
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR
+} from "./chunk-PO6P3J5N.js";
+import "./chunk-RQKTJHFB.js";
+import "./chunk-ALYAX3XY.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -72,11 +69,72 @@ import {
   ɵɵqueryRefresh,
   ɵɵreference,
   ɵɵviewQuery
-} from "./chunk-LAYYAURK.js";
+} from "./chunk-ZENS6XZH.js";
+import "./chunk-GMLBTAPW.js";
+
+// node_modules/@angular/material/fesm2022/_internal-form-field-chunk.mjs
+var _c0 = ["mat-internal-form-field", ""];
+var _c1 = ["*"];
+var _MatInternalFormField = class __MatInternalFormField {
+  labelPosition = "after";
+  static ɵfac = function _MatInternalFormField_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __MatInternalFormField)();
+  };
+  static ɵcmp = ɵɵdefineComponent({
+    type: __MatInternalFormField,
+    selectors: [["div", "mat-internal-form-field", ""]],
+    hostAttrs: [1, "mdc-form-field", "mat-internal-form-field"],
+    hostVars: 2,
+    hostBindings: function _MatInternalFormField_HostBindings(rf, ctx) {
+      if (rf & 2) {
+        ɵɵclassProp("mdc-form-field--align-end", ctx.labelPosition === "before");
+      }
+    },
+    inputs: {
+      labelPosition: "labelPosition"
+    },
+    attrs: _c0,
+    ngContentSelectors: _c1,
+    decls: 1,
+    vars: 0,
+    template: function _MatInternalFormField_Template(rf, ctx) {
+      if (rf & 1) {
+        ɵɵprojectionDef();
+        ɵɵprojection(0);
+      }
+    },
+    styles: [".mat-internal-form-field {\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  display: inline-flex;\n  align-items: center;\n  vertical-align: middle;\n}\n.mat-internal-form-field > label {\n  margin-left: 0;\n  margin-right: auto;\n  padding-left: 4px;\n  padding-right: 0;\n  order: 0;\n}\n[dir=rtl] .mat-internal-form-field > label {\n  margin-left: auto;\n  margin-right: 0;\n  padding-left: 0;\n  padding-right: 4px;\n}\n\n.mdc-form-field--align-end > label {\n  margin-left: auto;\n  margin-right: 0;\n  padding-left: 0;\n  padding-right: 4px;\n  order: -1;\n}\n[dir=rtl] .mdc-form-field--align-end .mdc-form-field--align-end label {\n  margin-left: 0;\n  margin-right: auto;\n  padding-left: 4px;\n  padding-right: 0;\n}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_MatInternalFormField, [{
+    type: Component,
+    args: [{
+      selector: "div[mat-internal-form-field]",
+      template: "<ng-content></ng-content>",
+      encapsulation: ViewEncapsulation.None,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      host: {
+        "class": "mdc-form-field mat-internal-form-field",
+        "[class.mdc-form-field--align-end]": 'labelPosition === "before"'
+      },
+      styles: [".mat-internal-form-field {\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  display: inline-flex;\n  align-items: center;\n  vertical-align: middle;\n}\n.mat-internal-form-field > label {\n  margin-left: 0;\n  margin-right: auto;\n  padding-left: 4px;\n  padding-right: 0;\n  order: 0;\n}\n[dir=rtl] .mat-internal-form-field > label {\n  margin-left: auto;\n  margin-right: 0;\n  padding-left: 0;\n  padding-right: 4px;\n}\n\n.mdc-form-field--align-end > label {\n  margin-left: auto;\n  margin-right: 0;\n  padding-left: 0;\n  padding-right: 4px;\n  order: -1;\n}\n[dir=rtl] .mdc-form-field--align-end .mdc-form-field--align-end label {\n  margin-left: 0;\n  margin-right: auto;\n  padding-left: 4px;\n  padding-right: 0;\n}\n"]
+    }]
+  }], null, {
+    labelPosition: [{
+      type: Input,
+      args: [{
+        required: true
+      }]
+    }]
+  });
+})();
 
 // node_modules/@angular/material/fesm2022/checkbox.mjs
-var _c0 = ["input"];
-var _c1 = ["label"];
+var _c02 = ["input"];
+var _c12 = ["label"];
 var _c2 = ["*"];
 var checkboxDefaults = {
   color: "accent",
@@ -348,7 +406,7 @@ var MatCheckbox = class _MatCheckbox {
     selectors: [["mat-checkbox"]],
     viewQuery: function MatCheckbox_Query(rf, ctx) {
       if (rf & 1) {
-        ɵɵviewQuery(_c0, 5)(_c1, 5);
+        ɵɵviewQuery(_c02, 5)(_c12, 5);
       }
       if (rf & 2) {
         let _t;
