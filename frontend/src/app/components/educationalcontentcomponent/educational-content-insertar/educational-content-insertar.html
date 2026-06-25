@@ -1,0 +1,77 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Registro de Contenido Educativo</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="tittleEducationalContent" />
+        <mat-error>
+          @if (form.get('tittleEducationalContent')?.hasError('required')) {
+            Ingrese el título!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descriptionEC"></textarea>
+        <mat-error>
+          @if (form.get('descriptionEC')?.hasError('required')) {
+            Ingrese la descripción!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>URL del contenido</mat-label>
+        <input matInput formControlName="urlContent" />
+        <mat-error>
+          @if (form.get('urlContent')?.hasError('required')) {
+            Ingrese la URL!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Tipo (texto)</mat-label>
+        <input matInput formControlName="typeEC" />
+        <mat-error>
+          @if (form.get('typeEC')?.hasError('required')) {
+            Ingrese el tipo!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Perfil profesional</mat-label>
+        <mat-select formControlName="idProfessionalProfile">
+          @for (p of perfiles(); track p.idProfessionalProfile) {
+            <mat-option [value]="p.idProfessionalProfile">{{ p.numerocolegiatura }} - {{ p.institucion }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idProfessionalProfile')?.hasError('required')) {
+            Seleccione un perfil profesional!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Tipo de contenido</mat-label>
+        <mat-select formControlName="idTipocontenido">
+          @for (t of tiposContenido(); track t.idTipocontenido) {
+            <mat-option [value]="t.idTipocontenido">{{ t.nombre }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idTipocontenido')?.hasError('required')) {
+            Seleccione un tipo de contenido!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>

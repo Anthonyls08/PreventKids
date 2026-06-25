@@ -2,6 +2,7 @@ package upc.edu.pe.preventkids.securities;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,9 +39,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("No se puede encontrar el token JWT");
+                logger.warn("No se puede encontrar el token JWT");
             } catch (ExpiredJwtException e) {
-                System.out.println("Token JWT ha expirado");
+                logger.warn("Token JWT ha expirado");
+            } catch (JwtException e) {
+                // Token malformado o con firma invalida: lo ignoramos y seguimos
+                // sin autenticar (las rutas publicas siguen funcionando).
+                logger.warn("Token JWT invalido: " + e.getMessage());
             }
         } else {
             logger.warn("JWT Token no inicia con la palabra Bearer");

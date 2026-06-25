@@ -69,6 +69,14 @@
             <mat-icon>accessibility_new</mat-icon>
             Limitación Física
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuContenidoEducativo">
+            <mat-icon>menu_book</mat-icon>
+            Contenido Educativo
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuEjercicioRecomendado">
+            <mat-icon>directions_run</mat-icon>
+            Ejercicio Recomendado
+        </button>
     </mat-menu>
 
     <mat-menu #menuTipoAlerta="matMenu">
@@ -135,6 +143,28 @@
             Registrar
         </button>
         <button mat-menu-item routerLink="/app/limitacion-fisica/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuContenidoEducativo="matMenu">
+        <button mat-menu-item routerLink="/app/contenido-educativo/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/contenido-educativo/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuEjercicioRecomendado="matMenu">
+        <button mat-menu-item routerLink="/app/ejercicio-recomendado/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/ejercicio-recomendado/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>

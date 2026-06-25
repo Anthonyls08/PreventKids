@@ -1,0 +1,41 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de ejercicios recomendados</h2>
+
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (ejercicio of pagedEjercicios(); track ejercicio.idRecommendedExercise) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>{{ ejercicio.nameRecommendedExercise }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-desc">{{ ejercicio.descriptionReExercise }}</p>
+          <p class="card-desc">Dificultad: {{ ejercicio.difficultRecommendedExercise }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(ejercicio.idRecommendedExercise)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/ejercicio-recomendado/edits', ejercicio.idRecommendedExercise]" class="btn-editar">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">No hay ejercicios registrados.</p>
+    }
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="ejercicios().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de ejercicios">
+  </mat-paginator>
+</div>

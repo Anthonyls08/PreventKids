@@ -6,8 +6,8 @@ public class EducationalContentInsertDTO {
     private String descriptionEC;
     private String urlContent;
     private String typeEC;
-    //private int idProfessionalProfile;
-    //private int idTipocontenido;
+    private int idProfessionalProfile;
+    private int idTipocontenido;
 
 
     public int getIdEducationalContent() {
@@ -48,5 +48,21 @@ public class EducationalContentInsertDTO {
 
     public void setTypeEC(String typeEC) {
         this.typeEC = typeEC;
+    }
+
+    public int getIdProfessionalProfile() {
+        return idProfessionalProfile;
+    }
+
+    public void setIdProfessionalProfile(int idProfessionalProfile) {
+        this.idProfessionalProfile = idProfessionalProfile;
+    }
+
+    public int getIdTipocontenido() {
+        return idTipocontenido;
+    }
+
+    public void setIdTipocontenido(int idTipocontenido) {
+        this.idTipocontenido = idTipocontenido;
     }
 }

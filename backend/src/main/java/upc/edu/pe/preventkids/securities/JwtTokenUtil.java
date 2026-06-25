@@ -2,11 +2,11 @@ package upc.edu.pe.preventkids.securities;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
@@ -25,6 +25,14 @@ public class JwtTokenUtil{
     @Value("${jwt.secret}")
     private String secret;
 
+    // Misma clave para firmar y verificar (HMAC-SHA512)
+    private SecretKey getSigningKey() {
+        return new SecretKeySpec(
+                Base64.getDecoder().decode(secret),
+                "HmacSHA512"
+        );
+    }
+
     public String getUsernameFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
@@ -42,10 +50,10 @@ public class JwtTokenUtil{
 
     private Claims getAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private boolean isExpired(String token) {
@@ -81,16 +89,11 @@ public class JwtTokenUtil{
                 new Date(now.getTime() + TOKEN_VALIDITY);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiration)
-                .signWith(
-                        new SecretKeySpec(
-                                Base64.getDecoder().decode(secret),
-                                SignatureAlgorithm.HS512.getJcaName()
-                        )
-                )
+                .claims(claims)
+                .subject(username)
+                .issuedAt(now)
+                .expiration(expiration)
+                .signWith(getSigningKey())
                 .compact();
     }
 

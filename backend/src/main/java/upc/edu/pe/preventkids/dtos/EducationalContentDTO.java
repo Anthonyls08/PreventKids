@@ -1,9 +1,18 @@
 package upc.edu.pe.preventkids.dtos;
 
 public class EducationalContentDTO {
+    private int idEducationalContent;
     private String tittleEducationalContent;
     private String descriptionEC;
     private String typeEC;
+
+    public int getIdEducationalContent() {
+        return idEducationalContent;
+    }
+
+    public void setIdEducationalContent(int idEducationalContent) {
+        this.idEducationalContent = idEducationalContent;
+    }
 
     public String getTittleEducationalContent() {
         return tittleEducationalContent;

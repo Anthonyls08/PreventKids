@@ -2,6 +2,7 @@ package upc.edu.pe.preventkids.securities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,6 +52,15 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // Evita que Spring Boot registre el JwtRequestFilter como filtro de servlet
+    // (doble registro). Solo debe ejecutarse dentro de la cadena de Spring Security.
+    @Bean
+    public FilterRegistrationBean<JwtRequestFilter> jwtFilterRegistration(JwtRequestFilter filter) {
+        FilterRegistrationBean<JwtRequestFilter> registration = new FilterRegistrationBean<>(filter);
+        registration.setEnabled(false);
+        return registration;
+    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
@@ -75,6 +85,7 @@ public class WebSecurityConfig {
                                 "/LimitacionFisica/**",
                                 "/roles/**")
                         .permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)

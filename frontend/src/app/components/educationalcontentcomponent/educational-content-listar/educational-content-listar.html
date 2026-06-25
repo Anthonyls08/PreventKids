@@ -1,0 +1,41 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de contenido educativo</h2>
+
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (contenido of pagedContenidos(); track contenido.idEducationalContent) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>{{ contenido.tittleEducationalContent }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-desc">{{ contenido.descriptionEC }}</p>
+          <p class="card-desc">Tipo: {{ contenido.typeEC }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(contenido.idEducationalContent)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/contenido-educativo/edits', contenido.idEducationalContent]" class="btn-editar">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">No hay contenido educativo registrado.</p>
+    }
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="contenidos().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de contenido educativo">
+  </mat-paginator>
+</div>

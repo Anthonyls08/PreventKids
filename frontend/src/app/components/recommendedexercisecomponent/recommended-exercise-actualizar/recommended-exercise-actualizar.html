@@ -1,0 +1,81 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Actualizar Ejercicio Recomendado</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nameRecommendedExercise" />
+        <mat-error>
+          @if (form.get('nameRecommendedExercise')?.hasError('required')) {
+            Ingrese el nombre!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descriptionReExercise"></textarea>
+        <mat-error>
+          @if (form.get('descriptionReExercise')?.hasError('required')) {
+            Ingrese la descripción!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Dificultad</mat-label>
+        <input matInput formControlName="difficultRecommendedExercise" />
+        <mat-error>
+          @if (form.get('difficultRecommendedExercise')?.hasError('required')) {
+            Ingrese la dificultad!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Duración (minutos)</mat-label>
+        <input matInput type="number" formControlName="durationRecommendedExercise" />
+        <mat-error>
+          @if (form.get('durationRecommendedExercise')?.hasError('required')) {
+            Ingrese la duración!!
+          }
+          @if (form.get('durationRecommendedExercise')?.hasError('min')) {
+            La duración debe ser mayor a 0!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="date" formControlName="dateRecommendedExercise" />
+        <mat-error>
+          @if (form.get('dateRecommendedExercise')?.hasError('required')) {
+            Ingrese la fecha!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Limitación física</mat-label>
+        <mat-select formControlName="idPhysicalLimitation">
+          @for (l of limitaciones(); track l.idPhysicalLimitation) {
+            <mat-option [value]="l.idPhysicalLimitation">{{ l.nameLimitation }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idPhysicalLimitation')?.hasError('required')) {
+            Seleccione una limitación física!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

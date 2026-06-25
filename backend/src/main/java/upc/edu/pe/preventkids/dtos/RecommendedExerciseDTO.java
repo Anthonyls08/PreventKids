@@ -3,9 +3,18 @@ package upc.edu.pe.preventkids.dtos;
 import jakarta.persistence.Column;
 
 public class RecommendedExerciseDTO {
+    private int idRecommendedExercise;
     private String nameRecommendedExercise;
     private String descriptionReExercise;
     private String difficultRecommendedExercise;
+
+    public int getIdRecommendedExercise() {
+        return idRecommendedExercise;
+    }
+
+    public void setIdRecommendedExercise(int idRecommendedExercise) {
+        this.idRecommendedExercise = idRecommendedExercise;
+    }
 
     public String getNameRecommendedExercise() {
         return nameRecommendedExercise;

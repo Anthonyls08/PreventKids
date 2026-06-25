@@ -43,6 +43,16 @@ import { Ejercicioscomponent } from './components/ejercicioscomponent/ejercicios
 import { Videoscomponent } from './components/videoscomponent/videoscomponent';
 import { Videollamadacomponent } from './components/videollamadacomponent/videollamadacomponent';
 
+import { Educationalcontentcomponent } from './components/educationalcontentcomponent/educationalcontentcomponent';
+import { EducationalContentListar } from './components/educationalcontentcomponent/educational-content-listar/educational-content-listar';
+import { EducationalContentInsertar } from './components/educationalcontentcomponent/educational-content-insertar/educational-content-insertar';
+import { EducationalContentActualizar } from './components/educationalcontentcomponent/educational-content-actualizar/educational-content-actualizar';
+
+import { Recommendedexercisecomponent } from './components/recommendedexercisecomponent/recommendedexercisecomponent';
+import { RecommendedExerciseListar } from './components/recommendedexercisecomponent/recommended-exercise-listar/recommended-exercise-listar';
+import { RecommendedExerciseInsertar } from './components/recommendedexercisecomponent/recommended-exercise-insertar/recommended-exercise-insertar';
+import { RecommendedExerciseActualizar } from './components/recommendedexercisecomponent/recommended-exercise-actualizar/recommended-exercise-actualizar';
+
 export const routes: Routes = [
     {
         path: '',
@@ -209,6 +219,42 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: PhysicalLimitationActualizar
+        }
+    ]
+},
+{
+    path: 'contenido-educativo',
+    component: Educationalcontentcomponent,
+    children:[
+        {
+            path:'listar',
+            component: EducationalContentListar
+        },
+        {
+            path:'nuevo',
+            component: EducationalContentInsertar
+        },
+        {
+            path:'edits/:id',
+            component: EducationalContentActualizar
+        }
+    ]
+},
+{
+    path: 'ejercicio-recomendado',
+    component: Recommendedexercisecomponent,
+    children:[
+        {
+            path:'listar',
+            component: RecommendedExerciseListar
+        },
+        {
+            path:'nuevo',
+            component: RecommendedExerciseInsertar
+        },
+        {
+            path:'edits/:id',
+            component: RecommendedExerciseActualizar
         }
     ]
 }
