@@ -69,6 +69,10 @@
             <mat-icon>accessibility_new</mat-icon>
             Limitación Física
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuConsultaVirtual">
+            <mat-icon>event_available</mat-icon>
+            Consulta Virtual
+        </button>
     </mat-menu>
 
     <mat-menu #menuTipoAlerta="matMenu">
@@ -135,6 +139,17 @@
             Registrar
         </button>
         <button mat-menu-item routerLink="/app/limitacion-fisica/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuConsultaVirtual="matMenu">
+        <button mat-menu-item routerLink="/app/consultas-virtuales/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/consultas-virtuales/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>

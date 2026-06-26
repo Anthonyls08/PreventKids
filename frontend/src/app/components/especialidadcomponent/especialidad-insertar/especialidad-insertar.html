@@ -8,7 +8,11 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" />
+        <mat-select formControlName="nombre">
+          @for (n of nombres; track n) {
+            <mat-option [value]="n">{{ n }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
       <br />
 
@@ -20,7 +24,11 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Área</mat-label>
-        <input matInput formControlName="area" />
+        <mat-select formControlName="area">
+          @for (a of areas; track a) {
+            <mat-option [value]="a">{{ a }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
       <br />
 
@@ -28,8 +36,9 @@
       <br />
       <br />
 
-      <div>
-        <button mat-raised-button color="primary" type="submit">Registrar</button>
+      <div class="form-acciones">
+        <button mat-raised-button type="submit" class="btn-form">Registrar</button>
+        <button mat-raised-button type="button" class="btn-form" (click)="cancelar()">Cancelar</button>
       </div>
 
     </form>

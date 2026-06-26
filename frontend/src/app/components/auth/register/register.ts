@@ -94,7 +94,7 @@ export class Register implements OnInit {
     u.telefono = Number(v.telefono);
     u.idRole = Number(v.idRole);
     u.idDistrict = Number(v.idDistrict);
-    u.estado = 'Activo';
+    u.estado = true;
 
     this.auth.register(u).subscribe({
       next: () => {

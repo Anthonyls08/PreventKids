@@ -9,10 +9,14 @@
       <br />
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <input matInput placeholder="Padre de familia" formControlName="nombre" />
+        <mat-select formControlName="nombre">
+          @for (n of nombresRol; track n) {
+            <mat-option [value]="n">{{ n }}</mat-option>
+          }
+        </mat-select>
         <mat-error>
           @if (form.get('nombre')?.hasError('required')) {
-            Ingrese nombre del rol!!
+            Seleccione el nombre del rol!!
           }
         </mat-error>
       </mat-form-field>

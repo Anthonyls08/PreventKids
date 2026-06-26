@@ -61,4 +61,8 @@ export class TipoAlertaInsertar implements OnInit {
       });
     }
   }
+
+  cancelar() {
+    this.router.navigate(['/app/tipos-alerta/listar']);
+  }
 }

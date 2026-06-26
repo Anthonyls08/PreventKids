@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { Specialty } from '../../../models/Specialty';
 import { Specialtyservice } from '../../../services/specialtyservice';
+import { NOMBRES_ESPECIALIDAD, AREAS_ESPECIALIDAD } from '../../../data/especialidad-opciones';
 
 @Component({
   selector: 'app-especialidad-insertar',
@@ -14,6 +16,7 @@ import { Specialtyservice } from '../../../services/specialtyservice';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatSelectModule,
     ReactiveFormsModule
   ],
   templateUrl: './especialidad-insertar.html',
@@ -23,6 +26,9 @@ export class EspecialidadInsertar implements OnInit {
 
   form: FormGroup = new FormGroup({});
   specialty: Specialty = new Specialty();
+
+  nombres: string[] = NOMBRES_ESPECIALIDAD;
+  areas: string[] = AREAS_ESPECIALIDAD;
 
   constructor(
     private sS: Specialtyservice,
@@ -55,5 +61,9 @@ export class EspecialidadInsertar implements OnInit {
         }
       });
     }
+  }
+
+  cancelar() {
+    this.router.navigate(['/app/specialties/listar']);
   }
 }

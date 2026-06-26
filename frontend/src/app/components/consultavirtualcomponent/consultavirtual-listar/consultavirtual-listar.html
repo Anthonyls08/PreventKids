@@ -1,0 +1,63 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de Consultas Virtuales</h2>
+  <div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="c1">
+        <th mat-header-cell *matHeaderCellDef>ID.</th>
+        <td mat-cell *matCellDef="let element">{{ element.idVirtualConsultation }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c2">
+        <th mat-header-cell *matHeaderCellDef>Fecha cita</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechacita }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c3">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">{{ element.estado }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c4">
+        <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+        <td mat-cell *matCellDef="let element">{{ element.proveedor }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c5">
+        <th mat-header-cell *matHeaderCellDef>URL sala</th>
+        <td mat-cell *matCellDef="let element">{{ element.urlsala }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c6">
+        <th mat-header-cell *matHeaderCellDef>ID Usuario</th>
+        <td mat-cell *matCellDef="let element">{{ element.idUser }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c7">
+        <th mat-header-cell *matHeaderCellDef>ID Perfil Prof.</th>
+        <td mat-cell *matCellDef="let element">{{ element.idProfessionalProfile }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c8">
+        <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" [routerLink]="['/app/consultas-virtuales/edits', element.idVirtualConsultation]">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="c9">
+        <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+        <td mat-cell *matCellDef="let element">
+          <button matButton (click)="eliminar(element.idVirtualConsultation)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

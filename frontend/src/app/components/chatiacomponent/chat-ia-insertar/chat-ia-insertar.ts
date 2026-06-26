@@ -42,4 +42,8 @@ export class ChatIAInsertar implements OnInit {
       });
     }
   }
+
+  cancelar() {
+    this.router.navigate(['/app/chatia/listar']);
+  }
 }

@@ -6,7 +6,7 @@ export class User {
   genero: string = '';
   email: string = '';
   telefono: number = 0;
-  estado: string = 'Activo';
+  estado: boolean = true;
   password: string = '';
   idRole: number = 0;
   idDistrict: number = 0;

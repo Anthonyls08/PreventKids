@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-role-actualizar',
@@ -13,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
     ReactiveFormsModule,
   ],
   templateUrl: './role-actualizar.html',
@@ -22,6 +24,8 @@ export class RoleActualizar implements OnInit {
   form: FormGroup = new FormGroup({});
   role: Role = new Role();
   id: number = 0;
+
+  nombresRol: string[] = ['ADMIN', 'PACIENTE', 'DOCTOR', 'PADRE'];
 
   constructor(
     private rS: Roleservice,

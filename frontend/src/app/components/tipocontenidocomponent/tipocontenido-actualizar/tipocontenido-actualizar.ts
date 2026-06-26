@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 import { TipoContenido } from '../../../models/TipoContenido';
 import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
@@ -12,6 +13,7 @@ import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
   imports: [
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
     ReactiveFormsModule,
   ],
   templateUrl: './tipocontenido-actualizar.html',
@@ -21,6 +23,8 @@ export class TipocontenidoActualizar implements OnInit {
   form: FormGroup = new FormGroup({});
   tipoContenido: TipoContenido = new TipoContenido();
   id: number = 0;
+
+  tipos: string[] = ['VIDEO', 'PDF', 'AUDIO', 'INFOGRAFÍA', 'ARTÍCULO', 'PRESENTACIÓN', 'IMAGEN', 'ENLACE'];
 
   constructor(
     private tcS: Tipocontenidoservice,

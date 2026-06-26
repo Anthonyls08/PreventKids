@@ -32,7 +32,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getIdRole().getNombre()));
 
-        boolean isEnabled = "Activo".equalsIgnoreCase(user.getEstado());
+        boolean isEnabled = user.isEstado();
 
         UserDetails ud = new org.springframework.security.core.userdetails.User(
                 user.getEmail(),

@@ -13,7 +13,7 @@ public class UserDTO {
     private String genero;
     private String email;
     private int telefono;
-    private String estado;
+    private boolean estado;
 
     private String password;
 
@@ -80,11 +80,11 @@ public class UserDTO {
         this.telefono = telefono;
     }
 
-    public String getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
