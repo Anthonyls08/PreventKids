@@ -17,7 +17,19 @@ export class Professionalprofileservice {
     return this.http.get<ProfessionalProfile[]>(this.url);
   }
 
+  insert(p: ProfessionalProfile) {
+    return this.http.post(`${this.url}/web`, p);
+  }
+
   listId(id: number) {
     return this.http.get<ProfessionalProfile>(`${this.url}/${id}`);
+  }
+
+  update(p: ProfessionalProfile) {
+    return this.http.put(`${this.url}/actualiza`, p, { responseType: 'text' });
+  }
+
+  eliminar(id: number) {
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 }
