@@ -63,6 +63,11 @@ import { AlertListar } from './components/alertcomponent/alert-listar/alert-list
 import { AlertInsertar } from './components/alertcomponent/alert-insertar/alert-insertar';
 import { AlertActualizar } from './components/alertcomponent/alert-actualizar/alert-actualizar';
 
+import { Professionalprofilecomponent } from './components/professionalprofilecomponent/professionalprofilecomponent';
+import { ProfessionalProfileListar } from './components/professionalprofilecomponent/professional-profile-listar/professional-profile-listar';
+import { ProfessionalProfileInsertar } from './components/professionalprofilecomponent/professional-profile-insertar/professional-profile-insertar';
+import { ProfessionalProfileActualizar } from './components/professionalprofilecomponent/professional-profile-actualizar/professional-profile-actualizar';
+
 export const routes: Routes = [
     {
         path: '',
@@ -301,6 +306,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: RecommendedExerciseActualizar
+        }
+    ]
+},
+{
+    path: 'perfil-profesional',
+    component: Professionalprofilecomponent,
+    children:[
+        {
+            path:'listar',
+            component: ProfessionalProfileListar
+        },
+        {
+            path:'nuevo',
+            component: ProfessionalProfileInsertar
+        },
+        {
+            path:'edits/:id',
+            component: ProfessionalProfileActualizar
         }
     ]
 }
