@@ -91,5 +91,12 @@ export class Homecomponent {
       link: '/app/limitacion-fisica/listar',
       color: '#6d4c41',
     },
+    {
+      icono: 'notifications_active',
+      titulo: 'Alertas',
+      texto: 'Gestiona las alertas generadas por el sistema.',
+      link: '/app/alertas/listar',
+      color: '#d32f2f',
+    },
   ];
 }

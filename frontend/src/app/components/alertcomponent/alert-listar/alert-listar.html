@@ -1,0 +1,88 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de Alertas</h2>
+
+  <div class="cards-grid">
+    @for (item of pagedItems(); track item.idAlert) {
+
+      <mat-card class="crud-card">
+
+        <mat-card-header>
+          <mat-card-title>
+            Alerta #{{ item.idAlert }}
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <p class="card-field">
+            <strong>Fecha:</strong>
+            {{ item.generationdate }}
+          </p>
+
+          <p class="card-field">
+            <strong>Leída:</strong>
+            {{ item.leida ? 'Sí' : 'No' }}
+          </p>
+
+          <p class="card-field">
+            <strong>Tipo de alerta:</strong>
+            {{ item.tipoalert.nombre }}
+          </p>
+
+          <p class="card-field">
+            <strong>Nivel de riesgo:</strong>
+            {{ item.tipoalert.nivelriesgo }}
+          </p>
+
+          <p class="card-field">
+            <strong>Medición:</strong>
+            {{ item.medicion.idMedicion }}
+          </p>
+
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+
+          <button
+            matButton
+            (click)="eliminar(item.idAlert)"
+            class="btn-eliminar">
+
+            <mat-icon>delete</mat-icon>
+            Eliminar
+
+          </button>
+
+          <button
+            matButton
+            [routerLink]="['/app/alertas/edits', item.idAlert]"
+            class="btn-editar">
+
+            <mat-icon>edit</mat-icon>
+            Editar
+
+          </button>
+
+        </mat-card-actions>
+
+      </mat-card>
+
+    } @empty {
+
+      <p class="cards-empty">
+        No hay alertas registradas.
+      </p>
+
+    }
+  </div>
+
+  <mat-paginator
+    class="cards-paginator"
+    [length]="items().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3,6,9,12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)">
+  </mat-paginator>
+
+</div>  

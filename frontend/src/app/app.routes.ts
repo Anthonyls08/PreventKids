@@ -58,6 +58,11 @@ import { RecommendedExerciseListar } from './components/recommendedexercisecompo
 import { RecommendedExerciseInsertar } from './components/recommendedexercisecomponent/recommended-exercise-insertar/recommended-exercise-insertar';
 import { RecommendedExerciseActualizar } from './components/recommendedexercisecomponent/recommended-exercise-actualizar/recommended-exercise-actualizar';
 
+import { Alertcomponent } from './components/alertcomponent/alertcomponent';
+import { AlertListar } from './components/alertcomponent/alert-listar/alert-listar';
+import { AlertInsertar } from './components/alertcomponent/alert-insertar/alert-insertar';
+import { AlertActualizar } from './components/alertcomponent/alert-actualizar/alert-actualizar';
+
 import { Professionalprofilecomponent } from './components/professionalprofilecomponent/professionalprofilecomponent';
 import { ProfessionalProfileListar } from './components/professionalprofilecomponent/professional-profile-listar/professional-profile-listar';
 import { ProfessionalProfileInsertar } from './components/professionalprofilecomponent/professional-profile-insertar/professional-profile-insertar';
@@ -193,6 +198,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: TipocontenidoActualizar
+        }
+    ]
+},
+    {
+    path: 'alertas',
+    component: Alertcomponent,
+    children: [
+        {
+            path: 'listar',
+            component: AlertListar
+        },
+        {
+            path: 'nuevo',
+            component: AlertInsertar
+        },
+        {
+            path: 'edits/:id',
+            component: AlertActualizar
         }
     ]
 },

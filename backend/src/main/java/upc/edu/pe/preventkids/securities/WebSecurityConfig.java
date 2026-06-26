@@ -76,7 +76,10 @@ public class WebSecurityConfig {
                         // Registro público de usuarios desde la web
                         .requestMatchers(HttpMethod.POST, "/users/web").permitAll()
                         // ¡AQUÍ AGREGAMOS "/distritos/**"!
-                        .requestMatchers("/login","/swagger-ui/**", "/v3/api-docs/**",
+                        .requestMatchers(
+                                "/login",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
                                 "/tipos-alerta/**",
                                 "/chatIA/**",
                                 "/distritos/**",
@@ -86,7 +89,10 @@ public class WebSecurityConfig {
                                 "/roles/**",
                                 "/users/**",
                                 "/professionalprofiles/**",
-                                "/virtualconsultations/**")
+                                "/virtualconsultations/**",
+                                "/api/medicion/**",
+                                "/alerta/**"
+                        )
                         .permitAll()
                         .anyRequest().authenticated()
                 )

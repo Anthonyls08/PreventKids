@@ -5,6 +5,8 @@ import upc.edu.pe.preventkids.entities.User;
 import java.time.LocalDate;
 
 public class MedicionDTO {
+
+    private int idMedicion;
     private float pesoKg;
     private float tallaCm;
     private float imc;
@@ -13,6 +15,14 @@ public class MedicionDTO {
     private float temperatura;
     private LocalDate fechamedicion;
     private User user;
+
+    public int getIdMedicion() {
+        return idMedicion;
+    }
+
+    public void setIdMedicion(int idMedicion) {
+        this.idMedicion = idMedicion;
+    }
 
     public float getPesoKg() {
         return pesoKg;
