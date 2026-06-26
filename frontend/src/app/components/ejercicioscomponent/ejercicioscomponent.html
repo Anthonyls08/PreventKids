@@ -14,8 +14,34 @@
     <p class="ejer-msg">Cargando ejercicios...</p>
   }
 
+  <div class="ejer-filtros">
+    <mat-form-field appearance="outline">
+      <mat-label>Ejercicio</mat-label>
+      <mat-select [ngModel]="filtroNombre()" (ngModelChange)="filtroNombre.set($event)">
+        <mat-option [value]="''">Todos</mat-option>
+        @for (n of nombres(); track n) {
+          <mat-option [value]="n">{{ n }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Dificultad</mat-label>
+      <mat-select [ngModel]="filtroDificultad()" (ngModelChange)="filtroDificultad.set($event)">
+        <mat-option [value]="''">Todas</mat-option>
+        @for (d of dificultades; track d) {
+          <mat-option [value]="d">{{ d }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (!cargando() && ejerciciosFiltrados().length === 0) {
+    <p class="ejer-msg">No hay ejercicios que coincidan con el filtro.</p>
+  }
+
   <div class="ejer-grid">
-    @for (e of ejercicios(); track $index) {
+    @for (e of ejerciciosFiltrados(); track $index) {
       <article class="ejer-card">
         <div class="ejer-img">
           @if (e.imagen) {
@@ -25,6 +51,7 @@
           }
         </div>
         <span class="ejer-cat">{{ e.categoria }}</span>
+        <span class="ejer-dif">{{ e.dificultad }}</span>
         <h3>{{ e.nombre }}</h3>
         <p>{{ e.descripcion }}</p>
       </article>

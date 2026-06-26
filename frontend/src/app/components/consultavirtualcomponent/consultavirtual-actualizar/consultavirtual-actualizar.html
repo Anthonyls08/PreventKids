@@ -1,0 +1,108 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%">
+    <h2>Actualizar Consulta Virtual</h2>
+  </div>
+
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Fecha de la cita</mat-label>
+        <input matInput type="datetime-local" formControlName="fechacita" />
+        <mat-error>
+          @if (form.get('fechacita')?.hasError('required')) {
+            Seleccione la fecha de la cita!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          @for (e of estados; track e) {
+            <mat-option [value]="e">{{ e }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('estado')?.hasError('required')) {
+            Seleccione un estado!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Proveedor</mat-label>
+        <mat-select formControlName="proveedor">
+          @for (p of proveedores; track p) {
+            <mat-option [value]="p">{{ p }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('proveedor')?.hasError('required')) {
+            Seleccione un proveedor!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>URL de la sala</mat-label>
+        <input matInput formControlName="urlsala" />
+        <mat-error>
+          @if (form.get('urlsala')?.hasError('required')) {
+            Ingrese la URL de la sala!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <!-- FK Usuario: obligatoria -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Usuario (paciente)</mat-label>
+        <mat-select formControlName="idUser">
+          @for (u of usuarios; track u.idUser) {
+            <mat-option [value]="u.idUser">{{ u.nombre }} {{ u.apellido }} ({{ u.email }})</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idUser')?.hasError('required') || form.get('idUser')?.hasError('min')) {
+            Debe seleccionar un usuario!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <!-- FK Perfil profesional: obligatoria -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Perfil profesional</mat-label>
+        <mat-select formControlName="idProfessionalProfile">
+          @for (p of perfiles; track p.idProfessionalProfile) {
+            <mat-option [value]="p.idProfessionalProfile">
+              {{ p.numerocolegiatura }} - {{ p.institucion }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idProfessionalProfile')?.hasError('required') || form.get('idProfessionalProfile')?.hasError('min')) {
+            Debe seleccionar un perfil profesional!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Actualizar</button>
+        <button mat-button color="warn" type="button" routerLink="/app/consultas-virtuales/listar" style="margin-left: 10px;">Cancelar</button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -35,6 +35,40 @@ body {
   font-weight: 600;
 }
 
+/* --- Botones de los formularios (Registrar / Actualizar / Cancelar) --- */
+/* Contenedor que coloca los botones uno al lado del otro, centrados */
+.form-acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+/* Ambos botones comparten exactamente el mismo verde, tamaño y forma */
+.btn-form {
+  background-color: var(--pk-primary) !important;
+  color: #ffffff !important;
+  min-width: 150px !important;
+  height: 44px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25) !important;
+  transition: filter 0.15s ease;
+}
+
+.btn-form:hover:not([disabled]) {
+  filter: brightness(0.92);
+}
+
+.btn-form[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* --- Tablas --- */
 table.mat-mdc-table {
   width: 100%;

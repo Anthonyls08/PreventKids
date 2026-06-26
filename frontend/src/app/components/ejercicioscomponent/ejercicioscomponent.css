@@ -24,6 +24,17 @@
   color: #888;
 }
 
+.ejer-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.ejer-filtros mat-form-field {
+  min-width: 220px;
+}
+
 .ejer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -73,6 +84,18 @@
   align-self: flex-start;
   background: var(--pk-secondary);
   color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ejer-dif {
+  align-self: flex-start;
+  background: var(--pk-accent);
+  color: #1f2d22;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 2px 10px;

@@ -12,21 +12,34 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Nombre del Distrito</mat-label>
-      <input matInput placeholder="Ej. Carabayllo" formControlName="nombreDistrito" />
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="nombreDepartamento" (selectionChange)="onDepartamentoChange()">
+        @for (dep of departamentos; track dep.nombre) {
+          <mat-option [value]="dep.nombre">{{ dep.nombre }}</mat-option>
+        }
+      </mat-select>
       <mat-error>
-        @if (form.get('nombreDistrito')?.hasError('required')) {
-          Ingrese el nombre del distrito!!
+        @if (form.get('nombreDepartamento')?.hasError('required')) {
+          Seleccione el departamento!!
         }
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Departamento</mat-label>
-      <input matInput placeholder="Ej. Lima" formControlName="nombreDepartamento" />
+      <mat-label>Nombre del Distrito</mat-label>
+      <mat-select formControlName="nombreDistrito" (selectionChange)="onDistritoChange()">
+        @for (dist of distritosFiltrados; track dist.ubigeo) {
+          <mat-option [value]="dist.nombre">{{ dist.nombre }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>
+        @if (distritosFiltrados.length === 0) {
+          Primero seleccione un departamento
+        }
+      </mat-hint>
       <mat-error>
-        @if (form.get('nombreDepartamento')?.hasError('required')) {
-          Ingrese el nombre del departamento!!
+        @if (form.get('nombreDistrito')?.hasError('required')) {
+          Seleccione el distrito!!
         }
       </mat-error>
     </mat-form-field>

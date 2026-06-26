@@ -48,4 +48,8 @@ export class PhysicalLimitationInsertar implements OnInit {
       });
     }
   }
+
+  cancelar() {
+    this.router.navigate(['/app/limitacion-fisica/listar']);
+  }
 }

@@ -43,6 +43,11 @@ import { Ejercicioscomponent } from './components/ejercicioscomponent/ejercicios
 import { Videoscomponent } from './components/videoscomponent/videoscomponent';
 import { Videollamadacomponent } from './components/videollamadacomponent/videollamadacomponent';
 
+import { Consultavirtualcomponent } from './components/consultavirtualcomponent/consultavirtualcomponent';
+import { ConsultaVirtualListar } from './components/consultavirtualcomponent/consultavirtual-listar/consultavirtual-listar';
+import { ConsultaVirtualInsertar } from './components/consultavirtualcomponent/consultavirtual-insertar/consultavirtual-insertar';
+import { ConsultaVirtualActualizar } from './components/consultavirtualcomponent/consultavirtual-actualizar/consultavirtual-actualizar';
+
 import { Educationalcontentcomponent } from './components/educationalcontentcomponent/educationalcontentcomponent';
 import { EducationalContentListar } from './components/educationalcontentcomponent/educational-content-listar/educational-content-listar';
 import { EducationalContentInsertar } from './components/educationalcontentcomponent/educational-content-insertar/educational-content-insertar';
@@ -219,6 +224,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: PhysicalLimitationActualizar
+        }
+    ]
+},
+{
+    path: 'consultas-virtuales',
+    component: Consultavirtualcomponent,
+    children:[
+        {
+            path:'listar',
+            component: ConsultaVirtualListar
+        },
+        {
+            path:'nuevo',
+            component: ConsultaVirtualInsertar
+        },
+        {
+            path:'edits/:id',
+            component: ConsultaVirtualActualizar
         }
     ]
 },

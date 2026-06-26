@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-role-insertar',
@@ -13,7 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   templateUrl: './role-insertar.html',
   styleUrl: './role-insertar.css',
@@ -21,6 +23,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class RoleInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
   role: Role = new Role();
+
+  nombresRol: string[] = ['ADMIN', 'PACIENTE', 'DOCTOR', 'PADRE'];
 
   constructor(
     private rS: Roleservice,
@@ -46,5 +50,9 @@ export class RoleInsertar implements OnInit {
         },
       });
     }
+  }
+
+  cancelar() {
+    this.router.navigate(['/app/roles/listar']);
   }
 }

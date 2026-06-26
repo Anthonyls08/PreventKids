@@ -31,8 +31,8 @@ public class User {
 
     private int telefono;
 
-    @Column(length = 20, nullable = false)
-    private String estado;
+    @Column(nullable = false)
+    private boolean estado;
 
     @ManyToOne
     @JoinColumn(name = "idRole", nullable = false)
@@ -53,7 +53,7 @@ public class User {
     public User() {
     }
 
-    public User(int idUser, String nombre, String apellido, LocalDate fechanacimiento, String genero, String email, String password, int telefono, String estado, Role idRole, District idDistrict, chatIA chatia, PhysicalLimitation physicallimitation) {
+    public User(int idUser, String nombre, String apellido, LocalDate fechanacimiento, String genero, String email, String password, int telefono, boolean estado, Role idRole, District idDistrict, chatIA chatia, PhysicalLimitation physicallimitation) {
         this.idUser = idUser;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -133,11 +133,11 @@ public class User {
         this.telefono = telefono;
     }
 
-    public String getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

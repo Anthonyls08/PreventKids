@@ -2,24 +2,37 @@
   <div style="text-align: center; margin: 3%"><h2>Registro de Distrito</h2></div>
   <div style="text-align: center">
     <form [formGroup]="form" (submit)="aceptar()">
-      
+
       <mat-form-field class="example-full-width">
-        <mat-label>Nombre del Distrito</mat-label>
-        <input matInput placeholder="Ej. San Isidro" formControlName="nameDistrict" />
+        <mat-label>Departamento</mat-label>
+        <mat-select formControlName="nameDepartment" (selectionChange)="onDepartamentoChange()">
+          @for (dep of departamentos; track dep.nombre) {
+            <mat-option [value]="dep.nombre">{{ dep.nombre }}</mat-option>
+          }
+        </mat-select>
         <mat-error>
-          @if (form.get('nameDistrict')?.hasError('required')) {
-            Ingrese el nombre del distrito!!
+          @if (form.get('nameDepartment')?.hasError('required')) {
+            Seleccione el departamento!!
           }
         </mat-error>
       </mat-form-field>
       <br />
 
       <mat-form-field class="example-full-width">
-        <mat-label>Departamento</mat-label>
-        <input matInput placeholder="Ej. Lima" formControlName="nameDepartment" />
+        <mat-label>Nombre del Distrito</mat-label>
+        <mat-select formControlName="nameDistrict" (selectionChange)="onDistritoChange()">
+          @for (dist of distritosFiltrados; track dist.ubigeo) {
+            <mat-option [value]="dist.nombre">{{ dist.nombre }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint>
+          @if (distritosFiltrados.length === 0) {
+            Primero seleccione un departamento
+          }
+        </mat-hint>
         <mat-error>
-          @if (form.get('nameDepartment')?.hasError('required')) {
-            Ingrese el nombre del departamento!!
+          @if (form.get('nameDistrict')?.hasError('required')) {
+            Seleccione el distrito!!
           }
         </mat-error>
       </mat-form-field>
@@ -43,6 +56,7 @@
       <mat-form-field class="example-full-width">
         <mat-label>Ubigeo</mat-label>
         <input matInput placeholder="Ej. 150101" formControlName="ubigeo" />
+        <mat-hint>Se completa automáticamente al elegir el distrito</mat-hint>
         <mat-error>
           @if (form.get('ubigeo')?.hasError('required')) {
             Ingrese el código ubigeo!!
@@ -54,11 +68,11 @@
       </mat-form-field>
       <br />
 
-      <div style="margin-top: 2%">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" style="margin-right: 10px;">Registrar</button>
-        <button mat-button color="warn" type="button" routerLink="/app/district/listar">Cancelar</button>
+      <div class="form-acciones">
+        <button mat-raised-button type="submit" class="btn-form" [disabled]="form.invalid">Registrar</button>
+        <button mat-raised-button type="button" class="btn-form" routerLink="/app/district/listar">Cancelar</button>
       </div>
-      
+
     </form>
   </div>
 </div>

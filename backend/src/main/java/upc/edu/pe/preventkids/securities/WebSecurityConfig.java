@@ -83,7 +83,10 @@ public class WebSecurityConfig {
                                 "/tipos-contenido/**",
                                 "/specialties/**",
                                 "/LimitacionFisica/**",
-                                "/roles/**")
+                                "/roles/**",
+                                "/users/**",
+                                "/professionalprofiles/**",
+                                "/virtualconsultations/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 )
