@@ -16,4 +16,8 @@ export class Professionalprofileservice {
   list() {
     return this.http.get<ProfessionalProfile[]>(this.url);
   }
+
+  listId(id: number) {
+    return this.http.get<ProfessionalProfile>(`${this.url}/${id}`);
+  }
 }
