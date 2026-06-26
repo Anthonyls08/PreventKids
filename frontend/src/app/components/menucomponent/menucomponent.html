@@ -45,6 +45,10 @@
             <mat-icon>warning</mat-icon>
             Tipo Alerta
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuAlert">
+    <mat-icon>notifications_active</mat-icon>
+    Alertas
+</button>
         <button mat-menu-item [matMenuTriggerFor]="menuChatIA">
             <mat-icon>smart_toy</mat-icon>
             Chat IA
@@ -82,7 +86,17 @@
             Ejercicio Recomendado
         </button>
     </mat-menu>
+    <mat-menu #menuAlert="matMenu">
+    <button mat-menu-item routerLink="/app/alertas/nuevo">
+        <mat-icon>add</mat-icon>
+        Registrar
+    </button>
 
+    <button mat-menu-item routerLink="/app/alertas/listar">
+        <mat-icon>list</mat-icon>
+        Listar
+    </button>
+</mat-menu>
     <mat-menu #menuTipoAlerta="matMenu">
         <button mat-menu-item routerLink="/app/tipos-alerta/nuevo">
             <mat-icon>add</mat-icon>
