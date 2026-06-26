@@ -1,0 +1,42 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de perfiles profesionales</h2>
+
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (perfil of pagedPerfiles(); track perfil.idProfessionalProfile) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>{{ nombreUsuario(perfil.idUser) }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-desc">N° colegiatura: {{ perfil.numerocolegiatura }}</p>
+          <p class="card-desc">Institución: {{ perfil.institucion }}</p>
+          <p class="card-desc">Especialidad: {{ nombreEspecialidad(perfil.idSpecialty) }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(perfil.idProfessionalProfile)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/perfil-profesional/edits', perfil.idProfessionalProfile]" class="btn-editar">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">No hay perfiles profesionales registrados.</p>
+    }
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="perfiles().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de perfiles profesionales">
+  </mat-paginator>
+</div>

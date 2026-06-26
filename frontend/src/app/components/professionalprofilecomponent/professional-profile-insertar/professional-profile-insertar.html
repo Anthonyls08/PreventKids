@@ -1,0 +1,57 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Registro de Perfil Profesional</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Número de colegiatura</mat-label>
+        <input matInput formControlName="numerocolegiatura" />
+        <mat-error>
+          @if (form.get('numerocolegiatura')?.hasError('required')) {
+            Ingrese el número de colegiatura!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Institución</mat-label>
+        <input matInput formControlName="institucion" />
+        <mat-error>
+          @if (form.get('institucion')?.hasError('required')) {
+            Ingrese la institución!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Usuario</mat-label>
+        <mat-select formControlName="idUser">
+          @for (u of usuarios(); track u.idUser) {
+            <mat-option [value]="u.idUser">{{ u.nombre }} {{ u.apellido }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idUser')?.hasError('required')) {
+            Seleccione un usuario!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Especialidad</mat-label>
+        <mat-select formControlName="idSpecialty">
+          @for (s of especialidades(); track s.idSpecialty) {
+            <mat-option [value]="s.idSpecialty">{{ s.nombre }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idSpecialty')?.hasError('required')) {
+            Seleccione una especialidad!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>

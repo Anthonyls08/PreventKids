@@ -29,6 +29,6 @@ export class Districtservice {
   }
 
   update(d: District) {
-    return this.http.put(`${this.url}/actualiza`, d, { responseType: 'text' });
+    return this.http.put(`${this.url}/update/${d.idDistrict}`, d, { responseType: 'text' });
   }
 } 

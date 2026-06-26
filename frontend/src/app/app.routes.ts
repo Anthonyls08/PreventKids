@@ -58,6 +58,11 @@ import { RecommendedExerciseListar } from './components/recommendedexercisecompo
 import { RecommendedExerciseInsertar } from './components/recommendedexercisecomponent/recommended-exercise-insertar/recommended-exercise-insertar';
 import { RecommendedExerciseActualizar } from './components/recommendedexercisecomponent/recommended-exercise-actualizar/recommended-exercise-actualizar';
 
+import { Professionalprofilecomponent } from './components/professionalprofilecomponent/professionalprofilecomponent';
+import { ProfessionalProfileListar } from './components/professionalprofilecomponent/professional-profile-listar/professional-profile-listar';
+import { ProfessionalProfileInsertar } from './components/professionalprofilecomponent/professional-profile-insertar/professional-profile-insertar';
+import { ProfessionalProfileActualizar } from './components/professionalprofilecomponent/professional-profile-actualizar/professional-profile-actualizar';
+
 export const routes: Routes = [
     {
         path: '',
@@ -278,6 +283,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: RecommendedExerciseActualizar
+        }
+    ]
+},
+{
+    path: 'perfil-profesional',
+    component: Professionalprofilecomponent,
+    children:[
+        {
+            path:'listar',
+            component: ProfessionalProfileListar
+        },
+        {
+            path:'nuevo',
+            component: ProfessionalProfileInsertar
+        },
+        {
+            path:'edits/:id',
+            component: ProfessionalProfileActualizar
         }
     ]
 }

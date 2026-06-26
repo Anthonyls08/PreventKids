@@ -81,6 +81,10 @@
             <mat-icon>directions_run</mat-icon>
             Ejercicio Recomendado
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuPerfilProfesional">
+            <mat-icon>badge</mat-icon>
+            Perfil Profesional
+        </button>
     </mat-menu>
 
     <mat-menu #menuTipoAlerta="matMenu">
@@ -180,6 +184,17 @@
             Registrar
         </button>
         <button mat-menu-item routerLink="/app/ejercicio-recomendado/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuPerfilProfesional="matMenu">
+        <button mat-menu-item routerLink="/app/perfil-profesional/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/perfil-profesional/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
