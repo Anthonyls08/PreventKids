@@ -17,7 +17,21 @@ export class Medicionservice {
     return this.http.get<Medicion[]>(this.url);
   }
 
+  insert(m: Medicion) {
+    return this.http.post(`${this.url}/ingresar`, m);
+  }
+
+  eliminar(id: number) {
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
+
   listId(id: number) {
     return this.http.get<Medicion>(`${this.url}/${id}`);
+  }
+
+  update(id: number, m: Medicion) {
+    return this.http.put(`${this.url}/actualizar/${id}`, m, {
+      responseType: 'text',
+    });
   }
 }
