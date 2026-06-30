@@ -17,7 +17,7 @@
   <div class="ejer-filtros">
     <mat-form-field appearance="outline">
       <mat-label>Ejercicio</mat-label>
-      <mat-select [ngModel]="filtroNombre()" (ngModelChange)="filtroNombre.set($event)">
+      <mat-select [ngModel]="filtroNombre()" (ngModelChange)="setFiltroNombre($event)">
         <mat-option [value]="''">Todos</mat-option>
         @for (n of nombres(); track n) {
           <mat-option [value]="n">{{ n }}</mat-option>
@@ -27,7 +27,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Dificultad</mat-label>
-      <mat-select [ngModel]="filtroDificultad()" (ngModelChange)="filtroDificultad.set($event)">
+      <mat-select [ngModel]="filtroDificultad()" (ngModelChange)="setFiltroDificultad($event)">
         <mat-option [value]="''">Todas</mat-option>
         @for (d of dificultades; track d) {
           <mat-option [value]="d">{{ d }}</mat-option>
@@ -41,7 +41,7 @@
   }
 
   <div class="ejer-grid">
-    @for (e of ejerciciosFiltrados(); track $index) {
+    @for (e of pagedEjercicios(); track $index) {
       <article class="ejer-card">
         <div class="ejer-img">
           @if (e.imagen) {
@@ -57,4 +57,16 @@
       </article>
     }
   </div>
+
+  @if (!cargando() && ejerciciosFiltrados().length > 0) {
+    <mat-paginator
+      class="cards-paginator"
+      [length]="ejerciciosFiltrados().length"
+      [pageSize]="pageSize()"
+      [pageSizeOptions]="[6, 9, 12, 24]"
+      [pageIndex]="pageIndex()"
+      (page)="onPage($event)"
+      aria-label="Paginación de ejercicios">
+    </mat-paginator>
+  }
 </div>

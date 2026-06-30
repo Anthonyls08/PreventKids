@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { TipoContenido } from '../../../models/TipoContenido';
 import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
@@ -14,6 +15,8 @@ import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatIconModule,
+    RouterLink,
     ReactiveFormsModule,
   ],
   templateUrl: './tipocontenido-actualizar.html',

@@ -33,7 +33,7 @@ export class RecommendedExerciseListar implements OnInit {
   cargarEjercicios() {
     this.reS.list().subscribe({
       next: (data) => {
-        this.ejercicios.set(data);
+        this.ejercicios.set(data.sort((a, b) => a.idRecommendedExercise - b.idRecommendedExercise));
       },
     });
   }
@@ -41,7 +41,7 @@ export class RecommendedExerciseListar implements OnInit {
   eliminar(id: number) {
     this.reS.eliminar(id).subscribe(() => {
       this.reS.list().subscribe((data) => {
-        this.ejercicios.set(data);
+        this.ejercicios.set(data.sort((a, b) => a.idRecommendedExercise - b.idRecommendedExercise));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

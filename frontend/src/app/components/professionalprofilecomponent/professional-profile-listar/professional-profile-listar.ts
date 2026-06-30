@@ -43,7 +43,7 @@ export class ProfessionalProfileListar implements OnInit {
   cargarPerfiles() {
     this.ppS.list().subscribe({
       next: (data) => {
-        this.perfiles.set(data);
+        this.perfiles.set(data.sort((a, b) => a.idProfessionalProfile - b.idProfessionalProfile));
       },
     });
   }
@@ -61,7 +61,7 @@ export class ProfessionalProfileListar implements OnInit {
   eliminar(id: number) {
     this.ppS.eliminar(id).subscribe(() => {
       this.ppS.list().subscribe((data) => {
-        this.perfiles.set(data);
+        this.perfiles.set(data.sort((a, b) => a.idProfessionalProfile - b.idProfessionalProfile));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

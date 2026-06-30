@@ -6,14 +6,14 @@ import { TipoContenido } from '../../../models/TipoContenido';
 import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
 import { ProfessionalProfile } from '../../../models/ProfessionalProfile';
 import { Professionalprofileservice } from '../../../services/professionalprofileservice';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-educational-content-insertar',
-  imports: [MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatSelectModule, RouterLink, ReactiveFormsModule],
   templateUrl: './educational-content-insertar.html',
   styleUrl: './educational-content-insertar.css',
 })

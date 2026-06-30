@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { PhysicalLimitation } from '../../../models/physical-limitation';
 import { PhysicalLimitationService } from '../../../services/limitacionfisicaservice';
 
 @Component({
   selector: 'app-physical-limitation-actualizar',
-  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatIconModule, RouterLink, ReactiveFormsModule],
   templateUrl: './physical-limitation-actualizar.html',
   styleUrl: './physical-limitation-actualizar.css',
 })

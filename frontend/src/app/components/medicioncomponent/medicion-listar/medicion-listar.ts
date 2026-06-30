@@ -34,7 +34,7 @@ export class MedicionListar implements OnInit {
   cargarMediciones() {
     this.mS.list().subscribe({
       next: (data) => {
-        this.mediciones.set(data);
+        this.mediciones.set(data.sort((a, b) => a.idMedicion - b.idMedicion));
       },
     });
   }
@@ -42,7 +42,7 @@ export class MedicionListar implements OnInit {
   eliminar(id: number) {
     this.mS.eliminar(id).subscribe(() => {
       this.mS.list().subscribe((data) => {
-        this.mediciones.set(data);
+        this.mediciones.set(data.sort((a, b) => a.idMedicion - b.idMedicion));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

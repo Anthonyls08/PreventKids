@@ -33,7 +33,7 @@ export class ChatIAListar implements OnInit {
   cargarChats() {
     this.cS.list().subscribe({
       next: (data) => {
-        this.chats.set(data);
+        this.chats.set(data.sort((a, b) => a.idchatIA - b.idchatIA));
       },
     });
   }
@@ -41,7 +41,7 @@ export class ChatIAListar implements OnInit {
   eliminar(id: number) {
     this.cS.eliminar(id).subscribe(() => {
       this.cS.list().subscribe((data) => {
-        this.chats.set(data);
+        this.chats.set(data.sort((a, b) => a.idchatIA - b.idchatIA));
         // Si la página actual quedó vacía, retroceder una página
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {

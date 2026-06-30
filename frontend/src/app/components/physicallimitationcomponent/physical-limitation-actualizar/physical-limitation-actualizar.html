@@ -7,6 +7,12 @@
     <form [formGroup]="form" (submit)="aceptar()">
 
       <mat-form-field class="example-full-width">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" placeholder="Ej. Asma">
         <mat-error>
@@ -60,8 +66,14 @@
         </mat-error>
       </mat-form-field>
 
-      <div>
-        <button mat-raised-button type="submit" class="btn-rojo">Actualizar</button>
+      <div class="form-acciones">
+        <button matButton type="submit" class="btn-form">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+
+        <button matButton type="button" class="btn-form" routerLink="/app/limitacion-fisica/listar">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
       </div>
     </form>
   </div>

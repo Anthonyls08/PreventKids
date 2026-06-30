@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { VirtualConsultation } from '../../../models/VirtualConsultation';
 import { Virtualconsultationservice } from '../../../services/virtualconsultationservice';
@@ -18,6 +19,7 @@ import { ProfessionalProfile } from '../../../models/ProfessionalProfile';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatIconModule,
     ReactiveFormsModule,
     RouterModule,
   ],

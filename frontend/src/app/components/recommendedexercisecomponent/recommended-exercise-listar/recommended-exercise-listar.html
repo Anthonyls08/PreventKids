@@ -10,7 +10,9 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-desc">{{ ejercicio.descriptionReExercise }}</p>
-          <p class="card-desc">Dificultad: {{ ejercicio.difficultRecommendedExercise }}</p>
+          <p class="card-field"><strong>Dificultad:</strong> {{ ejercicio.difficultRecommendedExercise }}</p>
+          <p class="card-field"><strong>Duración:</strong> {{ ejercicio.durationRecommendedExercise }} min</p>
+          <p class="card-field"><strong>Fecha:</strong> {{ ejercicio.dateRecommendedExercise }}</p>
         </mat-card-content>
         <mat-card-actions align="end">
           <button matButton (click)="eliminar(ejercicio.idRecommendedExercise)" class="btn-eliminar">

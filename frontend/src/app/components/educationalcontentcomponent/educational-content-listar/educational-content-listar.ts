@@ -33,7 +33,7 @@ export class EducationalContentListar implements OnInit {
   cargarContenidos() {
     this.eS.list().subscribe({
       next: (data) => {
-        this.contenidos.set(data);
+        this.contenidos.set(data.sort((a, b) => a.idEducationalContent - b.idEducationalContent));
       },
     });
   }
@@ -41,7 +41,7 @@ export class EducationalContentListar implements OnInit {
   eliminar(id: number) {
     this.eS.eliminar(id).subscribe(() => {
       this.eS.list().subscribe((data) => {
-        this.contenidos.set(data);
+        this.contenidos.set(data.sort((a, b) => a.idEducationalContent - b.idEducationalContent));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

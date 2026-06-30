@@ -40,7 +40,7 @@ export class AlertListar implements OnInit {
   cargarAlertas() {
     this.aS.list().subscribe({
       next: (data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idAlert - b.idAlert));
       },
     });
   }

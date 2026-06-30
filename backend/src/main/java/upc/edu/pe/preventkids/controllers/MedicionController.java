@@ -101,8 +101,15 @@ public class MedicionController {
         Optional<Medicion> medicion = mS.listId(id);
 
         if (medicion.isPresent()) {
-            mS.delete(id);
-            return ResponseEntity.ok("Medición eliminada correctamente");
+            try {
+                mS.delete(id);
+                return ResponseEntity.ok("Medición eliminada correctamente");
+            } catch (org.springframework.dao.DataIntegrityViolationException e) {
+                // La medición está referenciada por una o más alertas (FK).
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("No se puede eliminar la medición porque tiene alertas asociadas. " +
+                                "Elimine primero esas alertas.");
+            }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error: Medición no encontrada");
