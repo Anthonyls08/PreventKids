@@ -68,6 +68,11 @@ import { ProfessionalProfileListar } from './components/professionalprofilecompo
 import { ProfessionalProfileInsertar } from './components/professionalprofilecomponent/professional-profile-insertar/professional-profile-insertar';
 import { ProfessionalProfileActualizar } from './components/professionalprofilecomponent/professional-profile-actualizar/professional-profile-actualizar';
 
+import { Medicioncomponent } from './components/medicioncomponent/medicioncomponent';
+import { MedicionListar } from './components/medicioncomponent/medicion-listar/medicion-listar';
+import { MedicionInsertar } from './components/medicioncomponent/medicion-insertar/medicion-insertar';
+import { MedicionActualizar } from './components/medicioncomponent/medicion-actualizar/medicion-actualizar';
+
 export const routes: Routes = [
     {
         path: '',
@@ -324,6 +329,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: ProfessionalProfileActualizar
+        }
+    ]
+},
+{
+    path: 'mediciones',
+    component: Medicioncomponent,
+    children:[
+        {
+            path:'listar',
+            component: MedicionListar
+        },
+        {
+            path:'nuevo',
+            component: MedicionInsertar
+        },
+        {
+            path:'edits/:id',
+            component: MedicionActualizar
         }
     ]
 }

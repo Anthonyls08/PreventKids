@@ -89,6 +89,10 @@
             <mat-icon>badge</mat-icon>
             Perfil Profesional
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuMedicion">
+            <mat-icon>monitor_weight</mat-icon>
+            Medición
+        </button>
     </mat-menu>
     <mat-menu #menuAlert="matMenu">
     <button mat-menu-item routerLink="/app/alertas/nuevo">
@@ -209,6 +213,17 @@
             Registrar
         </button>
         <button mat-menu-item routerLink="/app/perfil-profesional/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuMedicion="matMenu">
+        <button mat-menu-item routerLink="/app/mediciones/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/mediciones/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
