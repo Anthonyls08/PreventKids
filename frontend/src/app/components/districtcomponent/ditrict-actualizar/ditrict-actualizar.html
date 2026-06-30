@@ -71,12 +71,12 @@
       </mat-error>
     </mat-form-field>
 
-    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    <div class="form-acciones">
+      <button matButton type="submit" class="btn-form" [disabled]="form.invalid">
         <mat-icon>save</mat-icon> Actualizar
       </button>
-      
-      <button mat-button color="warn" type="button" routerLink="/app/district/listar">
+
+      <button matButton type="button" class="btn-form" routerLink="/app/district/listar">
         <mat-icon>cancel</mat-icon> Cancelar
       </button>
     </div>

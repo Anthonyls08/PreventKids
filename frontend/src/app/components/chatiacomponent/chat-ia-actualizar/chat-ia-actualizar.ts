@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChatIA } from '../../../models/ChatIA';
 import { Chatiaservice } from '../../../services/chatiaservice';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-chat-ia-actualizar',
   imports: [
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    RouterLink,
     ReactiveFormsModule
   ],
   templateUrl: './chat-ia-actualizar.html',

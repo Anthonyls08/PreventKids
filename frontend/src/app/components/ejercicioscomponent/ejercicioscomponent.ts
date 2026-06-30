@@ -10,12 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Ejercicio } from '../../models/Ejercicio';
 import { Ejercicioservice, DIFICULTADES } from '../../services/ejercicioservice';
 
 @Component({
   selector: 'app-ejercicioscomponent',
-  imports: [FormsModule, MatIconModule, MatFormFieldModule, MatSelectModule],
+  imports: [FormsModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatPaginatorModule],
   templateUrl: './ejercicioscomponent.html',
   styleUrl: './ejercicioscomponent.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +46,31 @@ export class Ejercicioscomponent implements OnInit {
         (dificultad === '' || e.dificultad === dificultad)
     );
   });
+
+  // --- Paginación ---
+  pageSize = signal(6);
+  pageIndex = signal(0);
+
+  pagedEjercicios = computed(() => {
+    const start = this.pageIndex() * this.pageSize();
+    return this.ejerciciosFiltrados().slice(start, start + this.pageSize());
+  });
+
+  onPage(e: PageEvent) {
+    this.pageIndex.set(e.pageIndex);
+    this.pageSize.set(e.pageSize);
+  }
+
+  // Al cambiar un filtro, se vuelve a la primera página.
+  setFiltroNombre(v: string) {
+    this.filtroNombre.set(v);
+    this.pageIndex.set(0);
+  }
+
+  setFiltroDificultad(v: string) {
+    this.filtroDificultad.set(v);
+    this.pageIndex.set(0);
+  }
 
   ngOnInit(): void {
     this.eS.list().subscribe({

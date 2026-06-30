@@ -14,11 +14,7 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <mat-select formControlName="nombre">
-          @for (t of tipos; track t) {
-            <mat-option [value]="t">{{ t }}</mat-option>
-          }
-        </mat-select>
+        <input matInput formControlName="nombre" />
       </mat-form-field>
       <br />
 
@@ -34,8 +30,14 @@
       </mat-form-field>
       <br />
 
-      <div>
-        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      <div class="form-acciones">
+        <button matButton type="submit" class="btn-form">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+
+        <button matButton type="button" class="btn-form" routerLink="/app/tipos-contenido/listar">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
       </div>
 
     </form>

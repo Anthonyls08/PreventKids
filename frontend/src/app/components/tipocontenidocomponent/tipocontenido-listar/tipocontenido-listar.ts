@@ -32,14 +32,14 @@ export class TipocontenidoListar implements OnInit {
 
   cargarTiposContenido() {
     this.tcS.list().subscribe((data) => {
-      this.items.set(data);
+      this.items.set(data.sort((a, b) => a.idTipocontenido - b.idTipocontenido));
     });
   }
 
   eliminar(id: number) {
     this.tcS.eliminar(id).subscribe(() => {
       this.tcS.list().subscribe((data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idTipocontenido - b.idTipocontenido));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

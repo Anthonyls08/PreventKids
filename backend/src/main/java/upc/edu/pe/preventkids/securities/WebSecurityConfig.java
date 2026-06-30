@@ -77,6 +77,9 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/users/web").permitAll()
                         // ¡AQUÍ AGREGAMOS "/distritos/**"!
                         .requestMatchers(
+                                // Permite el reenvío interno a /error para que los
+                                // errores reales (500, etc.) no se enmascaren como 401.
+                                "/error",
                                 "/login",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",

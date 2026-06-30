@@ -29,6 +29,7 @@ export class Districtservice {
   }
 
   update(d: District) {
-    return this.http.put(`${this.url}/update/${d.idDistrict}`, d, { responseType: 'text' });
+    // El backend expone PUT /distritos/actualiza y lee el id desde el body.
+    return this.http.put(`${this.url}/actualiza`, d, { responseType: 'text' });
   }
 } 

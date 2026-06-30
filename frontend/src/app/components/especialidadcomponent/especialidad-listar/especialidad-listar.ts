@@ -33,7 +33,7 @@ export class EspecialidadListar implements OnInit {
   cargarEspecialidades() {
     this.sS.list().subscribe({
       next: (data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idSpecialty - b.idSpecialty));
       },
     });
   }
@@ -41,7 +41,7 @@ export class EspecialidadListar implements OnInit {
   eliminar(id: number) {
     this.sS.eliminar(id).subscribe(() => {
       this.sS.list().subscribe((data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idSpecialty - b.idSpecialty));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

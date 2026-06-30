@@ -1,11 +1,2 @@
-.container {
-  padding: 2%;
-}
-
-table {
-  width: 100%;
-}
-
-.btn-eliminar {
-  color: #c62828;
-}
+/* Los estilos de cards, paginador y botones (.btn-editar / .btn-eliminar)
+   se definen de forma global en src/styles.css para mantener la consistencia. */

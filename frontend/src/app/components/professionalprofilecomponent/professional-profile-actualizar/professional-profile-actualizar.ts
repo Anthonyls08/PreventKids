@@ -6,14 +6,16 @@ import { User } from '../../../models/User';
 import { Userservice } from '../../../services/userservice';
 import { Specialty } from '../../../models/Specialty';
 import { Specialtyservice } from '../../../services/specialtyservice';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Roleservice } from '../../../services/roleservice';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-professional-profile-actualizar',
-  imports: [MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, RouterLink, ReactiveFormsModule],
   templateUrl: './professional-profile-actualizar.html',
   styleUrl: './professional-profile-actualizar.css',
 })
@@ -28,6 +30,7 @@ export class ProfessionalProfileActualizar implements OnInit {
     private ppS: Professionalprofileservice,
     private uS: Userservice,
     private sS: Specialtyservice,
+    private rS: Roleservice,
     private router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -47,8 +50,14 @@ export class ProfessionalProfileActualizar implements OnInit {
       idSpecialty: ['', Validators.required],
     });
 
-    this.uS.list().subscribe((data) => {
-      this.usuarios.set(data);
+    // Solo se muestran los usuarios con rol DOCTOR.
+    this.rS.list().subscribe((roles) => {
+      const doctor = roles.find((r) => r.nombre?.toUpperCase() === 'DOCTOR');
+      this.uS.list().subscribe((users) => {
+        this.usuarios.set(
+          doctor ? users.filter((u) => u.idRole === doctor.idRole) : users,
+        );
+      });
     });
     this.sS.list().subscribe((data) => {
       this.especialidades.set(data);
