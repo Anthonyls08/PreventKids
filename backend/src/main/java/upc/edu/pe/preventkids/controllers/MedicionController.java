@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.MedicionDTO;
 import upc.edu.pe.preventkids.dtos.MedicionInsertDTO;
 import upc.edu.pe.preventkids.entities.Medicion;
+import upc.edu.pe.preventkids.entities.User;
+import upc.edu.pe.preventkids.repositories.IUserRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IMedicionService;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class MedicionController {
     @Autowired
     private IMedicionService mS;
+    @Autowired
+    private IUserRepository uR;
 
     @GetMapping
     public ResponseEntity<List<MedicionDTO>> listar() {
@@ -32,8 +36,15 @@ public class MedicionController {
 
     @PostMapping("/ingresar")
     public ResponseEntity<?> registrar(@RequestBody MedicionInsertDTO dto) {
+        Optional<User> user = uR.findById(dto.getIdUser());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuario no encontrado con id: " + dto.getIdUser());
+        }
+
         ModelMapper m = new ModelMapper();
         Medicion medicion = m.map(dto, Medicion.class);
+        medicion.setUser(user.get());
 
         Medicion nuevaMedicion = mS.insert(medicion);
 
@@ -64,6 +75,12 @@ public class MedicionController {
                     .body("Medición no encontrada");
         }
 
+        Optional<User> user = uR.findById(dto.getIdUser());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuario no encontrado con id: " + dto.getIdUser());
+        }
+
         Medicion m = existente.get();
 
         m.setPesoKg(dto.getPesoKg());
@@ -73,6 +90,7 @@ public class MedicionController {
         m.setPresion(dto.getPresion());
         m.setTemperatura(dto.getTemperatura());
         m.setFechamedicion(dto.getFechamedicion());
+        m.setUser(user.get());
 
         mS.update(m);
         return ResponseEntity.ok("Medición actualizada correctamente");

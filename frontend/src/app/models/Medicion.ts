@@ -11,5 +11,9 @@ export class Medicion {
   temperatura: number = 0;
   fechamedicion: Date = new Date();
 
+  // FK enviada al backend al registrar/actualizar
+  idUser: number = 0;
+
+  // Objeto devuelto por el backend al listar (solo lectura)
   user: User = new User();
 }

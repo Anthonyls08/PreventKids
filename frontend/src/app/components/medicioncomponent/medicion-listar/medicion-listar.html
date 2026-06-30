@@ -1,0 +1,61 @@
+<div class="container">
+  <h2 style="text-align: center">Lista de Mediciones</h2>
+
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (item of pagedMediciones(); track item.idMedicion) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>Medición #{{ item.idMedicion }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-field">
+            <strong>Paciente:</strong>
+            {{ item.user.nombre }} {{ item.user.apellido }}
+          </p>
+          <p class="card-field">
+            <strong>Peso:</strong> {{ item.pesoKg }} kg
+          </p>
+          <p class="card-field">
+            <strong>Talla:</strong> {{ item.tallaCm }} cm
+          </p>
+          <p class="card-field">
+            <strong>IMC:</strong> {{ item.imc }} ({{ item.clasificacionimc }})
+          </p>
+          <p class="card-field">
+            <strong>Presión:</strong> {{ item.presion }}
+          </p>
+          <p class="card-field">
+            <strong>Temperatura:</strong> {{ item.temperatura }} °C
+          </p>
+          <p class="card-field">
+            <strong>Fecha:</strong> {{ item.fechamedicion }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(item.idMedicion)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/mediciones/edits', item.idMedicion]" class="btn-editar">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">No hay mediciones registradas.</p>
+    }
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="mediciones().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de mediciones">
+  </mat-paginator>
+</div>

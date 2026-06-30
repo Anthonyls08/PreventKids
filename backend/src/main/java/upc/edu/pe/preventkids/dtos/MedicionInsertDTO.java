@@ -1,7 +1,5 @@
 package upc.edu.pe.preventkids.dtos;
 
-import upc.edu.pe.preventkids.entities.User;
-
 import java.time.LocalDate;
 
 public class MedicionInsertDTO {
@@ -13,7 +11,7 @@ public class MedicionInsertDTO {
     private float presion;
     private float temperatura;
     private LocalDate fechamedicion;
-    private User user;
+    private int idUser;
 
     public int getIdMedicion() {
         return idMedicion;
@@ -79,11 +77,11 @@ public class MedicionInsertDTO {
         this.fechamedicion = fechamedicion;
     }
 
-    public User getUser() {
-        return user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }
