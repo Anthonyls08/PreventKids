@@ -1,0 +1,110 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Actualizar Medición</h2></div>
+
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>ID</mat-label>
+        <input matInput formControlName="idMedicion" readonly />
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Paciente</mat-label>
+        <mat-select formControlName="user">
+          @for (u of listaUsuarios; track u.idUser) {
+            <mat-option [value]="u.idUser">
+              {{ u.nombre }} {{ u.apellido }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('user')?.hasError('required')) {
+            Seleccione un paciente!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Peso (kg)</mat-label>
+        <input matInput type="number" formControlName="pesoKg" />
+        <mat-error>
+          @if (form.get('pesoKg')?.hasError('required')) {
+            Ingrese el peso!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Talla (cm)</mat-label>
+        <input matInput type="number" formControlName="tallaCm" />
+        <mat-error>
+          @if (form.get('tallaCm')?.hasError('required')) {
+            Ingrese la talla!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>IMC (automático)</mat-label>
+        <input matInput type="number" formControlName="imc" readonly />
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Clasificación IMC (automático)</mat-label>
+        <input matInput formControlName="clasificacionimc" readonly />
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Presión</mat-label>
+        <input matInput type="number" formControlName="presion" />
+        <mat-error>
+          @if (form.get('presion')?.hasError('required')) {
+            Ingrese la presión!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Temperatura (°C)</mat-label>
+        <input matInput type="number" formControlName="temperatura" />
+        <mat-error>
+          @if (form.get('temperatura')?.hasError('required')) {
+            Ingrese la temperatura!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Fecha de medición</mat-label>
+        <input matInput type="date" formControlName="fechamedicion" />
+        <mat-error>
+          @if (form.get('fechamedicion')?.hasError('required')) {
+            Ingrese la fecha!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-acciones">
+        <button mat-raised-button type="submit" class="btn-form">Actualizar</button>
+        <button mat-raised-button type="button" class="btn-form" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
