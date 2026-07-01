@@ -142,6 +142,14 @@ public class UserController {
         u.setPhysicallimitation(physicalLimitation);
         u.setChatia(chatia);
 
+        // Password: si viene vacio se conserva el actual; si viene, se encripta
+        // (nunca se guarda en texto plano, para no romper el login con BCrypt).
+        if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
+            u.setPassword(existente.get().getPassword());
+        } else {
+            u.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
         uS.update(u);
 
         return ResponseEntity.ok("Usuario actualizado correctamente");

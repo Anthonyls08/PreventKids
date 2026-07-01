@@ -73,6 +73,11 @@ import { MedicionListar } from './components/medicioncomponent/medicion-listar/m
 import { MedicionInsertar } from './components/medicioncomponent/medicion-insertar/medicion-insertar';
 import { MedicionActualizar } from './components/medicioncomponent/medicion-actualizar/medicion-actualizar';
 
+import { Usercomponent } from './components/usercomponent/usercomponent';
+import { UserListar } from './components/usercomponent/user-listar/user-listar';
+import { UserInsertar } from './components/usercomponent/user-insertar/user-insertar';
+import { UserActualizar } from './components/usercomponent/user-actualizar/user-actualizar';
+
 export const routes: Routes = [
     {
         path: '',
@@ -347,6 +352,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: MedicionActualizar
+        }
+    ]
+},
+{
+    path: 'users',
+    component: Usercomponent,
+    children:[
+        {
+            path:'listar',
+            component: UserListar
+        },
+        {
+            path:'nuevo',
+            component: UserInsertar
+        },
+        {
+            path:'edits/:id',
+            component: UserActualizar
         }
     ]
 }

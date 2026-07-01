@@ -16,4 +16,22 @@ export class Userservice {
   list() {
     return this.http.get<User[]>(this.url);
   }
+
+  insert(u: User) {
+    // El backend registra usuarios desde la web en POST /users/web
+    return this.http.post(`${base_url}/users/web`, u);
+  }
+
+  listId(id: number) {
+    return this.http.get<User>(`${this.url}/${id}`);
+  }
+
+  update(u: User) {
+    // El backend expone PUT /users/actualiza y lee el id desde el body.
+    return this.http.put(`${this.url}/actualiza`, u, { responseType: 'text' });
+  }
+
+  delete(id: number) {
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
 }

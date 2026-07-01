@@ -93,6 +93,10 @@
             <mat-icon>monitor_weight</mat-icon>
             Medición
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="menuUsuario">
+            <mat-icon>group</mat-icon>
+            Usuarios
+        </button>
     </mat-menu>
     <mat-menu #menuAlert="matMenu">
     <button mat-menu-item routerLink="/app/alertas/nuevo">
@@ -224,6 +228,17 @@
             Registrar
         </button>
         <button mat-menu-item routerLink="/app/mediciones/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuUsuario="matMenu">
+        <button mat-menu-item routerLink="/app/users/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        <button mat-menu-item routerLink="/app/users/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>
