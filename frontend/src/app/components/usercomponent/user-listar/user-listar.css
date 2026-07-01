@@ -1,0 +1,6 @@
+/* Los estilos de .container, table.mat-mdc-table y los botones (.btn-editar,
+   .btn-eliminar) son globales (styles.css). Aqui solo permitimos scroll
+   horizontal por si la tabla tiene muchas columnas en pantallas pequenas. */
+.tabla-scroll {
+  overflow-x: auto;
+}

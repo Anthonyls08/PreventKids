@@ -1,0 +1,5 @@
+/* Estilos de .container, .form-acciones y .btn-form son globales (styles.css). */
+.example-full-width {
+  width: 320px;
+  max-width: 90%;
+}
