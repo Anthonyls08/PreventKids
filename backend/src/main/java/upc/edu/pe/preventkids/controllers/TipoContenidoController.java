@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.TipoContenidoDTO;
 import upc.edu.pe.preventkids.dtos.TipoContenidoInsertDTO;
@@ -31,6 +32,7 @@ public class TipoContenidoController {
     }
 
     @PostMapping("/insertar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody TipoContenidoInsertDTO dto){
         ModelMapper m=new ModelMapper();
         TipoContenido tC=m.map(dto, TipoContenido.class);
@@ -54,6 +56,7 @@ public class TipoContenidoController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@PathVariable int id, @RequestBody TipoContenidoInsertDTO dto) {
         Optional<TipoContenido> existente = tcService.listId(id);
         if (existente.isEmpty()) {
@@ -69,6 +72,7 @@ public class TipoContenidoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
 
         Optional<TipoContenido> tipoContenido = tcService.listId(id);

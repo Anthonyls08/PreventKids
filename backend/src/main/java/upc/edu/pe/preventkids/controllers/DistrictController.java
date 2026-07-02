@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.DistrictDTO;
 import upc.edu.pe.preventkids.dtos.DistrictInsertDTO;
@@ -32,6 +33,7 @@ public class DistrictController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody DistrictInsertDTO dto) {
         if (dto.getNameDistrict() == null || dto.getNameDistrict().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("El nombre del distrito no puede estar vacio");
@@ -64,6 +66,7 @@ public class DistrictController {
 
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody District dto) {
         Optional<District> existente = dS.listId(dto.getIdDistrict());
 
@@ -87,6 +90,7 @@ public class DistrictController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<District> distrito = dS.listId(id);
 

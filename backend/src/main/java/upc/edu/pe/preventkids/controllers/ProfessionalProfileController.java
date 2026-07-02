@@ -4,8 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.ProfessionalProfileDTO;
+import upc.edu.pe.preventkids.dtos.ProfileSpecialtyCountDTO;
 import upc.edu.pe.preventkids.entities.ProfessionalProfile;
 import upc.edu.pe.preventkids.entities.Specialty;
 import upc.edu.pe.preventkids.entities.User;
@@ -13,6 +15,7 @@ import upc.edu.pe.preventkids.repositories.ISpecialtyRepository;
 import upc.edu.pe.preventkids.repositories.IUserRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IProfessionalProfileService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +48,7 @@ public class ProfessionalProfileController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody ProfessionalProfileDTO dto) {
         if (dto.getNumerocolegiatura() == null || dto.getNumerocolegiatura().isEmpty()) {
             return ResponseEntity.badRequest()
@@ -95,6 +99,7 @@ public class ProfessionalProfileController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody ProfessionalProfileDTO dto) {
         Optional<ProfessionalProfile> existente = pS.listId(dto.getIdProfessionalProfile());
 
@@ -125,6 +130,7 @@ public class ProfessionalProfileController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<ProfessionalProfile> profile = pS.listId(id);
 
@@ -135,5 +141,22 @@ public class ProfessionalProfileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Perfil profesional no encontrado");
         }
+    }
+
+    @GetMapping("/conteo-por-especialidad")
+    public ResponseEntity<?> contarPerfilesPorEspecialidad() {
+        List<Object[]> resultados = pS.contarPerfilesPorEspecialidad();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay especialidades registradas");
+        }
+        List<ProfileSpecialtyCountDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            ProfileSpecialtyCountDTO dto = new ProfileSpecialtyCountDTO();
+            dto.setNombreEspecialidad((String) fila[0]);
+            dto.setCantidadPerfiles(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }

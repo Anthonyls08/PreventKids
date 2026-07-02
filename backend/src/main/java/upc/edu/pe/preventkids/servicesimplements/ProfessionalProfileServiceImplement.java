@@ -37,4 +37,9 @@ public class ProfessionalProfileServiceImplement implements IProfessionalProfile
     public void delete(int id) {
         ppR.deleteById(id);
     }
+
+    @Override
+    public List<Object[]> contarPerfilesPorEspecialidad() {
+        return ppR.contarPerfilesPorEspecialidad();
+    }
 }

@@ -59,6 +59,14 @@ videollamada, integrando **APIs externas reales**.
 | Sprint 3 (Frontend) | Módulos con APIs externas | Dieta, Ejercicios, Videos, Videollamada | ✅ |
 | Sprint 3 (Frontend) | Identidad visual | Tema verde salud + turquesa, landing, navegación | ✅ |
 | Sprint 3 (Frontend) | Documentación | Tablero Trello con 36 historias de usuario (HU66–HU101) | ✅ |
+| Sprint 4 (Backend) | Autorización por roles | `anyRequest().authenticated()` + `@PreAuthorize` con `hasAuthority` (ADMIN/DOCTOR/PADRE/PACIENTE) en todos los controllers | ✅ |
+| Sprint 4 (Backend) | Registro público seguro | `POST /users/web` sin token solo acepta rol PACIENTE o PADRE; un ADMIN autenticado puede crear cualquier rol | ✅ |
+| Sprint 4 (Backend) | CORS (patrón del curso) | `CorsConfig` con bean `CorsConfigurationSource` + `allowCredentials(true)` | ✅ |
+| Sprint 4 (Backend) | Queries de agregación | Usuarios por rol, usuarios por distrito y perfiles por especialidad (`nativeQuery`, `List<Object[]>` → DTO) | ✅ |
+| Sprint 4 (Frontend) | Seguridad (patrón del curso) | `loginservice` con `showRole()`, `guard/seguridad-guard`, `components/errors/error.interceptor` (401 → login), `JwtModule` con token en `sessionStorage` | ✅ |
+| Sprint 4 (Frontend) | Menú por rol | `verificar()` / `isAdmin()` / `isDoctor()` / `isPadre()` / `isPaciente()` con `@if` en el menú; cada rol solo ve lo que puede usar | ✅ |
+| Sprint 4 (Frontend) | Reportes con gráficos | 3 reportes con chart.js + ng2-charts: usuarios por rol (barras), usuarios por distrito (líneas), perfiles por especialidad (pie) | ✅ |
+| Sprint 4 (Datos) | Seed de perfiles profesionales | `scripts/seed_perfil_profesional.sql`: 4 especialidades + 3 perfiles para los usuarios DOCTOR | ✅ |
 
 ---
 
@@ -72,7 +80,8 @@ videollamada, integrando **APIs externas reales**.
 | Filtros simples / búsquedas | `buscarPorNombre`, `buscarPorCategoria`, `findByArea`, búsqueda de alimentos en Dieta | ✅ |
 | Configuración CORS | `CorsConfig.java` + `WebSecurityConfig` | ✅ |
 | Trello / bitácora del frontend | 36 historias de usuario con tareas, criterios de aceptación y prioridad | ✅ |
-| Liberar rutas en WebSecurityConfig | 7 entidades independientes + login + swagger liberadas con `permitAll()` | ✅ |
+| Seguridad por roles | Todas las rutas protegidas con JWT; `@PreAuthorize` por rol en cada controller; público solo login, registro, `GET /roles`, `GET /distritos` y Swagger | ✅ |
+| Reportes con gráficos | 3 queries de agregación + 3 gráficos (barras, líneas, pie) con chart.js/ng2-charts | ✅ |
 
 ---
 
@@ -88,6 +97,9 @@ videollamada, integrando **APIs externas reales**.
 | 6 | Colores rojos residuales tras cambiar el tema a verde | Reemplazo global de los colores rojos por verde/turquesa |
 | 7 | Acentos rotos al crear tarjetas en Trello (Latin-1 de Git Bash) | Envío de los datos como JSON con los acentos escapados a ASCII |
 | 8 | `alert()` de depuración que aparecían en la demo | Se eliminaron del código del frontend |
+| 9 | Cualquier visitante podía registrarse con rol ADMIN | El registro público ahora solo acepta PACIENTE/PADRE (backend responde 403 y el combo del formulario se filtró); un ADMIN autenticado sí puede crear cualquier rol |
+| 10 | Los gráficos no se refrescaban al llegar la data (la app Angular es *zoneless*) | Se agregó `ChangeDetectorRef.markForCheck()` al recibir la respuesta en los 3 componentes de reporte |
+| 11 | Un usuario no-admin veía en el menú pantallas donde recibiría 403 | Menú por rol con `@if (isAdmin())` etc., siguiendo el patrón del curso |
 
 ---
 
@@ -106,7 +118,8 @@ Todas son públicas y **no requieren API key**.
 
 ## 8. Pendientes y recomendaciones
 
-- [ ] Decidir si las entidades **relacionales** (`/alerta`, `/api/medicion`, `/virtualconsultations`, etc.) se liberan en `WebSecurityConfig` o se mantienen protegidas con JWT.
+- [x] ~~Decidir si las entidades relacionales se liberan o se protegen~~ → Resuelto: **todas las rutas quedaron protegidas con JWT y autorización por rol** (`@PreAuthorize`).
+- [ ] Probar en el navegador el flujo completo tras la migración a `sessionStorage` (el login anterior en `localStorage` ya no se lee; hay que volver a iniciar sesión).
 - [ ] Al **desplegar**, mover `jwt.secret` y la contraseña de la base de datos a variables de entorno.
 - [ ] Confirmar/actualizar los IDs de videos de YouTube y las imágenes del landing.
 - [ ] Regenerar el token y el API Secret de Trello (quedaron expuestos durante el desarrollo).
