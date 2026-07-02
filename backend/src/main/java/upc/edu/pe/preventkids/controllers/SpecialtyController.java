@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.SpecialtyDTO;
 import upc.edu.pe.preventkids.entities.Specialty;
@@ -30,6 +31,7 @@ public class SpecialtyController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody SpecialtyDTO dto) {
         if (dto.getNombre() == null || dto.getNombre().isEmpty()) {
             return ResponseEntity.badRequest()
@@ -62,6 +64,7 @@ public class SpecialtyController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody SpecialtyDTO dto) {
         Optional<Specialty> existente = sS.listId(dto.getIdSpecialty());
 
@@ -89,6 +92,7 @@ public class SpecialtyController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Specialty> specialty = sS.listId(id);
 

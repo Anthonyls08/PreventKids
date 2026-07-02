@@ -11,4 +11,5 @@ public interface IProfessionalProfileService {
     public Optional<ProfessionalProfile> listId(int id);
     public void update(ProfessionalProfile p);
     public void delete(int id);
+    public List<Object[]> contarPerfilesPorEspecialidad();
 }

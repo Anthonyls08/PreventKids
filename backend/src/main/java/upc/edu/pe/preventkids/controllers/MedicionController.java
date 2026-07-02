@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.MedicionDTO;
 import upc.edu.pe.preventkids.dtos.MedicionInsertDTO;
@@ -25,6 +26,7 @@ public class MedicionController {
     private IUserRepository uR;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<List<MedicionDTO>> listar() {
         ModelMapper m = new ModelMapper();
         List<MedicionDTO> lista = mS.list().stream()
@@ -35,6 +37,7 @@ public class MedicionController {
     }
 
     @PostMapping("/ingresar")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody MedicionInsertDTO dto) {
         Optional<User> user = uR.findById(dto.getIdUser());
         if (user.isEmpty()) {
@@ -53,6 +56,7 @@ public class MedicionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         ModelMapper m = new ModelMapper();
         Optional<Medicion> medicion = mS.listId(id);
@@ -67,6 +71,7 @@ public class MedicionController {
     }
 
     @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody MedicionInsertDTO dto) {
         Optional<Medicion> existente = mS.listId(id);
 
@@ -97,6 +102,7 @@ public class MedicionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Medicion> medicion = mS.listId(id);
 
@@ -117,6 +123,7 @@ public class MedicionController {
     }
 
     @GetMapping("/decidir-prioridad-imc")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirPrioridadIMC(@RequestParam float imc) {
         if (imc <= 0) {
             return ResponseEntity.badRequest().body("Error: El valor del IMC debe ser mayor a 0.");

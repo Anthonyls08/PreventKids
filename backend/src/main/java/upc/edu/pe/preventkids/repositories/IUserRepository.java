@@ -14,4 +14,10 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
             "FROM users u INNER JOIN role r ON u.id_role = r.id_role " +
             "GROUP BY r.nombre", nativeQuery = true)
     List<Object[]> contarUsuariosPorRol();
+
+    @Query(value = "SELECT d.name_district, COUNT(u.id_user) AS total " +
+            "FROM district d LEFT JOIN users u ON u.id_district = d.id_district " +
+            "GROUP BY d.name_district " +
+            "ORDER BY d.name_district", nativeQuery = true)
+    List<Object[]> contarUsuariosPorDistrito();
 }

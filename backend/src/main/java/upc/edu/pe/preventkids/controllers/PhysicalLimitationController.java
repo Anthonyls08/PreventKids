@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.PhysicalLimitationDTO;
 import upc.edu.pe.preventkids.dtos.PhysicalLimitationInsertDTO;
@@ -31,6 +32,7 @@ public class PhysicalLimitationController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody PhysicalLimitationInsertDTO dto){
         ModelMapper m=new ModelMapper();
         PhysicalLimitation p=m.map(dto, PhysicalLimitation.class);
@@ -54,6 +56,7 @@ public class PhysicalLimitationController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody PhysicalLimitationInsertDTO dto){
 
         Optional<PhysicalLimitation> existente = phS.listId(dto.getIdPhysicalLimitation());
@@ -74,6 +77,7 @@ public class PhysicalLimitationController {
         return ResponseEntity.ok("Limitacion Fisica actualziada correctamente");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id){
         Optional<PhysicalLimitation> limitacion = phS.listId(id);
 
