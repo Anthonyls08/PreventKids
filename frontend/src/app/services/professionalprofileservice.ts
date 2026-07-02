@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { ProfessionalProfile } from '../models/ProfessionalProfile';
+import { ProfileSpecialtyCountDTO } from '../models/ProfileSpecialtyCountDTO';
 
 const base_url = environment.base;
 
@@ -31,5 +32,9 @@ export class Professionalprofileservice {
 
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
+
+  getConteoPorEspecialidad() {
+    return this.http.get<ProfileSpecialtyCountDTO[]>(`${this.url}/conteo-por-especialidad`);
   }
 }

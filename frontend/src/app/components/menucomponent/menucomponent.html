@@ -1,4 +1,5 @@
 <div class="menu-wrap">
+    @if (verificar()) {
     <mat-toolbar class="custom-toolbar">
         <a class="menu-brand" routerLink="/app/homes">
             <mat-icon aria-hidden="true">health_and_safety</mat-icon>
@@ -33,26 +34,32 @@
             <mat-icon class="caret">arrow_drop_down</mat-icon>
         </button>
 
-        <button matButton class="btn-logout" aria-label="Cerrar sesion"
-            (click)="cerrarSesion()">
-            <mat-icon>logout</mat-icon>
-            Salir
+        <button matButton class="btn-logout" aria-label="Usuario"
+            [matMenuTriggerFor]="menuSalir">
+            <mat-icon>person</mat-icon>
+            Usuario
         </button>
     </mat-toolbar>
+    }
 
     <mat-menu #menuGestion="matMenu">
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item [matMenuTriggerFor]="menuTipoAlerta">
             <mat-icon>warning</mat-icon>
             Tipo Alerta
         </button>
+        }
+        @if (isAdmin() || isDoctor() || isPadre()) {
         <button mat-menu-item [matMenuTriggerFor]="menuAlert">
-    <mat-icon>notifications_active</mat-icon>
-    Alertas
-</button>
+            <mat-icon>notifications_active</mat-icon>
+            Alertas
+        </button>
+        }
         <button mat-menu-item [matMenuTriggerFor]="menuChatIA">
             <mat-icon>smart_toy</mat-icon>
             Chat IA
         </button>
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item [matMenuTriggerFor]="menuDistrict">
             <mat-icon>location_city</mat-icon>
             Distrito
@@ -61,10 +68,14 @@
             <mat-icon>medical_services</mat-icon>
             Especialidad
         </button>
+        }
+        @if (isAdmin()) {
         <button mat-menu-item [matMenuTriggerFor]="menuRole">
             <mat-icon>manage_accounts</mat-icon>
             Roles
         </button>
+        }
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item [matMenuTriggerFor]="menuTipoContenido">
             <mat-icon>movie</mat-icon>
             Tipo Contenido
@@ -73,10 +84,13 @@
             <mat-icon>accessibility_new</mat-icon>
             Limitación Física
         </button>
+        }
+        @if (isAdmin() || isDoctor() || isPadre()) {
         <button mat-menu-item [matMenuTriggerFor]="menuConsultaVirtual">
             <mat-icon>event_available</mat-icon>
             Consulta Virtual
         </button>
+        }
         <button mat-menu-item [matMenuTriggerFor]="menuContenidoEducativo">
             <mat-icon>menu_book</mat-icon>
             Contenido Educativo
@@ -89,31 +103,44 @@
             <mat-icon>badge</mat-icon>
             Perfil Profesional
         </button>
+        @if (isAdmin() || isDoctor() || isPadre()) {
         <button mat-menu-item [matMenuTriggerFor]="menuMedicion">
             <mat-icon>monitor_weight</mat-icon>
             Medición
         </button>
+        }
+        @if (isAdmin()) {
         <button mat-menu-item [matMenuTriggerFor]="menuUsuario">
             <mat-icon>group</mat-icon>
             Usuarios
         </button>
+        }
+        @if (isAdmin() || isDoctor()) {
+        <button mat-menu-item [matMenuTriggerFor]="menuReportes">
+            <mat-icon>bar_chart</mat-icon>
+            Reportes
+        </button>
+        }
     </mat-menu>
     <mat-menu #menuAlert="matMenu">
-    <button mat-menu-item routerLink="/app/alertas/nuevo">
-        <mat-icon>add</mat-icon>
-        Registrar
-    </button>
-
-    <button mat-menu-item routerLink="/app/alertas/listar">
-        <mat-icon>list</mat-icon>
-        Listar
-    </button>
-</mat-menu>
+        @if (isAdmin() || isDoctor()) {
+        <button mat-menu-item routerLink="/app/alertas/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        }
+        <button mat-menu-item routerLink="/app/alertas/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
     <mat-menu #menuTipoAlerta="matMenu">
+        @if (isAdmin()) {
         <button mat-menu-item routerLink="/app/tipos-alerta/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/tipos-alerta/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu>
@@ -128,10 +155,12 @@
     </mat-menu>
 
     <mat-menu #menuDistrict="matMenu">
+        @if (isAdmin()) {
         <button mat-menu-item routerLink="/app/district/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/district/listar">
             <mat-icon>list</mat-icon>Listar</button>
     </mat-menu>
@@ -146,10 +175,12 @@
     </mat-menu>
 
     <mat-menu #menuEspecialidad="matMenu">
+        @if (isAdmin()) {
         <button mat-menu-item routerLink="/app/specialties/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/specialties/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -157,10 +188,12 @@
     </mat-menu>
 
     <mat-menu #menuTipoContenido="matMenu">
+        @if (isAdmin()) {
         <button mat-menu-item routerLink="/app/tipos-contenido/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/tipos-contenido/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -168,10 +201,12 @@
     </mat-menu>
 
     <mat-menu #menuLimitation="matMenu">
+        @if (isAdmin()) {
         <button mat-menu-item routerLink="/app/limitacion-fisica/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/limitacion-fisica/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -190,10 +225,12 @@
     </mat-menu>
 
     <mat-menu #menuContenidoEducativo="matMenu">
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item routerLink="/app/contenido-educativo/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/contenido-educativo/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -201,10 +238,12 @@
     </mat-menu>
 
     <mat-menu #menuEjercicioRecomendado="matMenu">
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item routerLink="/app/ejercicio-recomendado/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/ejercicio-recomendado/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -212,10 +251,12 @@
     </mat-menu>
 
     <mat-menu #menuPerfilProfesional="matMenu">
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item routerLink="/app/perfil-profesional/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/perfil-profesional/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -223,10 +264,12 @@
     </mat-menu>
 
     <mat-menu #menuMedicion="matMenu">
+        @if (isAdmin() || isDoctor()) {
         <button mat-menu-item routerLink="/app/mediciones/nuevo">
             <mat-icon>add</mat-icon>
             Registrar
         </button>
+        }
         <button mat-menu-item routerLink="/app/mediciones/listar">
             <mat-icon>list</mat-icon>
             Listar
@@ -241,6 +284,34 @@
         <button mat-menu-item routerLink="/app/users/listar">
             <mat-icon>list</mat-icon>
             Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuReportes="matMenu">
+        @if (isAdmin()) {
+        <button mat-menu-item routerLink="/app/reportes/usuarios-por-rol">
+            <mat-icon>bar_chart</mat-icon>
+            Usuarios por rol
+        </button>
+        <button mat-menu-item routerLink="/app/reportes/usuarios-por-distrito">
+            <mat-icon>show_chart</mat-icon>
+            Usuarios por distrito
+        </button>
+        }
+        <button mat-menu-item routerLink="/app/reportes/perfiles-por-especialidad">
+            <mat-icon>pie_chart</mat-icon>
+            Perfiles por especialidad
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuSalir="matMenu">
+        <button mat-menu-item (click)="cerrarSesion()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+        </button>
+        <button mat-menu-item>
+            Rol:
+            <span>{{ role }}</span>
         </button>
     </mat-menu>
 </div>

@@ -33,10 +33,10 @@ import { PhysicalLimitationInsertar } from './components/physicallimitationcompo
 import { PhysicalLimitationActualizar } from './components/physicallimitationcomponent/physical-limitation-actualizar/physical-limitation-actualizar';
 
 import { Landing } from './components/landing/landing';
-import { Login } from './components/auth/login/login';
-import { Register } from './components/auth/register/register';
+import { Authenticate } from './components/authenticate/authenticate';
+import { Register } from './components/registercomponent/register';
 import { Shell } from './components/shell/shell';
-import { authGuard } from './core/auth-guard';
+import { seguridadGuard } from './guard/seguridad-guard';
 
 import { Dietacomponent } from './components/dietacomponent/dietacomponent';
 import { Ejercicioscomponent } from './components/ejercicioscomponent/ejercicioscomponent';
@@ -78,6 +78,10 @@ import { UserListar } from './components/usercomponent/user-listar/user-listar';
 import { UserInsertar } from './components/usercomponent/user-insertar/user-insertar';
 import { UserActualizar } from './components/usercomponent/user-actualizar/user-actualizar';
 
+import { Reportusuariosrol } from './components/reportusuariosrol/reportusuariosrol';
+import { Reportusuariosdistrito } from './components/reportusuariosdistrito/reportusuariosdistrito';
+import { Reportperfilesespecialidad } from './components/reportperfilesespecialidad/reportperfilesespecialidad';
+
 export const routes: Routes = [
     {
         path: '',
@@ -85,7 +89,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: Login
+        component: Authenticate
     },
     {
         path: 'register',
@@ -94,7 +98,8 @@ export const routes: Routes = [
     {
         path: 'app',
         component: Shell,
-        canActivate: [authGuard],
+        canActivate: [seguridadGuard],
+        canActivateChild: [seguridadGuard],
         children: [
     {
         path: '',
@@ -372,6 +377,18 @@ export const routes: Routes = [
             component: UserActualizar
         }
     ]
+},
+{
+    path: 'reportes/usuarios-por-rol',
+    component: Reportusuariosrol
+},
+{
+    path: 'reportes/usuarios-por-distrito',
+    component: Reportusuariosdistrito
+},
+{
+    path: 'reportes/perfiles-por-especialidad',
+    component: Reportperfilesespecialidad
 }
         ]
     }
