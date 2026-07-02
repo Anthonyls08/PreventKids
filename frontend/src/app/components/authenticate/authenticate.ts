@@ -5,10 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Authservice } from '../../../services/authservice';
+import { Loginservice } from '../../services/loginservice';
+import { JwtRequestDTO } from '../../models/JwtRequestDTO';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-authenticate',
   imports: [
     ReactiveFormsModule,
     RouterLink,
@@ -17,13 +18,13 @@ import { Authservice } from '../../../services/authservice';
     MatButtonModule,
     MatIconModule,
   ],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './authenticate.html',
+  styleUrl: './authenticate.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Login {
+export class Authenticate {
   private fb = inject(FormBuilder);
-  private auth = inject(Authservice);
+  private loginService = inject(Loginservice);
   private router = inject(Router);
 
   readonly cargando = signal<boolean>(false);
@@ -43,8 +44,14 @@ export class Login {
     this.error.set('');
 
     const { email, password } = this.form.getRawValue();
-    this.auth.login(email!, password!).subscribe({
-      next: () => {
+    // El backend de PreventKids inicia sesión por email: viaja en el campo username.
+    const request = new JwtRequestDTO();
+    request.username = email!;
+    request.password = password!;
+
+    this.loginService.login(request).subscribe({
+      next: (data: any) => {
+        sessionStorage.setItem('token', data.jwttoken);
         this.cargando.set(false);
         this.router.navigate(['/app']);
       },
