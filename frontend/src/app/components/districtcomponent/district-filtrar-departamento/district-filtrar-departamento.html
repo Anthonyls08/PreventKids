@@ -1,0 +1,45 @@
+<div class="chart-container">
+  <h2 class="chart-title">Distritos filtrados por departamento</h2>
+  <p class="chart-subtitle">
+    Query de filtro: distribución por zona de los distritos de un departamento.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="departamento">Departamento</label>
+      <select id="departamento" name="departamento" [(ngModel)]="departamento">
+        @for (dep of departamentos; track dep) {
+          <option [value]="dep">{{ dep }}</option>
+        }
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-pie">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay distritos para ese departamento.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de distritos: <strong>{{ total }}</strong></p>
+  }
+</div>

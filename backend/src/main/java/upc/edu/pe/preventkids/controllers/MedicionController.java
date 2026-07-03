@@ -138,4 +138,51 @@ public class MedicionController {
         }
         return ResponseEntity.ok(lista);
     }
+
+    @GetMapping("/decidir-signos-vitales")
+    public ResponseEntity<?> decidirEvaluacionSignosVitales(@RequestParam float presion,
+                                                            @RequestParam float temperatura) {
+        if (presion <= 0 || temperatura <= 0) {
+            return ResponseEntity.badRequest().body("Error: La presion y la temperatura deben ser mayores a 0.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<MedicionDTO> lista = mS.decidirEvaluacionSignosVitales(presion, temperatura)
+                .stream()
+                .map(y -> m.map(y, MedicionDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/decidir-riesgo-nutricional")
+    public ResponseEntity<?> decidirRiesgoNutricional() {
+        ModelMapper m = new ModelMapper();
+        List<MedicionDTO> lista = mS.decidirRiesgoNutricional()
+                .stream()
+                .map(y -> m.map(y, MedicionDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/filtrar-por-usuario/{idUser}")
+    public ResponseEntity<?> filtrarPorUsuario(@PathVariable int idUser) {
+        if (uR.findById(idUser).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuario no encontrado con id: " + idUser);
+        }
+        ModelMapper m = new ModelMapper();
+        List<MedicionDTO> lista = mS.filtrarPorUsuario(idUser)
+                .stream()
+                .map(y -> m.map(y, MedicionDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
 }

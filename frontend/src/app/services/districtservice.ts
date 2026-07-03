@@ -32,4 +32,23 @@ export class Districtservice {
     // El backend expone PUT /distritos/actualiza y lee el id desde el body.
     return this.http.put(`${this.url}/actualiza`, d, { responseType: 'text' });
   }
-} 
+
+  // QUERY (decision): distritos en zonas de riesgo (Rural / Periurbana)
+  decidirZonasRiesgo() {
+    return this.http.get<District[]>(`${this.url}/decidir-zonas-riesgo`);
+  }
+
+  // QUERY (decision): distritos prioritarios segun umbral de ubigeo
+  decidirPrioridadUbigeo(ubigeo: number) {
+    return this.http.get<District[]>(`${this.url}/decidir-prioridad-ubigeo`, {
+      params: { ubigeo },
+    });
+  }
+
+  // QUERY (filtro): distritos por departamento
+  filtrarPorDepartamento(departamento: string) {
+    return this.http.get<District[]>(`${this.url}/filtrar-por-departamento`, {
+      params: { departamento },
+    });
+  }
+}

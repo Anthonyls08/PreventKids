@@ -163,6 +163,18 @@
         }
         <button mat-menu-item routerLink="/app/district/listar">
             <mat-icon>list</mat-icon>Listar</button>
+        <button mat-menu-item routerLink="/app/district/reporte-zonas-riesgo">
+            <mat-icon>pie_chart</mat-icon>
+            Zonas de riesgo
+        </button>
+        <button mat-menu-item routerLink="/app/district/reporte-prioridad-ubigeo">
+            <mat-icon>bar_chart</mat-icon>
+            Prioridad por ubigeo
+        </button>
+        <button mat-menu-item routerLink="/app/district/reporte-filtrar-departamento">
+            <mat-icon>filter_alt</mat-icon>
+            Filtrar por departamento
+        </button>
     </mat-menu>
 
     <mat-menu #menuRole="matMenu">
@@ -273,6 +285,22 @@
         <button mat-menu-item routerLink="/app/mediciones/listar">
             <mat-icon>list</mat-icon>
             Listar
+        </button>
+        <button mat-menu-item routerLink="/app/mediciones/reporte-prioridad-imc">
+            <mat-icon>bar_chart</mat-icon>
+            Prioridad por IMC
+        </button>
+        <button mat-menu-item routerLink="/app/mediciones/reporte-signos-vitales">
+            <mat-icon>pie_chart</mat-icon>
+            Signos vitales
+        </button>
+        <button mat-menu-item routerLink="/app/mediciones/reporte-riesgo-nutricional">
+            <mat-icon>pie_chart</mat-icon>
+            Riesgo nutricional
+        </button>
+        <button mat-menu-item routerLink="/app/mediciones/reporte-filtrar-usuario">
+            <mat-icon>filter_alt</mat-icon>
+            Filtrar por usuario
         </button>
     </mat-menu>
 

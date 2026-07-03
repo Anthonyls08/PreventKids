@@ -12,4 +12,7 @@ public interface IDistrictService {
     public void update(District d);
     public void delete(int id);
     public List<District> buscarPorNombre(String nombre);
+    public List<District> decidirZonasDeRiesgo();
+    public List<District> decidirPrioridadPorUbigeo(int ubigeoMaximo);
+    public List<District> filtrarPorDepartamento(String departamento);
 }

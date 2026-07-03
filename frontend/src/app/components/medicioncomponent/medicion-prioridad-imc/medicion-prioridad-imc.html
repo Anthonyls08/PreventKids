@@ -1,0 +1,41 @@
+<div class="chart-container">
+  <h2 class="chart-title">Mediciones con atención prioritaria por IMC</h2>
+  <p class="chart-subtitle">
+    Query de decisión: mediciones con sobrepeso e IMC mayor o igual al umbral, agrupadas por usuario.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="imc">IMC mínimo</label>
+      <input id="imc" name="imc" type="number" min="1" step="0.1" [(ngModel)]="imc" />
+    </div>
+    <button type="submit">Consultar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay mediciones prioritarias para ese IMC.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de mediciones prioritarias: <strong>{{ total }}</strong></p>
+  }
+</div>

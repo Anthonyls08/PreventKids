@@ -1,0 +1,41 @@
+<div class="chart-container">
+  <h2 class="chart-title">Distritos prioritarios por umbral de ubigeo</h2>
+  <p class="chart-subtitle">
+    Query de decisión: distritos con ubigeo menor o igual al umbral, agrupados por departamento.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="ubigeo">Umbral de ubigeo</label>
+      <input id="ubigeo" name="ubigeo" type="number" min="1" [(ngModel)]="ubigeo" />
+    </div>
+    <button type="submit">Consultar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay distritos con ese umbral de ubigeo.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de distritos prioritarios: <strong>{{ total }}</strong></p>
+  }
+</div>

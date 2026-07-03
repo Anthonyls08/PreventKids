@@ -1,0 +1,68 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { Medicionservice } from '../../../services/medicionservice';
+import { Medicion } from '../../../models/Medicion';
+
+@Component({
+  selector: 'app-medicion-filtrar-usuario',
+  imports: [BaseChartDirective, MatIconModule, FormsModule],
+  templateUrl: './medicion-filtrar-usuario.html',
+  styleUrl: './medicion-filtrar-usuario.css',
+})
+export class MedicionFiltrarUsuario {
+  idUser = 1;
+  buscado = false;
+  hasData = false;
+  total = 0;
+
+  chartOptions: ChartOptions = {
+    responsive: true,
+    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+  };
+  chartLegend = true;
+  chartType: ChartType = 'bar';
+  chartLabels: string[] = [];
+  chartData: ChartDataset[] = [];
+
+  constructor(private mS: Medicionservice) {}
+
+  consultar(): void {
+    if (!this.idUser || this.idUser <= 0) {
+      return;
+    }
+
+    // QUERY DE FILTRO: mediciones de un usuario especifico
+    this.mS.filtrarPorUsuario(this.idUser).subscribe((data) => {
+      const lista: Medicion[] = data ?? [];
+      this.buscado = true;
+
+      if (lista.length > 0) {
+        this.hasData = true;
+        this.total = lista.length;
+
+        // Agrupamos las mediciones del usuario por clasificacion del IMC
+        const conteo = new Map<string, number>();
+        lista.forEach((m) => {
+          conteo.set(m.clasificacionimc, (conteo.get(m.clasificacionimc) ?? 0) + 1);
+        });
+
+        this.chartLabels = Array.from(conteo.keys());
+        this.chartData = [
+          {
+            data: Array.from(conteo.values()),
+            label: `Mediciones del usuario ${this.idUser}`,
+            backgroundColor: 'rgba(21, 101, 192, 0.7)',
+            borderColor: '#0d47a1',
+            borderWidth: 1,
+          },
+        ];
+      } else {
+        this.hasData = false;
+        this.total = 0;
+      }
+    });
+  }
+}
