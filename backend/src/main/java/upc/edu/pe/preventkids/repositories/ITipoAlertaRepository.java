@@ -18,4 +18,7 @@ public interface ITipoAlertaRepository extends JpaRepository <TipoAlerta,Integer
     @Query("SELECT t FROM TipoAlerta t WHERE LOWER(t.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))")
     List<TipoAlerta> buscarPorNombre(@Param("nombre") String nombre);
 
+    @Query("SELECT t.nivelriesgo, COUNT(t) FROM TipoAlerta t GROUP BY t.nivelriesgo ORDER BY t.nivelriesgo")
+    List<Object[]> contarPorNivelRiesgo();
+
 }

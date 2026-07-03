@@ -42,4 +42,9 @@ public class VirtualConsultationServiceImplement implements IVirtualConsultation
     public List<VirtualConsultation> decidirPrioridadConsultaPaciente(String estadoConsulta, String nombrePaciente) {
         return vcR.decidirPrioridadConsultaPaciente(estadoConsulta, nombrePaciente);
     }
+
+    @Override
+    public List<Object[]> contarPorEstado() {
+        return vcR.contarPorEstado();
+    }
 }

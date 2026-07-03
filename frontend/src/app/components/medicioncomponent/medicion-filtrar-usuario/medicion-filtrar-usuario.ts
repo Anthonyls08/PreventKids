@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Medicionservice } from '../../../services/medicionservice';
@@ -8,7 +10,7 @@ import { Medicion } from '../../../models/Medicion';
 
 @Component({
   selector: 'app-medicion-filtrar-usuario',
-  imports: [BaseChartDirective, MatIconModule, FormsModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink, FormsModule],
   templateUrl: './medicion-filtrar-usuario.html',
   styleUrl: './medicion-filtrar-usuario.css',
 })

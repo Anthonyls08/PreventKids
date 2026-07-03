@@ -11,4 +11,8 @@ public interface IChatIAService {
     public Optional<chatIA> listId(int id);
     public void update(chatIA c);
     public void delete(int id);
+    // Busca en la tabla una pregunta parecida ya respondida (cache)
+    public Optional<chatIA> buscarSimilar(String pregunta);
+    // Llama a la API de Claude, guarda pregunta y respuesta, y devuelve el registro
+//    public chatIA preguntarIA(String pregunta);
 }

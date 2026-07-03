@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { VirtualConsultation } from '../models/VirtualConsultation';
+import { ConsultaPorEstadoDTO } from '../models/ConsultaPorEstadoDTO';
 
 const base_url = environment.base;
 
@@ -31,5 +32,9 @@ export class Virtualconsultationservice {
 
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
+
+  getConteoPorEstado() {
+    return this.http.get<ConsultaPorEstadoDTO[]>(`${this.url}/conteo-por-estado`);
   }
 }

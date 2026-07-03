@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.ConsultaPorEstadoDTO;
 import upc.edu.pe.preventkids.dtos.VirtualConsultationDTO;
 import upc.edu.pe.preventkids.entities.ProfessionalProfile;
 import upc.edu.pe.preventkids.entities.User;
@@ -14,6 +15,7 @@ import upc.edu.pe.preventkids.repositories.IProfessionalProfileRepository;
 import upc.edu.pe.preventkids.repositories.IUserRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IVirtualConsultationService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -152,5 +154,23 @@ public class VirtualConsultationController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(listaConsultas);
+    }
+
+    @GetMapping("/conteo-por-estado")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    public ResponseEntity<?> contarPorEstado() {
+        List<Object[]> resultados = vS.contarPorEstado();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay consultas virtuales registradas");
+        }
+        List<ConsultaPorEstadoDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            ConsultaPorEstadoDTO dto = new ConsultaPorEstadoDTO();
+            dto.setEstado((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }

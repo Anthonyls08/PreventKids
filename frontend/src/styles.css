@@ -71,6 +71,24 @@ body {
   cursor: not-allowed;
 }
 
+/* --- Boton Regresar de los reportes (mismo estilo .btn-form) --- */
+.report-volver {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.report-volver .btn-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.report-volver .btn-form mat-icon {
+  color: #ffffff;
+}
+
 /* --- Tablas --- */
 table.mat-mdc-table {
   width: 100%;

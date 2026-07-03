@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Districtservice } from '../../../services/districtservice';
@@ -9,7 +11,7 @@ import { DEPARTAMENTOS } from '../../../data/ubigeo-lima-callao';
 
 @Component({
   selector: 'app-district-filtrar-departamento',
-  imports: [BaseChartDirective, MatIconModule, FormsModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink, FormsModule],
   templateUrl: './district-filtrar-departamento.html',
   styleUrl: './district-filtrar-departamento.css',
 })

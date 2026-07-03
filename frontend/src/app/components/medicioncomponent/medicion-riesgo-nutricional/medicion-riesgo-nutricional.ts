@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Medicionservice } from '../../../services/medicionservice';
@@ -7,7 +9,7 @@ import { Medicion } from '../../../models/Medicion';
 
 @Component({
   selector: 'app-medicion-riesgo-nutricional',
-  imports: [BaseChartDirective, MatIconModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './medicion-riesgo-nutricional.html',
   styleUrl: './medicion-riesgo-nutricional.css',
 })
