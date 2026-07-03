@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Districtservice } from '../../../services/districtservice';
@@ -8,7 +10,7 @@ import { District } from '../../../models/district';
 
 @Component({
   selector: 'app-district-prioridad-ubigeo',
-  imports: [BaseChartDirective, MatIconModule, FormsModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink, FormsModule],
   templateUrl: './district-prioridad-ubigeo.html',
   styleUrl: './district-prioridad-ubigeo.css',
 })

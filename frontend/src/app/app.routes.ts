@@ -89,6 +89,9 @@ import { UserActualizar } from './components/usercomponent/user-actualizar/user-
 import { Reportusuariosrol } from './components/reportusuariosrol/reportusuariosrol';
 import { Reportusuariosdistrito } from './components/reportusuariosdistrito/reportusuariosdistrito';
 import { Reportperfilesespecialidad } from './components/reportperfilesespecialidad/reportperfilesespecialidad';
+import { Reportalertasnivelriesgo } from './components/reportalertasnivelriesgo/reportalertasnivelriesgo';
+import { Reportconsultasestado } from './components/reportconsultasestado/reportconsultasestado';
+import { Reporteshub } from './components/reporteshub/reporteshub';
 export const routes: Routes = [
     {
         path: '',
@@ -414,6 +417,10 @@ export const routes: Routes = [
     ]
 },
 {
+    path: 'reportes',
+    component: Reporteshub
+},
+{
     path: 'reportes/usuarios-por-rol',
     component: Reportusuariosrol
 },
@@ -424,6 +431,14 @@ export const routes: Routes = [
 {
     path: 'reportes/perfiles-por-especialidad',
     component: Reportperfilesespecialidad
+},
+{
+    path: 'reportes/alertas-por-nivelriesgo',
+    component: Reportalertasnivelriesgo
+},
+{
+    path: 'reportes/consultas-por-estado',
+    component: Reportconsultasestado
 }
         ]
     }

@@ -1,13 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Userservice } from '../../services/userservice';
 
 @Component({
   selector: 'app-reportusuariosdistrito',
-  imports: [BaseChartDirective, MatIconModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './reportusuariosdistrito.html',
   styleUrl: './reportusuariosdistrito.css',
 })

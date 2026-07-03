@@ -19,4 +19,7 @@ public interface IVirtualConsultationRepository extends JpaRepository<VirtualCon
             @Param("estadoConsulta") String estadoConsulta,
             @Param("nombrePaciente") String nombrePaciente
     );
+
+    @Query("SELECT v.estado, COUNT(v) FROM VirtualConsultation v GROUP BY v.estado ORDER BY v.estado")
+    List<Object[]> contarPorEstado();
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Districtservice } from '../../../services/districtservice';
@@ -7,7 +9,7 @@ import { District } from '../../../models/district';
 
 @Component({
   selector: 'app-district-zonas-riesgo',
-  imports: [BaseChartDirective, MatIconModule],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './district-zonas-riesgo.html',
   styleUrl: './district-zonas-riesgo.css',
 })

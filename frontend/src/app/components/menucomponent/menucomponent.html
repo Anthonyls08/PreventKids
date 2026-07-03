@@ -23,6 +23,12 @@
                 <mat-icon>video_camera_front</mat-icon>
                 <span>Videollamada</span>
             </a>
+            @if (isAdmin() || isDoctor() || isPadre()) {
+            <a class="nav-link" routerLink="/app/reportes" routerLinkActive="activo">
+                <mat-icon>bar_chart</mat-icon>
+                <span>Reportes</span>
+            </a>
+            }
         </nav>
 
         <span class="menu-spacer"></span>
@@ -115,12 +121,6 @@
             Usuarios
         </button>
         }
-        @if (isAdmin() || isDoctor()) {
-        <button mat-menu-item [matMenuTriggerFor]="menuReportes">
-            <mat-icon>bar_chart</mat-icon>
-            Reportes
-        </button>
-        }
     </mat-menu>
     <mat-menu #menuAlert="matMenu">
         @if (isAdmin() || isDoctor()) {
@@ -163,18 +163,6 @@
         }
         <button mat-menu-item routerLink="/app/district/listar">
             <mat-icon>list</mat-icon>Listar</button>
-        <button mat-menu-item routerLink="/app/district/reporte-zonas-riesgo">
-            <mat-icon>pie_chart</mat-icon>
-            Zonas de riesgo
-        </button>
-        <button mat-menu-item routerLink="/app/district/reporte-prioridad-ubigeo">
-            <mat-icon>bar_chart</mat-icon>
-            Prioridad por ubigeo
-        </button>
-        <button mat-menu-item routerLink="/app/district/reporte-filtrar-departamento">
-            <mat-icon>filter_alt</mat-icon>
-            Filtrar por departamento
-        </button>
     </mat-menu>
 
     <mat-menu #menuRole="matMenu">
@@ -286,22 +274,6 @@
             <mat-icon>list</mat-icon>
             Listar
         </button>
-        <button mat-menu-item routerLink="/app/mediciones/reporte-prioridad-imc">
-            <mat-icon>bar_chart</mat-icon>
-            Prioridad por IMC
-        </button>
-        <button mat-menu-item routerLink="/app/mediciones/reporte-signos-vitales">
-            <mat-icon>pie_chart</mat-icon>
-            Signos vitales
-        </button>
-        <button mat-menu-item routerLink="/app/mediciones/reporte-riesgo-nutricional">
-            <mat-icon>pie_chart</mat-icon>
-            Riesgo nutricional
-        </button>
-        <button mat-menu-item routerLink="/app/mediciones/reporte-filtrar-usuario">
-            <mat-icon>filter_alt</mat-icon>
-            Filtrar por usuario
-        </button>
     </mat-menu>
 
     <mat-menu #menuUsuario="matMenu">
@@ -312,23 +284,6 @@
         <button mat-menu-item routerLink="/app/users/listar">
             <mat-icon>list</mat-icon>
             Listar
-        </button>
-    </mat-menu>
-
-    <mat-menu #menuReportes="matMenu">
-        @if (isAdmin()) {
-        <button mat-menu-item routerLink="/app/reportes/usuarios-por-rol">
-            <mat-icon>bar_chart</mat-icon>
-            Usuarios por rol
-        </button>
-        <button mat-menu-item routerLink="/app/reportes/usuarios-por-distrito">
-            <mat-icon>show_chart</mat-icon>
-            Usuarios por distrito
-        </button>
-        }
-        <button mat-menu-item routerLink="/app/reportes/perfiles-por-especialidad">
-            <mat-icon>pie_chart</mat-icon>
-            Perfiles por especialidad
         </button>
     </mat-menu>
 

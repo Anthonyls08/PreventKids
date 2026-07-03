@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { TipoAlerta } from '../models/TipoAlerta';
+import { AlertaPorNivelRiesgoDTO } from '../models/AlertaPorNivelRiesgoDTO';
 
 const base_url = environment.base;
 @Injectable({
@@ -34,5 +35,9 @@ export class Tipoalertaservice {
 
   buscar(nombre: string) {
     return this.http.get<TipoAlerta[]>(`${this.url}/buscar?nombre=${nombre}`);
+  }
+
+  getConteoPorNivelRiesgo() {
+    return this.http.get<AlertaPorNivelRiesgoDTO[]>(`${this.url}/conteo-por-nivelriesgo`);
   }
 }

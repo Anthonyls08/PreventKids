@@ -5,7 +5,6 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { authInterceptor } from './core/auth-interceptor';
 import { errorInterceptor } from './components/errors/error.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -26,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideCharts(withDefaultRegisterables()),
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor, errorInterceptor]),
+      withInterceptors([errorInterceptor]),
       withInterceptorsFromDi()
     ),
     importProvidersFrom(

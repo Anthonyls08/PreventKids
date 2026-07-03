@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.AlertaPorNivelRiesgoDTO;
 import upc.edu.pe.preventkids.dtos.tipoAlertaDTO;
 import upc.edu.pe.preventkids.dtos.tipoAlertaInsertDTO;
 import upc.edu.pe.preventkids.entities.TipoAlerta;
 import upc.edu.pe.preventkids.servicesinterfaces.ITipoalertaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -128,5 +130,22 @@ public class tipoAlertaController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/conteo-por-nivelriesgo")
+    public ResponseEntity<?> contarPorNivelRiesgo() {
+        List<Object[]> resultados = tS.contarPorNivelRiesgo();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay tipos de alerta registrados");
+        }
+        List<AlertaPorNivelRiesgoDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            AlertaPorNivelRiesgoDTO dto = new AlertaPorNivelRiesgoDTO();
+            dto.setNivelRiesgo(((Number) fila[0]).intValue());
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }

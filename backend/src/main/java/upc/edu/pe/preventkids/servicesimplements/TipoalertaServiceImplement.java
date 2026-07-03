@@ -39,5 +39,10 @@ public class TipoalertaServiceImplement implements ITipoalertaService {
         return tR.buscarPorNombre(nombre);
     }
 
+    @Override
+    public List<Object[]> contarPorNivelRiesgo() {
+        return tR.contarPorNivelRiesgo();
+    }
+
 
 }
