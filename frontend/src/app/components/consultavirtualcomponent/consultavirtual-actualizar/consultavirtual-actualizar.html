@@ -98,9 +98,14 @@
       </mat-form-field>
       <br />
 
-      <div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Actualizar</button>
-        <button mat-button color="warn" type="button" routerLink="/app/consultas-virtuales/listar" style="margin-left: 10px;">Cancelar</button>
+      <div class="form-acciones">
+        <button matButton type="submit" class="btn-form">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+
+        <button matButton type="button" class="btn-form" routerLink="/app/consultas-virtuales/listar">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
       </div>
 
     </form>

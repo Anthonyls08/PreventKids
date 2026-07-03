@@ -12,4 +12,5 @@ public interface IUserService {
     public void update(User u);
     public void delete(int id);
     public List<Object[]> contarUsuariosPorRol();
+    public List<Object[]> contarUsuariosPorDistrito();
 }

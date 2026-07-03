@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Medicion } from '../../../models/Medicion';
 import { User } from '../../../models/User';
@@ -19,6 +20,8 @@ import { Userservice } from '../../../services/userservice';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
+    RouterLink,
   ],
   templateUrl: './medicion-actualizar.html',
   styleUrl: './medicion-actualizar.css',

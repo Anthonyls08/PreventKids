@@ -6,14 +6,15 @@ import { TipoContenido } from '../../../models/TipoContenido';
 import { Tipocontenidoservice } from '../../../services/tipocontenidoservice';
 import { ProfessionalProfile } from '../../../models/ProfessionalProfile';
 import { Professionalprofileservice } from '../../../services/professionalprofileservice';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-educational-content-actualizar',
-  imports: [MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, RouterLink, ReactiveFormsModule],
   templateUrl: './educational-content-actualizar.html',
   styleUrl: './educational-content-actualizar.css',
 })

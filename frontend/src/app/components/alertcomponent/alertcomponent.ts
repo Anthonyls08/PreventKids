@@ -4,7 +4,7 @@ import { AlertListar } from './alert-listar/alert-listar';
 
 @Component({
   selector: 'app-alertcomponent',
-  imports: [RouterOutlet, AlertListar],
+  imports: [RouterOutlet],
   templateUrl: './alertcomponent.html',
   styleUrl: './alertcomponent.css',
 })

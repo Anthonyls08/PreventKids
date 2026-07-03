@@ -14,12 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Authservice } from '../../../services/authservice';
-import { Roleservice } from '../../../services/roleservice';
-import { Districtservice } from '../../../services/districtservice';
-import { Role } from '../../../models/Role';
-import { District } from '../../../models/district';
-import { User } from '../../../models/User';
+import { Userservice } from '../../services/userservice';
+import { Roleservice } from '../../services/roleservice';
+import { Districtservice } from '../../services/districtservice';
+import { Role } from '../../models/Role';
+import { District } from '../../models/district';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +38,7 @@ import { User } from '../../../models/User';
 })
 export class Register implements OnInit {
   private fb = inject(FormBuilder);
-  private auth = inject(Authservice);
+  private userService = inject(Userservice);
   private roleService = inject(Roleservice);
   private districtService = inject(Districtservice);
   private router = inject(Router);
@@ -68,7 +68,11 @@ export class Register implements OnInit {
       return;
     }
     this.roleService.list().subscribe({
-      next: (data) => this.roles.set(data),
+      // El registro público solo ofrece PACIENTE o PADRE (el backend rechaza el resto).
+      next: (data) =>
+        this.roles.set(
+          data.filter((r) => ['PACIENTE', 'PADRE'].includes(r.nombre?.toUpperCase()))
+        ),
     });
     this.districtService.list().subscribe({
       next: (data) => this.distritos.set(data),
@@ -96,7 +100,7 @@ export class Register implements OnInit {
     u.idDistrict = Number(v.idDistrict);
     u.estado = true;
 
-    this.auth.register(u).subscribe({
+    this.userService.insert(u).subscribe({
       next: () => {
         this.cargando.set(false);
         this.router.navigate(['/login']);

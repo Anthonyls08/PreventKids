@@ -4,14 +4,14 @@ import { RecommendedExercise } from '../../../models/RecommendedExercise';
 import { Recommendedexerciseservice } from '../../../services/recommendedexerciseservice';
 import { PhysicalLimitation } from '../../../models/physical-limitation';
 import { PhysicalLimitationService } from '../../../services/limitacionfisicaservice';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-recommended-exercise-insertar',
-  imports: [MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatButtonModule, MatSelectModule, RouterLink, ReactiveFormsModule],
   templateUrl: './recommended-exercise-insertar.html',
   styleUrl: './recommended-exercise-insertar.css',
 })

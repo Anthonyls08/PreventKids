@@ -33,7 +33,7 @@ export class RoleListar implements OnInit {
   cargarRoles() {
     this.rS.list().subscribe({
       next: (data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idRole - b.idRole));
       },
     });
   }
@@ -41,7 +41,7 @@ export class RoleListar implements OnInit {
   eliminar(id: number) {
     this.rS.eliminar(id).subscribe(() => {
       this.rS.list().subscribe((data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idRole - b.idRole));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

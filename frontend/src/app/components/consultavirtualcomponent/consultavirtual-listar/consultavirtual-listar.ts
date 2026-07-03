@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { RouterLink } from '@angular/router';
 import { VirtualConsultation } from '../../../models/VirtualConsultation';
 import { Virtualconsultationservice } from '../../../services/virtualconsultationservice';
 
 @Component({
   selector: 'app-consultavirtual-listar',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [MatCardModule, MatPaginatorModule, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './consultavirtual-listar.html',
   styleUrl: './consultavirtual-listar.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConsultaVirtualListar implements OnInit {
-  dataSource: MatTableDataSource<VirtualConsultation> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'];
+  private vS = inject(Virtualconsultationservice);
 
-  constructor(private vS: Virtualconsultationservice) {}
+  items = signal<VirtualConsultation[]>([]);
+  pageSize = signal(6);
+  pageIndex = signal(0);
+
+  pagedItems = computed(() => {
+    const start = this.pageIndex() * this.pageSize();
+    return this.items().slice(start, start + this.pageSize());
+  });
 
   ngOnInit(): void {
     this.cargar();
@@ -25,7 +33,7 @@ export class ConsultaVirtualListar implements OnInit {
   cargar() {
     this.vS.list().subscribe({
       next: (data) => {
-        this.dataSource.data = data;
+        this.items.set(data.sort((a, b) => a.idVirtualConsultation - b.idVirtualConsultation));
       },
     });
   }
@@ -34,5 +42,10 @@ export class ConsultaVirtualListar implements OnInit {
     this.vS.eliminar(id).subscribe(() => {
       this.cargar();
     });
+  }
+
+  onPage(e: PageEvent) {
+    this.pageIndex.set(e.pageIndex);
+    this.pageSize.set(e.pageSize);
   }
 }

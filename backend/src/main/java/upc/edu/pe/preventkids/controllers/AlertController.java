@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.AlertDTO;
 import upc.edu.pe.preventkids.entities.Alert;
@@ -19,6 +20,7 @@ public class AlertController {
     @Autowired
     private IAlertService aS;
     @GetMapping("/listar")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<List<AlertDTO>> listar(){
         ModelMapper m=new ModelMapper();
         List<AlertDTO> listaAlert=aS.list().stream()
@@ -28,6 +30,7 @@ public class AlertController {
         return ResponseEntity.ok(listaAlert);
     }
     @PostMapping("/ingresar")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody AlertDTO dto){
         ModelMapper m=new ModelMapper();
         Alert c=m.map(dto, Alert.class);
@@ -36,6 +39,7 @@ public class AlertController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         ModelMapper m = new ModelMapper();
         Optional<Alert> alerta = aS.listId(id);
@@ -49,6 +53,7 @@ public class AlertController {
         }
     }
     @PutMapping("/actualizar")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody AlertDTO dto) {
 
         Optional<Alert> existente = aS.listId(dto.getIdAlert());
@@ -69,6 +74,7 @@ public class AlertController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Alert> alerta = aS.listId(id);
 
@@ -81,6 +87,7 @@ public class AlertController {
         }
     }
     @GetMapping("/criticas")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> obtenerAlertasCriticas(
             @RequestParam(required = false, defaultValue = "3") Integer umbralRiesgo) {
         if (umbralRiesgo < 1 || umbralRiesgo > 5) {

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.tipoAlertaDTO;
 import upc.edu.pe.preventkids.dtos.tipoAlertaInsertDTO;
@@ -29,6 +30,7 @@ public class tipoAlertaController {
         return ResponseEntity.ok(listatipo);
     }
     @PostMapping("/insertar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody tipoAlertaInsertDTO dto){
         if (dto.getNivelriesgo() < 1 || dto.getNivelriesgo() > 5) {
             return ResponseEntity.badRequest()
@@ -54,6 +56,7 @@ public class tipoAlertaController {
         }
     }
     @PutMapping("/actualizar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody tipoAlertaInsertDTO dto) {
         if (dto.getNivelriesgo() < 1 || dto.getNivelriesgo() > 5) {
             return ResponseEntity.badRequest()
@@ -78,6 +81,7 @@ public class tipoAlertaController {
         return ResponseEntity.ok("Tipo de alerta actualizada correctamente");
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<TipoAlerta> tipoAlerta = tS.listId(id);
 

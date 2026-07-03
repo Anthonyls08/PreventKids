@@ -43,4 +43,9 @@ public class UserServiceImplement implements IUserService {
     public List<Object[]> contarUsuariosPorRol() {
         return uR.contarUsuariosPorRol();
     }
+
+    @Override
+    public List<Object[]> contarUsuariosPorDistrito() {
+        return uR.contarUsuariosPorDistrito();
+    }
 }

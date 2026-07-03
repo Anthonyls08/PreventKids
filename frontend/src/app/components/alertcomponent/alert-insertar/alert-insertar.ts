@@ -64,16 +64,26 @@ export class AlertInsertar implements OnInit {
 
     if (this.form.valid) {
 
-      this.alerta.generationdate = this.form.value.generationdate;
-      this.alerta.leida = this.form.value.leida;
+      // Enviamos SOLO los ids de las FK (ver nota en alert-actualizar):
+      // mandar el objeto medicion/usuario completo rompe la deserialización.
+      const payload = {
+        generationdate: this.form.value.generationdate,
+        leida: this.form.value.leida,
+        tipoalert: { idTipoalerta: this.form.value.tipoalert },
+        medicion: { idMedicion: this.form.value.medicion },
+      } as unknown as Alert;
 
-      this.alerta.tipoalert.idTipoalerta = this.form.value.tipoalert;
-      this.alerta.medicion.idMedicion = this.form.value.medicion;
-
-      this.alertService.insert(this.alerta).subscribe(() => {
-        this.router.navigate(['/app/alertas/listar']);
+      this.alertService.insert(payload).subscribe({
+        next: () => {
+          this.router.navigate(['/app/alertas/listar']);
+        },
+        error: (err) => {
+          console.error('Error al registrar la alerta en el backend:', err);
+        },
       });
 
+    } else {
+      this.form.markAllAsTouched();
     }
 
   }

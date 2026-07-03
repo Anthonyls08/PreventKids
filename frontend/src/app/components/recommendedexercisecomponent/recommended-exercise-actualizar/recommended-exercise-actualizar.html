@@ -73,8 +73,14 @@
           }
         </mat-error>
       </mat-form-field>
-      <div>
-        <button matButton="elevated">Actualizar</button>
+      <div class="form-acciones">
+        <button matButton type="submit" class="btn-form">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+
+        <button matButton type="button" class="btn-form" routerLink="/app/ejercicio-recomendado/listar">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
       </div>
     </form>
   </div>

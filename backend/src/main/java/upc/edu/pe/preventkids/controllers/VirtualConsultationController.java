@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.VirtualConsultationDTO;
 import upc.edu.pe.preventkids.entities.ProfessionalProfile;
@@ -29,6 +30,7 @@ public class VirtualConsultationController {
     private IProfessionalProfileRepository ppR;
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<List<VirtualConsultationDTO>> listar() {
         List<VirtualConsultationDTO> lista = vS.list().stream()
                 .map(y -> {
@@ -44,6 +46,7 @@ public class VirtualConsultationController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody VirtualConsultationDTO dto) {
         if (dto.getFechacita() == null) {
             return ResponseEntity.badRequest()
@@ -77,6 +80,7 @@ public class VirtualConsultationController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
@@ -93,6 +97,7 @@ public class VirtualConsultationController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody VirtualConsultationDTO dto) {
         Optional<VirtualConsultation> existente = vS.listId(dto.getIdVirtualConsultation());
         if (existente.isEmpty()) {
@@ -111,6 +116,7 @@ public class VirtualConsultationController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
@@ -123,6 +129,7 @@ public class VirtualConsultationController {
     }
 
     @GetMapping("/decidir-prioridad")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirPrioridad(@RequestParam String estado, @RequestParam String nombrePaciente) {
         if (estado == null || estado.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El estado de la consulta no puede estar vacío.");

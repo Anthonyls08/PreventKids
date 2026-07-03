@@ -34,7 +34,7 @@ export class TipoAlertaListar implements OnInit {
   cargarTiposAlerta() {
     this.tS.list().subscribe({
       next: (data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idTipoalerta - b.idTipoalerta));
       },
     });
   }
@@ -47,7 +47,7 @@ export class TipoAlertaListar implements OnInit {
     }
     this.tS.buscar(nombre.trim()).subscribe({
       next: (data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idTipoalerta - b.idTipoalerta));
       },
     });
   }
@@ -55,7 +55,7 @@ export class TipoAlertaListar implements OnInit {
   eliminar(id: number) {
     this.tS.eliminar(id).subscribe(() => {
       this.tS.list().subscribe((data) => {
-        this.items.set(data);
+        this.items.set(data.sort((a, b) => a.idTipoalerta - b.idTipoalerta));
         const maxIndex = Math.max(0, Math.ceil(data.length / this.pageSize()) - 1);
         if (this.pageIndex() > maxIndex) {
           this.pageIndex.set(maxIndex);

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.RoleDTO;
 import upc.edu.pe.preventkids.entities.Role;
@@ -31,6 +32,7 @@ public class RoleController {
     }
 
     @PostMapping("/web")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody RoleDTO dto) {
         if (dto.getNombre() == null ) {
             return ResponseEntity.badRequest()
@@ -63,6 +65,7 @@ public class RoleController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody RoleDTO dto) {
         Optional<Role> existente = rS.listId(dto.getIdRole());
 
@@ -87,6 +90,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Role> role = rS.listId(id);
 

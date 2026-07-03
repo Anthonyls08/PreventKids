@@ -30,8 +30,14 @@
           }
         </mat-error>
       </mat-form-field>
-      <div>
-        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+      <div class="form-acciones">
+        <button matButton type="submit" class="btn-form">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+
+        <button matButton type="button" class="btn-form" routerLink="/app/roles/listar">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
       </div>
     </form>
   </div>

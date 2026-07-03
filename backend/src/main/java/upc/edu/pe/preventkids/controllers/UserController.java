@@ -4,9 +4,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.UserDTO;
+import upc.edu.pe.preventkids.dtos.UserDistrictCountDTO;
 import upc.edu.pe.preventkids.dtos.UserRoleCountDTO;
 import upc.edu.pe.preventkids.entities.District;
 import upc.edu.pe.preventkids.entities.Role;
@@ -42,6 +46,7 @@ public class UserController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<UserDTO>> listar() {
         List<UserDTO> listaUsers = uS.list().stream()
                 .map(y -> {
@@ -74,6 +79,21 @@ public class UserController {
 
         Role role = rR.findById(dto.getIdRole())
                 .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole()));
+
+        // El registro público (sin token) solo puede elegir rol PACIENTE o PADRE.
+        // Un ADMIN autenticado sí puede crear usuarios con cualquier rol.
+        String nombreRol = role.getNombre() == null ? "" : role.getNombre().toUpperCase();
+        boolean esRolPublico = nombreRol.equals("PACIENTE") || nombreRol.equals("PADRE");
+        if (!esRolPublico) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            boolean esAdmin = auth != null && auth.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ADMIN"));
+            if (!esAdmin) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Solo puede registrarse con el rol PACIENTE o PADRE");
+            }
+        }
+
         District district = dR.findById(dto.getIdDistrict())
                 .orElseThrow(() -> new RuntimeException("District no encontrado con id: " + dto.getIdDistrict()));
         PhysicalLimitation physicalLimitation = plR.findById(dto.getIdPhysicalLimitation()).orElse(null);
@@ -97,6 +117,7 @@ public class UserController {
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         Optional<User> user = uS.listId(id);
 
@@ -114,6 +135,7 @@ public class UserController {
     }
 
     @PutMapping("/actualiza")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody UserDTO dto) {
         Optional<User> existente = uS.listId(dto.getIdUser());
 
@@ -142,12 +164,21 @@ public class UserController {
         u.setPhysicallimitation(physicalLimitation);
         u.setChatia(chatia);
 
+        // Password: si viene vacio se conserva el actual; si viene, se encripta
+        // (nunca se guarda en texto plano, para no romper el login con BCrypt).
+        if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
+            u.setPassword(existente.get().getPassword());
+        } else {
+            u.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
         uS.update(u);
 
         return ResponseEntity.ok("Usuario actualizado correctamente");
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<User> user = uS.listId(id);
 
@@ -161,6 +192,7 @@ public class UserController {
     }
 
     @GetMapping("/conteo-por-rol")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> contarUsuariosPorRol() {
         List<Object[]> resultados = uS.contarUsuariosPorRol();
         if (resultados.isEmpty()) {
@@ -171,6 +203,24 @@ public class UserController {
         for (Object[] fila : resultados) {
             UserRoleCountDTO dto = new UserRoleCountDTO();
             dto.setNombreRol((String) fila[0]);
+            dto.setCantidadUsuarios(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/conteo-por-distrito")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> contarUsuariosPorDistrito() {
+        List<Object[]> resultados = uS.contarUsuariosPorDistrito();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay usuarios registrados");
+        }
+        List<UserDistrictCountDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            UserDistrictCountDTO dto = new UserDistrictCountDTO();
+            dto.setNombreDistrito((String) fila[0]);
             dto.setCantidadUsuarios(((Number) fila[1]).intValue());
             respuesta.add(dto);
         }

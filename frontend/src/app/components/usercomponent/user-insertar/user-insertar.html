@@ -1,0 +1,136 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Registro de Usuarios</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+        <mat-error>
+          @if (form.get('nombre')?.hasError('required')) {
+            Ingrese el nombre!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" />
+        <mat-error>
+          @if (form.get('apellido')?.hasError('required')) {
+            Ingrese el apellido!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error>
+          @if (form.get('email')?.hasError('required')) {
+            Ingrese el email!!
+          }
+          @if (form.get('email')?.hasError('email')) {
+            El email no es v&aacute;lido!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Contrase&ntilde;a</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error>
+          @if (form.get('password')?.hasError('required')) {
+            Ingrese la contrase&ntilde;a!!
+          }
+          @if (form.get('password')?.hasError('minlength')) {
+            M&iacute;nimo 4 caracteres!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput type="date" formControlName="fechanacimiento" />
+        <mat-error>
+          @if (form.get('fechanacimiento')?.hasError('required')) {
+            Seleccione la fecha!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>G&eacute;nero</mat-label>
+        <mat-select formControlName="genero">
+          @for (g of generos; track g) {
+            <mat-option [value]="g">{{ g }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('genero')?.hasError('required')) {
+            Seleccione el g&eacute;nero!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Tel&eacute;fono</mat-label>
+        <input matInput type="number" formControlName="telefono" />
+        <mat-error>
+          @if (form.get('telefono')?.hasError('required')) {
+            Ingrese el tel&eacute;fono!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          <mat-option [value]="true">Activo</mat-option>
+          <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="idRole">
+          @for (r of listaRoles; track r.idRole) {
+            <mat-option [value]="r.idRole">{{ r.nombre }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idRole')?.hasError('required')) {
+            Seleccione el rol!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Distrito</mat-label>
+        <mat-select formControlName="idDistrict">
+          @for (d of listaDistritos; track d.idDistrict) {
+            <mat-option [value]="d.idDistrict">{{ d.nameDistrict }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idDistrict')?.hasError('required')) {
+            Seleccione el distrito!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-acciones">
+        <button mat-raised-button type="submit" class="btn-form">Registrar</button>
+        <button mat-raised-button type="button" class="btn-form" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

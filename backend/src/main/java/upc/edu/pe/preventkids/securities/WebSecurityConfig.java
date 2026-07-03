@@ -70,30 +70,25 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         //Desde Spring Boot 3.1+
         httpSecurity
-                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
                         // Registro público de usuarios desde la web
                         .requestMatchers(HttpMethod.POST, "/users/web").permitAll()
-                        // ¡AQUÍ AGREGAMOS "/distritos/**"!
+                        // Combos del formulario de registro (se consultan sin estar logueado)
+                        .requestMatchers(HttpMethod.GET, "/roles", "/distritos").permitAll()
                         .requestMatchers(
+                                // Permite el reenvío interno a /error para que los
+                                // errores reales (500, etc.) no se enmascaren como 401.
+                                "/error",
                                 "/login",
                                 "/swagger-ui/**",
+                                "/swagger-ui.html",
                                 "/v3/api-docs/**",
-                                "/tipos-alerta/**",
-                                "/chatIA/**",
-                                "/distritos/**",
-                                "/tipos-contenido/**",
-                                "/specialties/**",
-                                "/LimitacionFisica/**",
-                                "/roles/**",
-                                "/users/**",
-                                "/professionalprofiles/**",
-                                "/virtualconsultations/**",
-                                "/api/medicion/**",
-                                "/alerta/**"
+                                "/webjars/**"
                         )
                         .permitAll()
+                        // Todo lo demás requiere un token JWT válido
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

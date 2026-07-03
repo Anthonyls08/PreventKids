@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.RecommendedExerciseDTO;
 import upc.edu.pe.preventkids.dtos.RecommendedExerciseInsertDTO;
@@ -30,6 +31,7 @@ public class RecommendedExerciseController {
         return ResponseEntity.ok(listaEjercicios);
     }
     @PostMapping("/registrarEjercicioRecomendado")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody RecommendedExerciseInsertDTO dto){
 
         if (dto.getDateRecommendedExercise() == null ) {
@@ -63,6 +65,7 @@ public class RecommendedExerciseController {
 
 
     @PutMapping("/actualizaEjercicioRecomendado")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody RecommendedExerciseInsertDTO dto) {
 
         Optional<RecommendedExercise> existente = null;
@@ -98,6 +101,7 @@ public class RecommendedExerciseController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<RecommendedExercise> ejercicioR = reS.listId(id);
 

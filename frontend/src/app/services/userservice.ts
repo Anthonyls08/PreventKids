@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/User';
+import { UserRoleCountDTO } from '../models/UserRoleCountDTO';
+import { UserDistrictCountDTO } from '../models/UserDistrictCountDTO';
 
 const base_url = environment.base;
 
@@ -15,5 +17,31 @@ export class Userservice {
 
   list() {
     return this.http.get<User[]>(this.url);
+  }
+
+  insert(u: User) {
+    // El backend registra usuarios desde la web en POST /users/web
+    return this.http.post(`${base_url}/users/web`, u);
+  }
+
+  listId(id: number) {
+    return this.http.get<User>(`${this.url}/${id}`);
+  }
+
+  update(u: User) {
+    // El backend expone PUT /users/actualiza y lee el id desde el body.
+    return this.http.put(`${this.url}/actualiza`, u, { responseType: 'text' });
+  }
+
+  delete(id: number) {
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
+
+  getConteoPorRol() {
+    return this.http.get<UserRoleCountDTO[]>(`${this.url}/conteo-por-rol`);
+  }
+
+  getConteoPorDistrito() {
+    return this.http.get<UserDistrictCountDTO[]>(`${this.url}/conteo-por-distrito`);
   }
 }
