@@ -113,4 +113,49 @@ public class DistrictController {
         }
         return ResponseEntity.ok(listaDistritos);
     }
+
+    @GetMapping("/decidir-zonas-riesgo")
+    public ResponseEntity<?> decidirZonasDeRiesgo() {
+        ModelMapper m = new ModelMapper();
+        List<DistrictDTO> lista = dS.decidirZonasDeRiesgo()
+                .stream()
+                .map(y -> m.map(y, DistrictDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/decidir-prioridad-ubigeo")
+    public ResponseEntity<?> decidirPrioridadPorUbigeo(@RequestParam int ubigeo) {
+        if (ubigeo <= 0) {
+            return ResponseEntity.badRequest().body("Error: El codigo ubigeo debe ser mayor a 0.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<DistrictDTO> lista = dS.decidirPrioridadPorUbigeo(ubigeo)
+                .stream()
+                .map(y -> m.map(y, DistrictDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/filtrar-por-departamento")
+    public ResponseEntity<?> filtrarPorDepartamento(@RequestParam String departamento) {
+        if (departamento == null || departamento.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: El nombre del departamento no puede estar vacío.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<DistrictDTO> lista = dS.filtrarPorDepartamento(departamento)
+                .stream()
+                .map(y -> m.map(y, DistrictDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
 }

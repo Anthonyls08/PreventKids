@@ -32,4 +32,15 @@ public class MedicionServiceImplement implements IMedicionService {
 
     @Override
     public List<Medicion> decidirAtencionPrioritaria(float imcMinimo) { return medicionRepository.decidirAtencionPrioritaria(imcMinimo); }
+
+    @Override
+    public List<Medicion> decidirEvaluacionSignosVitales(float presionMaxima, float temperaturaMaxima) {
+        return medicionRepository.decidirEvaluacionSignosVitales(presionMaxima, temperaturaMaxima);
+    }
+
+    @Override
+    public List<Medicion> decidirRiesgoNutricional() { return medicionRepository.decidirRiesgoNutricional(); }
+
+    @Override
+    public List<Medicion> filtrarPorUsuario(int idUser) { return medicionRepository.filtrarPorUsuario(idUser); }
 }

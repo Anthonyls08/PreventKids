@@ -13,4 +13,7 @@ public interface IMedicionService {
     public void delete(int id);
     //List<Medicion> buscarNivelService(int nivel); -// FK para la tabla de Dali
     public List<Medicion> decidirAtencionPrioritaria(float imcMinimo);
+    public List<Medicion> decidirEvaluacionSignosVitales(float presionMaxima, float temperaturaMaxima);
+    public List<Medicion> decidirRiesgoNutricional();
+    public List<Medicion> filtrarPorUsuario(int idUser);
 }

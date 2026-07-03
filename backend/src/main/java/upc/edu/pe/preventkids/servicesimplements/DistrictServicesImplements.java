@@ -38,4 +38,13 @@ public class DistrictServicesImplements implements IDistrictService {
 
     @Override
     public List<District> buscarPorNombre(String nombre) { return dR.buscarPorNombre(nombre); }
+
+    @Override
+    public List<District> decidirZonasDeRiesgo() { return dR.decidirZonasDeRiesgo(); }
+
+    @Override
+    public List<District> decidirPrioridadPorUbigeo(int ubigeoMaximo) { return dR.decidirPrioridadPorUbigeo(ubigeoMaximo); }
+
+    @Override
+    public List<District> filtrarPorDepartamento(String departamento) { return dR.filtrarPorDepartamento(departamento); }
 }
