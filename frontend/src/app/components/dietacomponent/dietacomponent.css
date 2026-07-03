@@ -23,7 +23,7 @@
 .dieta-buscador {
   display: flex;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
@@ -31,6 +31,47 @@
 .dieta-input {
   flex: 1;
   min-width: 240px;
+}
+
+.dieta-btn {
+  height: 56px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pk-primary), var(--pk-secondary));
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.dieta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
+  filter: brightness(1.06);
+}
+
+.dieta-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(46, 125, 50, 0.25);
+}
+
+.dieta-btn:focus-visible {
+  outline: 3px solid var(--pk-secondary);
+  outline-offset: 2px;
+}
+
+.dieta-btn mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
 }
 
 .dieta-cuerpo {
@@ -110,6 +151,10 @@
   font-size: 0.98rem;
   margin: 4px 0 0;
   line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .alimento-marca {
@@ -117,17 +162,105 @@
   color: #8a8a8a;
 }
 
-.alimento-datos {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0;
-  font-size: 0.85rem;
+.alimento-kcal {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.alimento-kcal strong {
+  color: var(--pk-primary);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.alimento-kcal span {
+  font-size: 0.8rem;
   color: #555;
 }
 
-.alimento-datos strong {
-  color: var(--pk-primary);
-  font-size: 1.05rem;
+.alimento-porcion {
+  margin-left: auto;
+  color: #9e9e9e;
+  font-size: 0.72rem;
+}
+
+.alimento-macros {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.alimento-macros li {
+  display: grid;
+  grid-template-columns: 62px 44px 1fr;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.macro-nombre {
+  color: #666;
+}
+
+.macro-valor {
+  font-weight: 600;
+  color: #333;
+  text-align: right;
+}
+
+.macro-barra {
+  height: 6px;
+  background: #eef2ef;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.macro-barra > span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.macro-barra-proteina {
+  background-color: var(--pk-secondary);
+}
+
+/* Leyenda del semaforo */
+.dieta-leyenda {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: #777;
+  margin: 0 0 12px;
+}
+
+.leyenda-punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.leyenda-verde {
+  background: #2e7d32;
+}
+
+.leyenda-amarillo {
+  background: #f9a825;
+}
+
+.leyenda-rojo {
+  background: #e53935;
 }
 
 /* Mi día */

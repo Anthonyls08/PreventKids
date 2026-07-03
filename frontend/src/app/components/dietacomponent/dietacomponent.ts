@@ -73,4 +73,22 @@ export class Dietacomponent {
     };
     return mapa[grado] ?? '#9e9e9e';
   }
+
+  // Semaforo nutricional por 100 g (umbrales del etiquetado frontal UK)
+  colorAzucar(gramos: number): string {
+    if (gramos <= 5) return '#2e7d32';
+    if (gramos <= 22.5) return '#f9a825';
+    return '#e53935';
+  }
+
+  colorGrasa(gramos: number): string {
+    if (gramos <= 3) return '#2e7d32';
+    if (gramos <= 17.5) return '#f9a825';
+    return '#e53935';
+  }
+
+  // Ancho de la barra (0-100) relativo a un valor de referencia
+  barra(valor: number, referencia: number): number {
+    return Math.min(Math.round((valor / referencia) * 100), 100);
+  }
 }

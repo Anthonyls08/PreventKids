@@ -4,30 +4,42 @@
       <h2>Control de dieta</h2>
       <p>
         Busca un alimento y agrégalo a tu día para controlar las calorías y el
-        azúcar. Datos reales de la API pública <strong>Open Food Facts</strong>.
+        azúcar. Datos reales de <strong>Open Food Facts Perú</strong> (productos
+        vendidos en el Perú).
       </p>
     </div>
     <mat-icon class="dieta-head-icon" aria-hidden="true">restaurant</mat-icon>
   </section>
 
-  <form class="dieta-buscador" (submit)="buscar(); $event.preventDefault()">
+  <form class="dieta-buscador" (ngSubmit)="buscar()">
     <mat-form-field class="dieta-input" appearance="outline">
       <mat-label>Buscar alimento</mat-label>
       <input
         matInput
         [ngModel]="termino()"
         (ngModelChange)="termino.set($event)"
+        (keydown.enter)="$event.preventDefault(); buscar()"
         name="termino"
-        placeholder="Ej: yogurt, manzana, cereal" />
+        placeholder="Ej: yogurt, quinua, avena" />
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">
-      <mat-icon>search</mat-icon> Buscar
+    <button class="dieta-btn" type="submit">
+      <mat-icon aria-hidden="true">search</mat-icon>
+      <span>Buscar</span>
     </button>
   </form>
 
   <div class="dieta-cuerpo">
     <!-- Resultados de la API -->
     <div class="dieta-resultados">
+      @if (resultados().length > 0) {
+        <p class="dieta-leyenda">
+          Valores por 100 g ·
+          <span class="leyenda-punto leyenda-verde"></span> Bajo
+          <span class="leyenda-punto leyenda-amarillo"></span> Moderado
+          <span class="leyenda-punto leyenda-rojo"></span> Alto
+        </p>
+      }
+
       @if (cargando()) {
         <p class="dieta-msg">Buscando alimentos...</p>
       } @else if (buscado() && resultados().length === 0) {
@@ -45,17 +57,47 @@
               }
               <span
                 class="nutriscore"
+                [attr.title]="'Nutri-Score ' + a.nutriscore.toUpperCase()"
+                [attr.aria-label]="'Nutri-Score ' + a.nutriscore.toUpperCase()"
                 [style.background-color]="colorNutriscore(a.nutriscore)">
                 {{ a.nutriscore.toUpperCase() }}
               </span>
             </div>
-            <h3>{{ a.nombre }}</h3>
+            <h3 [attr.title]="a.nombre">{{ a.nombre }}</h3>
             <span class="alimento-marca">{{ a.marca }}</span>
-            <ul class="alimento-datos">
-              <li><strong>{{ a.calorias }}</strong> kcal</li>
-              <li>Azúcar: {{ a.azucar }} g</li>
-              <li>Grasa: {{ a.grasa }} g</li>
-              <li>Proteína: {{ a.proteina }} g</li>
+            <div class="alimento-kcal">
+              <strong>{{ a.calorias }}</strong>
+              <span>kcal</span>
+              <span class="alimento-porcion">por 100 g</span>
+            </div>
+            <ul class="alimento-macros">
+              <li>
+                <span class="macro-nombre">Azúcar</span>
+                <span class="macro-valor">{{ a.azucar }} g</span>
+                <span class="macro-barra">
+                  <span
+                    [style.width.%]="barra(a.azucar, 25)"
+                    [style.background-color]="colorAzucar(a.azucar)"></span>
+                </span>
+              </li>
+              <li>
+                <span class="macro-nombre">Grasa</span>
+                <span class="macro-valor">{{ a.grasa }} g</span>
+                <span class="macro-barra">
+                  <span
+                    [style.width.%]="barra(a.grasa, 20)"
+                    [style.background-color]="colorGrasa(a.grasa)"></span>
+                </span>
+              </li>
+              <li>
+                <span class="macro-nombre">Proteína</span>
+                <span class="macro-valor">{{ a.proteina }} g</span>
+                <span class="macro-barra">
+                  <span
+                    class="macro-barra-proteina"
+                    [style.width.%]="barra(a.proteina, 20)"></span>
+                </span>
+              </li>
             </ul>
             <button mat-stroked-button color="primary" (click)="agregar(a)">
               <mat-icon>add</mat-icon> Agregar a mi día
