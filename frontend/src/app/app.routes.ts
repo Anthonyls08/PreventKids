@@ -73,6 +73,15 @@ import { MedicionListar } from './components/medicioncomponent/medicion-listar/m
 import { MedicionInsertar } from './components/medicioncomponent/medicion-insertar/medicion-insertar';
 import { MedicionActualizar } from './components/medicioncomponent/medicion-actualizar/medicion-actualizar';
 
+import { DistrictZonasRiesgo } from './components/districtcomponent/district-zonas-riesgo/district-zonas-riesgo';
+import { DistrictPrioridadUbigeo } from './components/districtcomponent/district-prioridad-ubigeo/district-prioridad-ubigeo';
+import { DistrictFiltrarDepartamento } from './components/districtcomponent/district-filtrar-departamento/district-filtrar-departamento';
+
+import { MedicionPrioridadImc } from './components/medicioncomponent/medicion-prioridad-imc/medicion-prioridad-imc';
+import { MedicionSignosVitales } from './components/medicioncomponent/medicion-signos-vitales/medicion-signos-vitales';
+import { MedicionRiesgoNutricional } from './components/medicioncomponent/medicion-riesgo-nutricional/medicion-riesgo-nutricional';
+import { MedicionFiltrarUsuario } from './components/medicioncomponent/medicion-filtrar-usuario/medicion-filtrar-usuario';
+
 export const routes: Routes = [
     {
         path: '',
@@ -166,7 +175,19 @@ export const routes: Routes = [
             },
             {
                 path:'actualizar/:id',
-                component: DitrictActualizar 
+                component: DitrictActualizar
+            },
+            {
+                path:'reporte-zonas-riesgo',
+                component: DistrictZonasRiesgo
+            },
+            {
+                path:'reporte-prioridad-ubigeo',
+                component: DistrictPrioridadUbigeo
+            },
+            {
+                path:'reporte-filtrar-departamento',
+                component: DistrictFiltrarDepartamento
             }
         ]
     },
@@ -347,6 +368,22 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: MedicionActualizar
+        },
+        {
+            path:'reporte-prioridad-imc',
+            component: MedicionPrioridadImc
+        },
+        {
+            path:'reporte-signos-vitales',
+            component: MedicionSignosVitales
+        },
+        {
+            path:'reporte-riesgo-nutricional',
+            component: MedicionRiesgoNutricional
+        },
+        {
+            path:'reporte-filtrar-usuario',
+            component: MedicionFiltrarUsuario
         }
     ]
 }
