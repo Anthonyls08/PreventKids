@@ -33,4 +33,9 @@ public class educationalContentServiceImplement implements IEducationalContentSe
     public List<educationalContent> buscarPorTipo(String tipo) {
         return eR.buscarPorTipo(tipo);
     }
+
+    @Override
+    public List<Object[]> contarPorTipo() {
+        return eR.contarPorTipo();
+    }
 }

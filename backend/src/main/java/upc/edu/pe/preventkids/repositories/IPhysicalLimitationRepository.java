@@ -12,4 +12,12 @@ import java.util.List;
 public interface IPhysicalLimitationRepository extends JpaRepository<PhysicalLimitation, Integer>  {
     @Query("SELECT p FROM PhysicalLimitation p WHERE p.categoryLimitation = :categoria")
     List<PhysicalLimitation> buscarPorCategoria(@Param("categoria") String categoria);
+
+    // GRAFICO: cantidad de limitaciones agrupadas por categoria
+    @Query("SELECT p.categoryLimitation, COUNT(p) FROM PhysicalLimitation p GROUP BY p.categoryLimitation ORDER BY p.categoryLimitation")
+    List<Object[]> contarPorCategoria();
+
+    // FILTRO: limitaciones por intensidad (Baja / Media / Alta)
+    @Query("SELECT p FROM PhysicalLimitation p WHERE UPPER(p.intensityLimitation) = UPPER(:intensidad)")
+    List<PhysicalLimitation> filtrarPorIntensidad(@Param("intensidad") String intensidad);
 }

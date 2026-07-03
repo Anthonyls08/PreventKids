@@ -48,6 +48,31 @@ export class Reporteshub {
       ],
     },
     {
+      entidad: 'Ejercicio Recomendado',
+      icono: 'directions_run',
+      reportes: [
+        { titulo: 'Ejercicios por dificultad', icono: 'bar_chart', ruta: '/app/ejercicio-recomendado/reporte-conteo-dificultad' },
+        { titulo: 'Filtrar por duración', icono: 'filter_alt', ruta: '/app/ejercicio-recomendado/reporte-filtrar-duracion' },
+      ],
+    },
+    {
+      entidad: 'Limitación Física',
+      icono: 'accessibility_new',
+      roles: ['ADMIN', 'DOCTOR'],
+      reportes: [
+        { titulo: 'Limitaciones por categoría', icono: 'pie_chart', ruta: '/app/limitacion-fisica/reporte-conteo-categoria' },
+        { titulo: 'Filtrar por intensidad', icono: 'filter_alt', ruta: '/app/limitacion-fisica/reporte-filtrar-intensidad' },
+      ],
+    },
+    {
+      entidad: 'Contenido Educativo',
+      icono: 'menu_book',
+      reportes: [
+        { titulo: 'Contenido por tipo', icono: 'pie_chart', ruta: '/app/contenido-educativo/reporte-conteo-tipo' },
+        { titulo: 'Buscar por tipo', icono: 'filter_alt', ruta: '/app/contenido-educativo/reporte-filtrar-tipo' },
+      ],
+    },
+    {
       entidad: 'Medición',
       icono: 'monitor_weight',
       reportes: [

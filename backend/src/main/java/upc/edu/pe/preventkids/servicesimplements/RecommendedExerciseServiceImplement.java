@@ -44,4 +44,14 @@ public class RecommendedExerciseServiceImplement implements IRecommendedExercise
         return reR.buscarPorNombre(nombre);
     }
 
+    @Override
+    public List<Object[]> contarPorDificultad() {
+        return reR.contarPorDificultad();
+    }
+
+    @Override
+    public List<RecommendedExercise> decidirPorDuracion(int duracionMinima) {
+        return reR.decidirPorDuracion(duracionMinima);
+    }
+
 }

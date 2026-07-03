@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.LimitacionPorCategoriaDTO;
 import upc.edu.pe.preventkids.dtos.PhysicalLimitationDTO;
 import upc.edu.pe.preventkids.dtos.PhysicalLimitationInsertDTO;
 import upc.edu.pe.preventkids.entities.PhysicalLimitation;
 import upc.edu.pe.preventkids.servicesinterfaces.IPhysicalLimitationService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,5 +105,39 @@ public class PhysicalLimitationController {
         }
 
         return phS.buscarPorCategoria(categoria);
+    }
+
+    // GRAFICO: cantidad de limitaciones por categoria
+    @GetMapping("/conteo-por-categoria")
+    public ResponseEntity<?> contarPorCategoria() {
+        List<Object[]> resultados = phS.contarPorCategoria();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay limitaciones fisicas registradas");
+        }
+        List<LimitacionPorCategoriaDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            LimitacionPorCategoriaDTO dto = new LimitacionPorCategoriaDTO();
+            dto.setCategoria((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
+    // FILTRO: limitaciones por intensidad
+    @GetMapping("/filtrar-por-intensidad")
+    public ResponseEntity<?> filtrarPorIntensidad(@RequestParam String intensidad) {
+        if (intensidad == null || intensidad.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: La intensidad no puede estar vacia.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<PhysicalLimitationDTO> lista = phS.filtrarPorIntensidad(intensidad).stream()
+                .map(y -> m.map(y, PhysicalLimitationDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
     }
 }
