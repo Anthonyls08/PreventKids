@@ -34,4 +34,28 @@ export class Medicionservice {
       responseType: 'text',
     });
   }
+
+  // QUERY (decision): mediciones con atencion prioritaria segun IMC (sobrepeso)
+  decidirPrioridadImc(imc: number) {
+    return this.http.get<Medicion[]>(`${this.url}/decidir-prioridad-imc`, {
+      params: { imc },
+    });
+  }
+
+  // QUERY (decision): mediciones con signos vitales fuera de rango
+  decidirSignosVitales(presion: number, temperatura: number) {
+    return this.http.get<Medicion[]>(`${this.url}/decidir-signos-vitales`, {
+      params: { presion, temperatura },
+    });
+  }
+
+  // QUERY (decision): mediciones con riesgo nutricional (bajo peso / obesidad)
+  decidirRiesgoNutricional() {
+    return this.http.get<Medicion[]>(`${this.url}/decidir-riesgo-nutricional`);
+  }
+
+  // QUERY (filtro): mediciones de un usuario especifico
+  filtrarPorUsuario(idUser: number) {
+    return this.http.get<Medicion[]>(`${this.url}/filtrar-por-usuario/${idUser}`);
+  }
 }
