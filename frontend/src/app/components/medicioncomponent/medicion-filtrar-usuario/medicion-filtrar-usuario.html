@@ -1,0 +1,41 @@
+<div class="chart-container">
+  <h2 class="chart-title">Mediciones filtradas por usuario</h2>
+  <p class="chart-subtitle">
+    Query de filtro: mediciones de un usuario específico agrupadas por clasificación del IMC.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="idUser">ID de usuario</label>
+      <input id="idUser" name="idUser" type="number" min="1" [(ngModel)]="idUser" />
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">Este usuario no tiene mediciones registradas.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de mediciones del usuario: <strong>{{ total }}</strong></p>
+  }
+</div>

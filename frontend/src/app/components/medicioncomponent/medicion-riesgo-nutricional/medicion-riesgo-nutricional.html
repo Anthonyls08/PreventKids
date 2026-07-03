@@ -1,0 +1,33 @@
+<div class="chart-container">
+  <h2 class="chart-title">Mediciones con riesgo nutricional</h2>
+  <p class="chart-subtitle">
+    Query de decisión: distribución de mediciones clasificadas como bajo peso u obesidad.
+  </p>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-pie">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (!hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay mediciones con riesgo nutricional para mostrar.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de mediciones en riesgo: <strong>{{ total }}</strong></p>
+  }
+</div>

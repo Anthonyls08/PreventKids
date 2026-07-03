@@ -1,0 +1,45 @@
+<div class="chart-container">
+  <h2 class="chart-title">Mediciones con signos vitales fuera de rango</h2>
+  <p class="chart-subtitle">
+    Query de decisión: mediciones que superan el umbral de presión o temperatura y requieren evaluación médica.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="presion">Presión máxima</label>
+      <input id="presion" name="presion" type="number" min="1" step="0.1" [(ngModel)]="presion" />
+    </div>
+    <div class="campo">
+      <label for="temperatura">Temperatura máxima</label>
+      <input id="temperatura" name="temperatura" type="number" min="1" step="0.1" [(ngModel)]="temperatura" />
+    </div>
+    <button type="submit">Consultar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-pie">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay mediciones fuera de rango con esos umbrales.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de mediciones a evaluar: <strong>{{ total }}</strong></p>
+  }
+</div>
