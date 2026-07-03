@@ -62,6 +62,8 @@ import { Alertcomponent } from './components/alertcomponent/alertcomponent';
 import { AlertListar } from './components/alertcomponent/alert-listar/alert-listar';
 import { AlertInsertar } from './components/alertcomponent/alert-insertar/alert-insertar';
 import { AlertActualizar } from './components/alertcomponent/alert-actualizar/alert-actualizar';
+import { AlertReporteEstado } from './components/alertcomponent/alert-reporte-estado/alert-reporte-estado';
+import { AlertFiltrarCriticas } from './components/alertcomponent/alert-filtrar-criticas/alert-filtrar-criticas';
 
 import { Professionalprofilecomponent } from './components/professionalprofilecomponent/professionalprofilecomponent';
 import { ProfessionalProfileListar } from './components/professionalprofilecomponent/professional-profile-listar/professional-profile-listar';
@@ -260,6 +262,14 @@ export const routes: Routes = [
         {
             path: 'edits/:id',
             component: AlertActualizar
+        },
+        {
+            path: 'reporte-conteo-estado',
+            component: AlertReporteEstado
+        },
+        {
+            path: 'reporte-filtrar-criticas',
+            component: AlertFiltrarCriticas
         }
     ]
 },

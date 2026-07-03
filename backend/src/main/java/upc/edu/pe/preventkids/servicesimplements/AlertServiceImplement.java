@@ -43,4 +43,9 @@ public class AlertServiceImplement implements IAlertService {
     public List<Alert> obtenerAlertasNoLeidasCriticas(int umbralRiesgo) {
         return aR.obtenerAlertasNoLeidasCriticas(umbralRiesgo);
     }
+
+    @Override
+    public List<Object[]> contarPorEstado() {
+        return aR.contarPorEstado();
+    }
 }

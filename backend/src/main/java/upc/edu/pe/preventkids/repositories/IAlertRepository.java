@@ -16,4 +16,7 @@ public interface IAlertRepository extends JpaRepository<Alert,Integer> {
             nativeQuery = true
     )
     List<Alert> obtenerAlertasNoLeidasCriticas(@Param("umbralRiesgo") int umbralRiesgo);
+
+    @Query("SELECT CASE WHEN a.leida = true THEN 'Leída' ELSE 'No leída' END, COUNT(a) FROM Alert a GROUP BY a.leida")
+    List<Object[]> contarPorEstado();
 }
