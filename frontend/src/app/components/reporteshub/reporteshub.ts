@@ -98,6 +98,15 @@ export class Reporteshub {
       ],
     },
     {
+      entidad: 'Alertas',
+      icono: 'notifications_active',
+      roles: ['ADMIN', 'DOCTOR', 'PADRE'],
+      reportes: [
+        { titulo: 'Alertas por estado', icono: 'donut_large', ruta: '/app/alertas/reporte-conteo-estado' },
+        { titulo: 'Filtrar alertas críticas', icono: 'filter_alt', ruta: '/app/alertas/reporte-filtrar-criticas' },
+      ],
+    },
+    {
       entidad: 'Usuarios',
       icono: 'group',
       roles: ['ADMIN'],

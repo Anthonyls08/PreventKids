@@ -12,4 +12,5 @@ public interface IAlertService {
     public void update(Alert a);
     public void delete(int id);
     public List<Alert> obtenerAlertasNoLeidasCriticas(int umbralRiesgo);
+    public List<Object[]> contarPorEstado();
 }

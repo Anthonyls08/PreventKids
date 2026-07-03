@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.AlertDTO;
+import upc.edu.pe.preventkids.dtos.AlertaPorEstadoDTO;
 import upc.edu.pe.preventkids.entities.Alert;
 import upc.edu.pe.preventkids.servicesinterfaces.IAlertService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,5 +105,23 @@ public class AlertController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(alertasCriticas);
+    }
+
+    @GetMapping("/conteo-por-estado")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    public ResponseEntity<?> contarPorEstado() {
+        List<Object[]> resultados = aS.contarPorEstado();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay alertas registradas");
+        }
+        List<AlertaPorEstadoDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            AlertaPorEstadoDTO dto = new AlertaPorEstadoDTO();
+            dto.setEstado((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }
