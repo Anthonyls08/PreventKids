@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { RecommendedExercise } from '../models/RecommendedExercise';
+import { EjercicioPorDificultadDTO } from '../models/EjercicioPorDificultadDTO';
 
 const base_url = environment.base;
 
@@ -38,6 +39,18 @@ export class Recommendedexerciseservice {
   buscarPorNombre(nombre: string) {
     return this.http.get<RecommendedExercise[]>(`${this.url}/buscarPorNombre`, {
       params: { nombre },
+    });
+  }
+
+  // GRAFICO: cantidad de ejercicios por dificultad
+  getConteoPorDificultad() {
+    return this.http.get<EjercicioPorDificultadDTO[]>(`${this.url}/conteo-por-dificultad`);
+  }
+
+  // QUERY (decision): ejercicios con duracion mayor o igual al minimo
+  decidirPorDuracion(duracionMinima: number) {
+    return this.http.get<RecommendedExercise[]>(`${this.url}/decidir-por-duracion`, {
+      params: { duracionMinima },
     });
   }
 }

@@ -1,0 +1,51 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Limitaciones filtradas por intensidad</h2>
+  <p class="chart-subtitle">
+    Query de filtro: distribución por categoría de las limitaciones de una intensidad.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="intensidad">Intensidad</label>
+      <select id="intensidad" name="intensidad" [(ngModel)]="intensidad">
+        @for (op of intensidades; track op) {
+          <option [value]="op">{{ op }}</option>
+        }
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-pie">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay limitaciones para esa intensidad.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de limitaciones: <strong>{{ total }}</strong></p>
+  }
+</div>

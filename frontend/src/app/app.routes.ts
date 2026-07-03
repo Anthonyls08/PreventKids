@@ -92,6 +92,13 @@ import { Reportperfilesespecialidad } from './components/reportperfilesespeciali
 import { Reportalertasnivelriesgo } from './components/reportalertasnivelriesgo/reportalertasnivelriesgo';
 import { Reportconsultasestado } from './components/reportconsultasestado/reportconsultasestado';
 import { Reporteshub } from './components/reporteshub/reporteshub';
+
+import { RecommendedExerciseConteoDificultad } from './components/recommendedexercisecomponent/recommended-exercise-conteo-dificultad/recommended-exercise-conteo-dificultad';
+import { RecommendedExerciseFiltrarDuracion } from './components/recommendedexercisecomponent/recommended-exercise-filtrar-duracion/recommended-exercise-filtrar-duracion';
+import { PhysicalLimitationConteoCategoria } from './components/physicallimitationcomponent/physical-limitation-conteo-categoria/physical-limitation-conteo-categoria';
+import { PhysicalLimitationFiltrarIntensidad } from './components/physicallimitationcomponent/physical-limitation-filtrar-intensidad/physical-limitation-filtrar-intensidad';
+import { EducationalContentConteoTipo } from './components/educationalcontentcomponent/educational-content-conteo-tipo/educational-content-conteo-tipo';
+import { EducationalContentFiltrarTipo } from './components/educationalcontentcomponent/educational-content-filtrar-tipo/educational-content-filtrar-tipo';
 export const routes: Routes = [
     {
         path: '',
@@ -289,6 +296,14 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: PhysicalLimitationActualizar
+        },
+        {
+            path:'reporte-conteo-categoria',
+            component: PhysicalLimitationConteoCategoria
+        },
+        {
+            path:'reporte-filtrar-intensidad',
+            component: PhysicalLimitationFiltrarIntensidad
         }
     ]
 },
@@ -325,6 +340,14 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: EducationalContentActualizar
+        },
+        {
+            path:'reporte-conteo-tipo',
+            component: EducationalContentConteoTipo
+        },
+        {
+            path:'reporte-filtrar-tipo',
+            component: EducationalContentFiltrarTipo
         }
     ]
 },
@@ -343,6 +366,14 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: RecommendedExerciseActualizar
+        },
+        {
+            path:'reporte-conteo-dificultad',
+            component: RecommendedExerciseConteoDificultad
+        },
+        {
+            path:'reporte-filtrar-duracion',
+            component: RecommendedExerciseFiltrarDuracion
         }
     ]
 },

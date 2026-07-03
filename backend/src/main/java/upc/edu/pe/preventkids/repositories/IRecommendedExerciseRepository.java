@@ -12,4 +12,12 @@ import java.util.List;
 public interface IRecommendedExerciseRepository extends JpaRepository<RecommendedExercise, Integer> {
     @Query("SELECT r FROM RecommendedExercise r WHERE r.nameRecommendedExercise LIKE %:nombre%")
     List<RecommendedExercise> buscarPorNombre(@Param("nombre") String nombre);
+
+    // GRAFICO: cantidad de ejercicios agrupados por dificultad
+    @Query("SELECT r.difficultRecommendedExercise, COUNT(r) FROM RecommendedExercise r GROUP BY r.difficultRecommendedExercise ORDER BY r.difficultRecommendedExercise")
+    List<Object[]> contarPorDificultad();
+
+    // FILTRO (decision): ejercicios cuya duracion es mayor o igual al minimo indicado
+    @Query("SELECT r FROM RecommendedExercise r WHERE r.durationRecommendedExercise >= :duracionMinima")
+    List<RecommendedExercise> decidirPorDuracion(@Param("duracionMinima") int duracionMinima);
 }

@@ -1,0 +1,53 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Buscar contenido educativo por tipo</h2>
+  <p class="chart-subtitle">
+    Query de filtro: lista de contenidos educativos que coinciden con el tipo indicado.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="tipo">Tipo de contenido</label>
+      <input
+        id="tipo"
+        name="tipo"
+        type="text"
+        placeholder="Ej: Video, Articulo, Guia"
+        [(ngModel)]="tipo"
+      />
+    </div>
+    <button type="submit">Buscar</button>
+  </form>
+
+  @if (error) {
+    <p class="form-error">{{ error }}</p>
+  }
+
+  @if (hasData) {
+    <ul class="result-list">
+      @for (c of resultados; track c.idEducationalContent) {
+        <li class="result-item">
+          <mat-icon class="result-icon">menu_book</mat-icon>
+          <div class="result-info">
+            <span class="result-title">{{ c.tittleEducationalContent }}</span>
+            <span class="result-type">{{ c.typeEC }}</span>
+            <span class="result-desc">{{ c.descriptionEC }}</span>
+          </div>
+        </li>
+      }
+    </ul>
+    <p class="chart-total">Total de contenidos: <strong>{{ total }}</strong></p>
+  }
+
+  @if (buscado && !hasData) {
+    <div class="no-data">
+      <mat-icon class="no-data-icon">info_outline</mat-icon>
+      <p class="no-data-message">No hay contenido educativo de ese tipo.</p>
+    </div>
+  }
+</div>

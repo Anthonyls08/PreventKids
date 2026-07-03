@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 .aider*
+
+### Respaldos locales de la BD ###
+/backups/

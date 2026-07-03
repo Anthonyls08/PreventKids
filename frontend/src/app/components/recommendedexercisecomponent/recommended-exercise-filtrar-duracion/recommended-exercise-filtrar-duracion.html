@@ -1,0 +1,54 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Ejercicios por duración mínima</h2>
+  <p class="chart-subtitle">
+    Query de filtro: ejercicios cuya duración es mayor o igual a los minutos indicados,
+    distribuidos por dificultad.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="duracion">Duración mínima (min)</label>
+      <input
+        id="duracion"
+        name="duracion"
+        type="number"
+        min="1"
+        [(ngModel)]="duracionMinima"
+      />
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay ejercicios con esa duración mínima.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de ejercicios: <strong>{{ total }}</strong></p>
+  }
+</div>
