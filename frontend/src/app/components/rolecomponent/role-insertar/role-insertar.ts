@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Role } from '../../../models/Role';
 import { Roleservice } from '../../../services/roleservice';
@@ -24,7 +24,7 @@ export class RoleInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
   role: Role = new Role();
 
-  nombresRol: string[] = ['ADMIN', 'PACIENTE', 'DOCTOR', 'PADRE'];
+  nombresRol: string[] = ['ADMIN', 'DOCTOR', 'PADRE'];
 
   constructor(
     private rS: Roleservice,

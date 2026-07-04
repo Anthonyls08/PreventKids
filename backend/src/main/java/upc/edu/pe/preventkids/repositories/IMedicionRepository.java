@@ -22,7 +22,7 @@ public interface IMedicionRepository extends JpaRepository<Medicion,Integer> {
     @Query("SELECT m FROM Medicion m WHERE m.clasificacionimc IN ('Bajo peso', 'Obesidad')")
     List<Medicion> decidirRiesgoNutricional();
 
-    // FILTRO: mediciones de un usuario especifico (FK idUser)
-    @Query("SELECT m FROM Medicion m WHERE m.user.idUser = :idUser")
-    List<Medicion> filtrarPorUsuario(@Param("idUser") int idUser);
+    // FILTRO: mediciones de un hijo especifico (FK idHijo)
+    @Query("SELECT m FROM Medicion m WHERE m.hijo.idHijo = :idHijo")
+    List<Medicion> filtrarPorHijo(@Param("idHijo") int idHijo);
 }

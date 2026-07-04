@@ -26,7 +26,15 @@ interface OffProduct {
 }
 
 interface OffResponse {
+  count?: number;
   products: OffProduct[];
+}
+
+// Resultado de una busqueda paginada
+export interface ResultadoAlimentos {
+  alimentos: Alimento[];
+  total: number;
+  fuente: 'peru' | 'mundo';
 }
 
 @Injectable({
@@ -35,29 +43,50 @@ interface OffResponse {
 export class Nutricionservice {
   private http = inject(HttpClient);
 
-  // Busca primero productos vendidos en el Peru; si no hay resultados,
-  // busca en el catalogo mundial
-  buscar(termino: string): Observable<Alimento[]> {
-    return this.buscarEn(OFF_PE_URL, termino).pipe(
-      switchMap((lista) =>
-        lista.length > 0 ? of(lista) : this.buscarEn(OFF_WORLD_URL, termino)
+  // Busca con paginacion. En la primera pagina intenta primero productos
+  // vendidos en el Peru y si no hay cae al catalogo mundial; al cambiar de
+  // pagina se pasa la fuente para seguir en el mismo catalogo.
+  buscar(
+    termino: string,
+    pagina: number = 1,
+    fuente?: 'peru' | 'mundo'
+  ): Observable<ResultadoAlimentos> {
+    if (fuente === 'mundo') {
+      return this.buscarEn(OFF_WORLD_URL, termino, pagina, 'mundo');
+    }
+    if (fuente === 'peru') {
+      return this.buscarEn(OFF_PE_URL, termino, pagina, 'peru');
+    }
+    return this.buscarEn(OFF_PE_URL, termino, pagina, 'peru').pipe(
+      switchMap((r) =>
+        r.total > 0 ? of(r) : this.buscarEn(OFF_WORLD_URL, termino, pagina, 'mundo')
       )
     );
   }
 
-  private buscarEn(url: string, termino: string): Observable<Alimento[]> {
+  private buscarEn(
+    url: string,
+    termino: string,
+    pagina: number,
+    fuente: 'peru' | 'mundo'
+  ): Observable<ResultadoAlimentos> {
     const params = new URLSearchParams({
       search_terms: termino,
       search_simple: '1',
       action: 'process',
       json: '1',
+      page: String(pagina),
       page_size: '12',
       fields: 'product_name,brands,nutriments,image_small_url,nutriscore_grade',
     });
 
     return this.http.get<OffResponse>(`${url}?${params.toString()}`).pipe(
-      map((res) => this.mapear(res)),
-      catchError(() => of([]))
+      map((res) => ({
+        alimentos: this.mapear(res),
+        total: res.count ?? 0,
+        fuente,
+      })),
+      catchError(() => of({ alimentos: [], total: 0, fuente }))
     );
   }
 

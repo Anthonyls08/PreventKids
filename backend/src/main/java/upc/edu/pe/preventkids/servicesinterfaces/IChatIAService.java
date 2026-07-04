@@ -13,6 +13,7 @@ public interface IChatIAService {
     public void delete(int id);
     // Busca en la tabla una pregunta parecida ya respondida (cache)
     public Optional<chatIA> buscarSimilar(String pregunta);
-    // Llama a la API de Claude, guarda pregunta y respuesta, y devuelve el registro
-//    public chatIA preguntarIA(String pregunta);
+    // Llama a la API de Gemini, guarda pregunta y respuesta, y devuelve el registro.
+    // Devuelve null si no hay API key, no hay internet o la API fallo.
+    public chatIA preguntarIA(String pregunta);
 }

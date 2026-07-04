@@ -39,6 +39,11 @@ import { Shell } from './components/shell/shell';
 import { seguridadGuard } from './guard/seguridad-guard';
 
 import { Dietacomponent } from './components/dietacomponent/dietacomponent';
+import { Asistentecomponent } from './components/asistentecomponent/asistentecomponent';
+import { Hijocomponent } from './components/hijocomponent/hijocomponent';
+import { HijoListar } from './components/hijocomponent/hijo-listar/hijo-listar';
+import { HijoInsertar } from './components/hijocomponent/hijo-insertar/hijo-insertar';
+import { HijoActualizar } from './components/hijocomponent/hijo-actualizar/hijo-actualizar';
 import { Ejercicioscomponent } from './components/ejercicioscomponent/ejercicioscomponent';
 import { Videoscomponent } from './components/videoscomponent/videoscomponent';
 import { Videollamadacomponent } from './components/videollamadacomponent/videollamadacomponent';
@@ -123,6 +128,10 @@ export const routes: Routes = [
     {
         path: 'dieta',
         component: Dietacomponent
+    },
+    {
+        path: 'asistente',
+        component: Asistentecomponent
     },
     {
         path: 'ejercicios',
@@ -361,6 +370,24 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: ProfessionalProfileActualizar
+        }
+    ]
+},
+{
+    path: 'hijos',
+    component: Hijocomponent,
+    children:[
+        {
+            path:'listar',
+            component: HijoListar
+        },
+        {
+            path:'nuevo',
+            component: HijoInsertar
+        },
+        {
+            path:'edits/:id',
+            component: HijoActualizar
         }
     ]
 },

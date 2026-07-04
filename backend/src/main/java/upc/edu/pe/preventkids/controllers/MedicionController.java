@@ -8,9 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.MedicionDTO;
 import upc.edu.pe.preventkids.dtos.MedicionInsertDTO;
+import upc.edu.pe.preventkids.entities.Hijo;
 import upc.edu.pe.preventkids.entities.Medicion;
-import upc.edu.pe.preventkids.entities.User;
-import upc.edu.pe.preventkids.repositories.IUserRepository;
+import upc.edu.pe.preventkids.repositories.IHijoRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IMedicionService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class MedicionController {
     @Autowired
     private IMedicionService mS;
     @Autowired
-    private IUserRepository uR;
+    private IHijoRepository hR;
 
     @GetMapping
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
@@ -39,15 +39,15 @@ public class MedicionController {
     @PostMapping("/ingresar")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody MedicionInsertDTO dto) {
-        Optional<User> user = uR.findById(dto.getIdUser());
-        if (user.isEmpty()) {
+        Optional<Hijo> hijo = hR.findById(dto.getIdHijo());
+        if (hijo.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Usuario no encontrado con id: " + dto.getIdUser());
+                    .body("Hijo no encontrado con id: " + dto.getIdHijo());
         }
 
         ModelMapper m = new ModelMapper();
         Medicion medicion = m.map(dto, Medicion.class);
-        medicion.setUser(user.get());
+        medicion.setHijo(hijo.get());
 
         Medicion nuevaMedicion = mS.insert(medicion);
 
@@ -80,10 +80,10 @@ public class MedicionController {
                     .body("Medición no encontrada");
         }
 
-        Optional<User> user = uR.findById(dto.getIdUser());
-        if (user.isEmpty()) {
+        Optional<Hijo> hijo = hR.findById(dto.getIdHijo());
+        if (hijo.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Usuario no encontrado con id: " + dto.getIdUser());
+                    .body("Hijo no encontrado con id: " + dto.getIdHijo());
         }
 
         Medicion m = existente.get();
@@ -95,7 +95,7 @@ public class MedicionController {
         m.setPresion(dto.getPresion());
         m.setTemperatura(dto.getTemperatura());
         m.setFechamedicion(dto.getFechamedicion());
-        m.setUser(user.get());
+        m.setHijo(hijo.get());
 
         mS.update(m);
         return ResponseEntity.ok("Medición actualizada correctamente");
@@ -169,14 +169,14 @@ public class MedicionController {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping("/filtrar-por-usuario/{idUser}")
-    public ResponseEntity<?> filtrarPorUsuario(@PathVariable int idUser) {
-        if (uR.findById(idUser).isEmpty()) {
+    @GetMapping("/filtrar-por-hijo/{idHijo}")
+    public ResponseEntity<?> filtrarPorHijo(@PathVariable int idHijo) {
+        if (hR.findById(idHijo).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Usuario no encontrado con id: " + idUser);
+                    .body("Hijo no encontrado con id: " + idHijo);
         }
         ModelMapper m = new ModelMapper();
-        List<MedicionDTO> lista = mS.filtrarPorUsuario(idUser)
+        List<MedicionDTO> lista = mS.filtrarPorHijo(idHijo)
                 .stream()
                 .map(y -> m.map(y, MedicionDTO.class))
                 .collect(Collectors.toList());

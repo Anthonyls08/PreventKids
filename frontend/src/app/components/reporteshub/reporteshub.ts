@@ -54,7 +54,7 @@ export class Reporteshub {
         { titulo: 'Prioridad por IMC', icono: 'bar_chart', ruta: '/app/mediciones/reporte-prioridad-imc' },
         { titulo: 'Signos vitales', icono: 'pie_chart', ruta: '/app/mediciones/reporte-signos-vitales' },
         { titulo: 'Riesgo nutricional', icono: 'pie_chart', ruta: '/app/mediciones/reporte-riesgo-nutricional' },
-        { titulo: 'Filtrar por usuario', icono: 'filter_alt', ruta: '/app/mediciones/reporte-filtrar-usuario' },
+        { titulo: 'Filtrar por hijo', icono: 'filter_alt', ruta: '/app/mediciones/reporte-filtrar-usuario' },
       ],
     },
     {

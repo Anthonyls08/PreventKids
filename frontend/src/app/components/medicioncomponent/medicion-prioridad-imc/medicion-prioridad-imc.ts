@@ -45,12 +45,12 @@ export class MedicionPrioridadImc {
         this.hasData = true;
         this.total = lista.length;
 
-        // Agrupamos las mediciones prioritarias por usuario
+        // Agrupamos las mediciones prioritarias por hijo
         const conteo = new Map<string, number>();
         lista.forEach((m) => {
-          const nombre = m.user
-            ? `${m.user.nombre} ${m.user.apellido}`.trim() || `Usuario ${m.user.idUser}`
-            : 'Sin usuario';
+          const nombre = m.hijo
+            ? `${m.hijo.nombre} ${m.hijo.apellido}`.trim() || `Niño ${m.hijo.idHijo}`
+            : 'Sin niño';
           conteo.set(nombre, (conteo.get(nombre) ?? 0) + 1);
         });
 

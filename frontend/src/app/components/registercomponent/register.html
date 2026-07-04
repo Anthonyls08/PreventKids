@@ -67,31 +67,17 @@
         <input matInput type="number" formControlName="telefono" />
       </mat-form-field>
 
-      <div class="grid-2">
-        <mat-form-field appearance="outline">
-          <mat-label>Rol</mat-label>
-          <mat-select formControlName="idRole">
-            @for (r of roles(); track r.idRole) {
-              <mat-option [value]="r.idRole">{{ r.nombre }}</mat-option>
-            }
-          </mat-select>
-          @if (form.controls.idRole.touched && form.controls.idRole.invalid) {
-            <mat-error>Selecciona un rol.</mat-error>
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Distrito</mat-label>
+        <mat-select formControlName="idDistrict">
+          @for (d of distritos(); track d.idDistrict) {
+            <mat-option [value]="d.idDistrict">{{ d.nameDistrict }}</mat-option>
           }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Distrito</mat-label>
-          <mat-select formControlName="idDistrict">
-            @for (d of distritos(); track d.idDistrict) {
-              <mat-option [value]="d.idDistrict">{{ d.nameDistrict }}</mat-option>
-            }
-          </mat-select>
-          @if (form.controls.idDistrict.touched && form.controls.idDistrict.invalid) {
-            <mat-error>Selecciona un distrito.</mat-error>
-          }
-        </mat-form-field>
-      </div>
+        </mat-select>
+        @if (form.controls.idDistrict.touched && form.controls.idDistrict.invalid) {
+          <mat-error>Selecciona un distrito.</mat-error>
+        }
+      </mat-form-field>
 
       <button matButton="filled" type="submit" class="btn-cta" [disabled]="cargando()">
         {{ cargando() ? 'Registrando...' : 'Crear cuenta' }}

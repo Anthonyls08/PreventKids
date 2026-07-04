@@ -42,5 +42,5 @@ public class MedicionServiceImplement implements IMedicionService {
     public List<Medicion> decidirRiesgoNutricional() { return medicionRepository.decidirRiesgoNutricional(); }
 
     @Override
-    public List<Medicion> filtrarPorUsuario(int idUser) { return medicionRepository.filtrarPorUsuario(idUser); }
+    public List<Medicion> filtrarPorHijo(int idHijo) { return medicionRepository.filtrarPorHijo(idHijo); }
 }

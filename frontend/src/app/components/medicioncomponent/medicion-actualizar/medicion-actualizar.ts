@@ -8,10 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { Medicion } from '../../../models/Medicion';
-import { User } from '../../../models/User';
+import { Hijo } from '../../../models/Hijo';
 
 import { Medicionservice } from '../../../services/medicionservice';
-import { Userservice } from '../../../services/userservice';
+import { Hijoservice } from '../../../services/hijoservice';
 
 @Component({
   selector: 'app-medicion-actualizar',
@@ -31,14 +31,14 @@ export class MedicionActualizar implements OnInit {
   medicion: Medicion = new Medicion();
   id: number = 0;
 
-  listaUsuarios: User[] = [];
+  listaHijos: Hijo[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private medicionService: Medicionservice,
-    private userService: Userservice,
+    private hijoService: Hijoservice,
   ) {}
 
   ngOnInit(): void {
@@ -51,14 +51,14 @@ export class MedicionActualizar implements OnInit {
       presion: ['', [Validators.required, Validators.min(0)]],
       temperatura: ['', [Validators.required, Validators.min(0)]],
       fechamedicion: ['', Validators.required],
-      user: ['', Validators.required],
+      hijo: ['', Validators.required],
     });
 
     this.form.get('pesoKg')?.valueChanges.subscribe(() => this.calcularImc());
     this.form.get('tallaCm')?.valueChanges.subscribe(() => this.calcularImc());
 
-    this.userService.list().subscribe((data) => {
-      this.listaUsuarios = data;
+    this.hijoService.list().subscribe((data) => {
+      this.listaHijos = data;
     });
 
     this.route.params.subscribe((params: Params) => {
@@ -78,7 +78,7 @@ export class MedicionActualizar implements OnInit {
         presion: data.presion,
         temperatura: data.temperatura,
         fechamedicion: data.fechamedicion,
-        user: data.user?.idUser,
+        hijo: data.hijo?.idHijo,
       });
     });
   }
@@ -120,8 +120,8 @@ export class MedicionActualizar implements OnInit {
       this.medicion.temperatura = this.form.value.temperatura;
       this.medicion.fechamedicion = this.form.value.fechamedicion;
 
-      // FK: enviamos el id del usuario seleccionado
-      this.medicion.idUser = this.form.value.user;
+      // FK: enviamos el id del hijo seleccionado
+      this.medicion.idHijo = this.form.value.hijo;
 
       this.medicionService.update(this.id, this.medicion).subscribe(() => {
         this.router.navigate(['/app/mediciones/listar']);

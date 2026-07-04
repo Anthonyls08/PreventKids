@@ -1,0 +1,67 @@
+<div class="container">
+  <h2 style="text-align: center">{{ esPadre() ? 'Mis hijos' : 'Lista de Hijos' }}</h2>
+
+  <div style="text-align: center; margin-bottom: 16px">
+    <button matButton routerLink="/app/hijos/nuevo" class="btn-editar">
+      <mat-icon>person_add</mat-icon>
+      Registrar hijo
+    </button>
+  </div>
+
+  <!-- Grilla de cards -->
+  <div class="cards-grid">
+    @for (item of pagedHijos(); track item.idHijo) {
+      <mat-card class="crud-card">
+        <mat-card-header>
+          <mat-card-title>{{ item.nombre }} {{ item.apellido }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-field">
+            <strong>Edad:</strong> {{ edad(item.fechanacimiento) }} años
+          </p>
+          <p class="card-field">
+            <strong>Fecha de nacimiento:</strong> {{ item.fechanacimiento }}
+          </p>
+          <p class="card-field">
+            <strong>Género:</strong> {{ item.genero }}
+          </p>
+          <p class="card-field">
+            <strong>Limitación física:</strong>
+            {{ item.physicallimitation?.nameLimitation ?? 'Ninguna' }}
+          </p>
+          @if (!esPadre()) {
+            <p class="card-field">
+              <strong>Padre/tutor:</strong>
+              {{ item.user.nombre }} {{ item.user.apellido }}
+            </p>
+          }
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button matButton (click)="eliminar(item.idHijo)" class="btn-eliminar">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+          <button matButton [routerLink]="['/app/hijos/edits', item.idHijo]" class="btn-editar">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <p class="cards-empty">
+        {{ esPadre() ? 'Aún no registras a ningún hijo.' : 'No hay hijos registrados.' }}
+      </p>
+    }
+  </div>
+
+  <!-- Paginador -->
+  <mat-paginator
+    class="cards-paginator"
+    [length]="hijos().length"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[3, 6, 9, 12]"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)"
+    aria-label="Paginación de hijos">
+  </mat-paginator>
+</div>

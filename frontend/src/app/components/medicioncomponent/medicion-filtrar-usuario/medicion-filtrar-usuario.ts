@@ -15,7 +15,7 @@ import { Medicion } from '../../../models/Medicion';
   styleUrl: './medicion-filtrar-usuario.css',
 })
 export class MedicionFiltrarUsuario {
-  idUser = 1;
+  idHijo = 1;
   buscado = false;
   hasData = false;
   total = 0;
@@ -32,12 +32,12 @@ export class MedicionFiltrarUsuario {
   constructor(private mS: Medicionservice) {}
 
   consultar(): void {
-    if (!this.idUser || this.idUser <= 0) {
+    if (!this.idHijo || this.idHijo <= 0) {
       return;
     }
 
-    // QUERY DE FILTRO: mediciones de un usuario especifico
-    this.mS.filtrarPorUsuario(this.idUser).subscribe((data) => {
+    // QUERY DE FILTRO: mediciones de un hijo especifico
+    this.mS.filtrarPorHijo(this.idHijo).subscribe((data) => {
       const lista: Medicion[] = data ?? [];
       this.buscado = true;
 
@@ -45,7 +45,7 @@ export class MedicionFiltrarUsuario {
         this.hasData = true;
         this.total = lista.length;
 
-        // Agrupamos las mediciones del usuario por clasificacion del IMC
+        // Agrupamos las mediciones del hijo por clasificacion del IMC
         const conteo = new Map<string, number>();
         lista.forEach((m) => {
           conteo.set(m.clasificacionimc, (conteo.get(m.clasificacionimc) ?? 0) + 1);
@@ -55,7 +55,7 @@ export class MedicionFiltrarUsuario {
         this.chartData = [
           {
             data: Array.from(conteo.values()),
-            label: `Mediciones del usuario ${this.idUser}`,
+            label: `Mediciones del niño ${this.idHijo}`,
             backgroundColor: 'rgba(21, 101, 192, 0.7)',
             borderColor: '#0d47a1',
             borderWidth: 1,

@@ -33,7 +33,7 @@
     <div class="dieta-resultados">
       @if (resultados().length > 0) {
         <p class="dieta-leyenda">
-          Valores por 100 g ·
+          <strong>{{ totalResultados() }}</strong>&nbsp;resultados · Valores por 100 g ·
           <span class="leyenda-punto leyenda-verde"></span> Bajo
           <span class="leyenda-punto leyenda-amarillo"></span> Moderado
           <span class="leyenda-punto leyenda-rojo"></span> Alto
@@ -105,35 +105,129 @@
           </article>
         }
       </div>
+
+      @if (totalResultados() > tamPagina) {
+        <mat-paginator
+          class="dieta-paginator"
+          [length]="totalResultados()"
+          [pageSize]="tamPagina"
+          [pageIndex]="pagina()"
+          [hidePageSize]="true"
+          (page)="cambiarPagina($event)"
+          aria-label="Paginación de alimentos">
+        </mat-paginator>
+      }
     </div>
 
     <!-- Mi día (lo que ingresa el usuario) -->
     <aside class="dieta-midia">
-      <h3>Mi día</h3>
-      <div class="midia-total">
-        <span class="midia-kcal">{{ totalCalorias() }}</span>
-        <span class="midia-kcal-label">kcal totales</span>
-        <span class="midia-azucar">Azúcar: {{ totalAzucar() }} g</span>
+      <div class="midia-head">
+        <h3><mat-icon aria-hidden="true">restaurant_menu</mat-icon> Mi día</h3>
+        @if (miDia().length > 0) {
+          <span class="midia-contador">{{ miDia().length }} alimento{{ miDia().length === 1 ? '' : 's' }}</span>
+        }
       </div>
 
+      @if (hijos().length > 0) {
+        <mat-form-field class="midia-selector" appearance="outline">
+          <mat-label>¿Para quién es este día?</mat-label>
+          <mat-select
+            [value]="hijoSeleccionado()?.idHijo"
+            (selectionChange)="cambiarHijo($event.value)">
+            @for (h of hijos(); track h.idHijo) {
+              <mat-option [value]="h.idHijo">
+                {{ h.nombre }} {{ h.apellido }} ({{ edad(h.fechanacimiento) }} años)
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <div class="midia-total">
+        <div class="midia-kcal-fila">
+          <span class="midia-kcal">{{ totalCalorias() }}</span>
+          <span class="midia-kcal-label">
+            / {{ metaKcal() }} kcal
+            @if (hijoSeleccionado(); as h) {
+              para {{ h.nombre }}
+            } @else {
+              recomendadas
+            }
+          </span>
+        </div>
+        <mat-progress-bar
+          class="midia-progreso"
+          mode="determinate"
+          [value]="porcentajeKcal() > 100 ? 100 : porcentajeKcal()"
+          [style.--mdc-linear-progress-active-indicator-color]="colorAvance(porcentajeKcal())"
+          aria-label="Avance de calorías del día">
+        </mat-progress-bar>
+
+        <div class="midia-azucar-fila">
+          <span>Azúcar</span>
+          <span><strong>{{ totalAzucar() }}</strong> / {{ limiteAzucar }} g (máx. OMS)</span>
+        </div>
+        <mat-progress-bar
+          class="midia-progreso midia-progreso-fino"
+          mode="determinate"
+          [value]="porcentajeAzucar() > 100 ? 100 : porcentajeAzucar()"
+          [style.--mdc-linear-progress-active-indicator-color]="colorAvance(porcentajeAzucar())"
+          aria-label="Avance de azúcar del día">
+        </mat-progress-bar>
+
+        @if (porcentajeAzucar() > 100) {
+          <p class="midia-aviso">⚠ Se superó el azúcar máximo recomendado del día</p>
+        }
+      </div>
+
+      @if (miDia().length > 0) {
+        <mat-chip-set class="midia-macros" aria-label="Totales de grasa y proteína">
+          <mat-chip>Grasa: {{ totalGrasa() }} g</mat-chip>
+          <mat-chip>Proteína: {{ totalProteina() }} g</mat-chip>
+        </mat-chip-set>
+      }
+
       @if (miDia().length === 0) {
-        <p class="dieta-msg">Aún no agregas alimentos a tu día.</p>
+        <div class="midia-vacio">
+          <mat-icon aria-hidden="true">no_meals</mat-icon>
+          <p>Aún no agregas alimentos.<br />Busca uno y presiona "Agregar a mi día".</p>
+        </div>
       }
 
       <ul class="midia-lista">
         @for (a of miDia(); track $index) {
-          <li>
-            <span class="midia-nombre">{{ a.nombre }}</span>
-            <span class="midia-cal">{{ a.calorias }} kcal</span>
+          <li class="midia-item">
+            <div class="midia-thumb">
+              @if (a.imagen) {
+                <img [src]="a.imagen" [alt]="a.nombre" />
+              } @else {
+                <mat-icon aria-hidden="true">lunch_dining</mat-icon>
+              }
+            </div>
+            <div class="midia-info">
+              <span class="midia-nombre" [attr.title]="a.nombre">{{ a.nombre }}</span>
+              <span class="midia-detalle">{{ a.calorias }} kcal · azúcar {{ a.azucar }} g</span>
+            </div>
             <button
               mat-icon-button
-              aria-label="Quitar"
+              class="midia-quitar"
+              aria-label="Quitar alimento"
               (click)="quitar($index)">
               <mat-icon>close</mat-icon>
             </button>
           </li>
         }
       </ul>
+
+      @if (miDia().length > 0) {
+        <button mat-stroked-button class="midia-vaciar" type="button" (click)="vaciar()">
+          <mat-icon>delete_sweep</mat-icon>
+          Vaciar día
+          @if (hijoSeleccionado(); as h) {
+            de {{ h.nombre }}
+          }
+        </button>
+      }
     </aside>
   </div>
 </div>

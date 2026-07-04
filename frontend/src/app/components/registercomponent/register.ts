@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Userservice } from '../../services/userservice';
 import { Roleservice } from '../../services/roleservice';
 import { Districtservice } from '../../services/districtservice';
-import { Role } from '../../models/Role';
 import { District } from '../../models/district';
 import { User } from '../../models/User';
 
@@ -44,7 +43,6 @@ export class Register implements OnInit {
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
-  readonly roles = signal<Role[]>([]);
   readonly distritos = signal<District[]>([]);
   readonly cargando = signal<boolean>(false);
   readonly error = signal<string>('');
@@ -67,12 +65,15 @@ export class Register implements OnInit {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
+    // El registro público siempre crea cuentas PADRE: los niños los registra
+    // el padre dentro de la app y los doctores/admins los crea el administrador.
     this.roleService.list().subscribe({
-      // El registro público solo ofrece PACIENTE o PADRE (el backend rechaza el resto).
-      next: (data) =>
-        this.roles.set(
-          data.filter((r) => ['PACIENTE', 'PADRE'].includes(r.nombre?.toUpperCase()))
-        ),
+      next: (data) => {
+        const padre = data.find((r) => r.nombre?.toUpperCase() === 'PADRE');
+        if (padre) {
+          this.form.patchValue({ idRole: padre.idRole });
+        }
+      },
     });
     this.districtService.list().subscribe({
       next: (data) => this.distritos.set(data),

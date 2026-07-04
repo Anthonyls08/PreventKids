@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Medicion } from '../models/Medicion';
@@ -54,8 +54,8 @@ export class Medicionservice {
     return this.http.get<Medicion[]>(`${this.url}/decidir-riesgo-nutricional`);
   }
 
-  // QUERY (filtro): mediciones de un usuario especifico
-  filtrarPorUsuario(idUser: number) {
-    return this.http.get<Medicion[]>(`${this.url}/filtrar-por-usuario/${idUser}`);
+  // QUERY (filtro): mediciones de un hijo especifico
+  filtrarPorHijo(idHijo: number) {
+    return this.http.get<Medicion[]>(`${this.url}/filtrar-por-hijo/${idHijo}`);
   }
 }
