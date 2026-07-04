@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.ConsultaPorEstadoDTO;
 import upc.edu.pe.preventkids.dtos.VirtualConsultationDTO;
@@ -31,10 +32,12 @@ public class VirtualConsultationController {
     @Autowired
     private IProfessionalProfileRepository ppR;
 
+    // El PADRE solo ve SUS consultas; doctor y admin ven todas
     @GetMapping("/listar")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<List<VirtualConsultationDTO>> listar() {
+    public ResponseEntity<List<VirtualConsultationDTO>> listar(Authentication auth) {
         List<VirtualConsultationDTO> lista = vS.list().stream()
+                .filter(y -> !esPadre(auth) || esDuena(y.getUser(), auth))
                 .map(y -> {
                     ModelMapper m = new ModelMapper();
                     m.getConfiguration().setAmbiguityIgnored(true);
@@ -49,7 +52,7 @@ public class VirtualConsultationController {
 
     @PostMapping("/web")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> registrar(@RequestBody VirtualConsultationDTO dto) {
+    public ResponseEntity<?> registrar(@RequestBody VirtualConsultationDTO dto, Authentication auth) {
         if (dto.getFechacita() == null) {
             return ResponseEntity.badRequest()
                     .body("La fecha de la cita no puede ser nula");
@@ -58,9 +61,21 @@ public class VirtualConsultationController {
             return ResponseEntity.badRequest()
                     .body("La URL de la sala es obligatoria");
         }
-        if (dto.getIdUser() == 0 || dto.getIdProfessionalProfile() == 0) {
+        if (dto.getIdProfessionalProfile() == 0) {
             return ResponseEntity.badRequest()
-                    .body("La consulta debe tener un usuario y un perfil profesional asociados");
+                    .body("La consulta debe tener un perfil profesional asociado");
+        }
+        // El PADRE siempre agenda a su propio nombre (se ignora el idUser del body)
+        if (esPadre(auth)) {
+            User propio = uR.findByEmail(auth.getName());
+            if (propio == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+            }
+            dto.setIdUser(propio.getIdUser());
+        }
+        if (dto.getIdUser() == 0) {
+            return ResponseEntity.badRequest()
+                    .body("La consulta debe tener un usuario asociado");
         }
 
         User user = uR.findById(dto.getIdUser())
@@ -83,9 +98,13 @@ public class VirtualConsultationController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+    public ResponseEntity<?> buscarPorId(@PathVariable int id, Authentication auth) {
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
+            if (esPadre(auth) && !esDuena(consulta.get().getUser(), auth)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Solo puede ver sus propias consultas");
+            }
             ModelMapper m = new ModelMapper();
             m.getConfiguration().setAmbiguityIgnored(true);
             VirtualConsultationDTO dto = m.map(consulta.get(), VirtualConsultationDTO.class);
@@ -100,11 +119,15 @@ public class VirtualConsultationController {
 
     @PutMapping("/actualiza")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<String> actualizar(@RequestBody VirtualConsultationDTO dto) {
+    public ResponseEntity<String> actualizar(@RequestBody VirtualConsultationDTO dto, Authentication auth) {
         Optional<VirtualConsultation> existente = vS.listId(dto.getIdVirtualConsultation());
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Consulta virtual no encontrada");
+        }
+        if (esPadre(auth) && !esDuena(existente.get().getUser(), auth)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Solo puede modificar sus propias consultas");
         }
         if (dto.getFechacita() == null) {
             return ResponseEntity.badRequest()
@@ -119,9 +142,13 @@ public class VirtualConsultationController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<String> eliminar(@PathVariable int id) {
+    public ResponseEntity<String> eliminar(@PathVariable int id, Authentication auth) {
         Optional<VirtualConsultation> consulta = vS.listId(id);
         if (consulta.isPresent()) {
+            if (esPadre(auth) && !esDuena(consulta.get().getUser(), auth)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Solo puede eliminar sus propias consultas");
+            }
             vS.delete(id);
             return ResponseEntity.ok("Consulta virtual eliminada correctamente");
         } else {
@@ -130,8 +157,9 @@ public class VirtualConsultationController {
         }
     }
 
+    // Herramienta clinica de priorizacion: solo doctor y admin
     @GetMapping("/decidir-prioridad")
-    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirPrioridad(@RequestParam String estado, @RequestParam String nombrePaciente) {
         if (estado == null || estado.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Error: El estado de la consulta no puede estar vacío.");
@@ -156,8 +184,9 @@ public class VirtualConsultationController {
         return ResponseEntity.ok(listaConsultas);
     }
 
+    // Reporte agregado: solo doctor y admin
     @GetMapping("/conteo-por-estado")
-    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> contarPorEstado() {
         List<Object[]> resultados = vS.contarPorEstado();
         if (resultados.isEmpty()) {
@@ -172,5 +201,16 @@ public class VirtualConsultationController {
             respuesta.add(dto);
         }
         return ResponseEntity.ok(respuesta);
+    }
+
+    // El autenticado tiene rol PADRE (no ADMIN ni DOCTOR)
+    private boolean esPadre(Authentication auth) {
+        return auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("PADRE"));
+    }
+
+    // La consulta pertenece al padre autenticado
+    private boolean esDuena(User user, Authentication auth) {
+        return user != null && auth.getName().equals(user.getEmail());
     }
 }

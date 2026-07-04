@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.MedicionDTO;
 import upc.edu.pe.preventkids.dtos.MedicionInsertDTO;
@@ -25,11 +26,13 @@ public class MedicionController {
     @Autowired
     private IHijoRepository hR;
 
+    // El PADRE solo ve las mediciones de SUS hijos; doctor y admin ven todas
     @GetMapping
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<List<MedicionDTO>> listar() {
+    public ResponseEntity<List<MedicionDTO>> listar(Authentication auth) {
         ModelMapper m = new ModelMapper();
         List<MedicionDTO> lista = mS.list().stream()
+                .filter(y -> !esPadre(auth) || esDeSuHijo(y, auth))
                 .map(y -> m.map(y, MedicionDTO.class))
                 .collect(Collectors.toList());
 
@@ -57,11 +60,15 @@ public class MedicionController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+    public ResponseEntity<?> buscarPorId(@PathVariable int id, Authentication auth) {
         ModelMapper m = new ModelMapper();
         Optional<Medicion> medicion = mS.listId(id);
 
         if (medicion.isPresent()) {
+            if (esPadre(auth) && !esDeSuHijo(medicion.get(), auth)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Solo puede ver las mediciones de sus propios hijos");
+            }
             MedicionDTO dto = m.map(medicion.get(), MedicionDTO.class);
             return ResponseEntity.ok(dto);
         } else {
@@ -122,8 +129,9 @@ public class MedicionController {
         }
     }
 
+    // Los reportes agregados son herramienta clinica: solo doctor y admin
     @GetMapping("/decidir-prioridad-imc")
-    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirPrioridadIMC(@RequestParam float imc) {
         if (imc <= 0) {
             return ResponseEntity.badRequest().body("Error: El valor del IMC debe ser mayor a 0.");
@@ -140,6 +148,7 @@ public class MedicionController {
     }
 
     @GetMapping("/decidir-signos-vitales")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirEvaluacionSignosVitales(@RequestParam float presion,
                                                             @RequestParam float temperatura) {
         if (presion <= 0 || temperatura <= 0) {
@@ -157,6 +166,7 @@ public class MedicionController {
     }
 
     @GetMapping("/decidir-riesgo-nutricional")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> decidirRiesgoNutricional() {
         ModelMapper m = new ModelMapper();
         List<MedicionDTO> lista = mS.decidirRiesgoNutricional()
@@ -169,11 +179,19 @@ public class MedicionController {
         return ResponseEntity.ok(lista);
     }
 
+    // El PADRE solo puede filtrar por sus propios hijos
     @GetMapping("/filtrar-por-hijo/{idHijo}")
-    public ResponseEntity<?> filtrarPorHijo(@PathVariable int idHijo) {
-        if (hR.findById(idHijo).isEmpty()) {
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    public ResponseEntity<?> filtrarPorHijo(@PathVariable int idHijo, Authentication auth) {
+        Optional<Hijo> hijo = hR.findById(idHijo);
+        if (hijo.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Hijo no encontrado con id: " + idHijo);
+        }
+        if (esPadre(auth) && (hijo.get().getUser() == null
+                || !auth.getName().equals(hijo.get().getUser().getEmail()))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Solo puede ver las mediciones de sus propios hijos");
         }
         ModelMapper m = new ModelMapper();
         List<MedicionDTO> lista = mS.filtrarPorHijo(idHijo)
@@ -184,5 +202,17 @@ public class MedicionController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(lista);
+    }
+
+    // El autenticado tiene rol PADRE (no ADMIN ni DOCTOR)
+    private boolean esPadre(Authentication auth) {
+        return auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("PADRE"));
+    }
+
+    // La medicion pertenece a un hijo del padre autenticado
+    private boolean esDeSuHijo(Medicion medicion, Authentication auth) {
+        return medicion.getHijo() != null && medicion.getHijo().getUser() != null
+                && auth.getName().equals(medicion.getHijo().getUser().getEmail());
     }
 }

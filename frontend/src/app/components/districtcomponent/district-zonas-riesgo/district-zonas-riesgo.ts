@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,8 @@ export class DistrictZonasRiesgo implements OnInit {
   chartLabels: string[] = [];
   chartData: ChartDataset[] = [];
 
-  constructor(private dS: Districtservice) {}
+  // La app es zoneless: hay que avisar a Angular cuando llega la data del backend.
+  constructor(private dS: Districtservice, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // QUERY DE DECISIÓN: distritos en zonas de riesgo (Rural / Periurbana)
@@ -56,6 +57,7 @@ export class DistrictZonasRiesgo implements OnInit {
       } else {
         this.hasData = false;
       }
+      this.cdr.markForCheck();
     });
   }
 }

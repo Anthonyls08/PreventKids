@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,8 @@ export class MedicionRiesgoNutricional implements OnInit {
   chartLabels: string[] = [];
   chartData: ChartDataset[] = [];
 
-  constructor(private mS: Medicionservice) {}
+  // La app es zoneless: hay que avisar a Angular cuando llega la data del backend.
+  constructor(private mS: Medicionservice, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // QUERY DE DECISIÓN: mediciones con riesgo nutricional (bajo peso / obesidad)
@@ -50,6 +51,7 @@ export class MedicionRiesgoNutricional implements OnInit {
       } else {
         this.hasData = false;
       }
+      this.cdr.markForCheck();
     });
   }
 }

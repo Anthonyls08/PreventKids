@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.AlertDTO;
 import upc.edu.pe.preventkids.dtos.AlertaPorEstadoDTO;
@@ -21,11 +22,13 @@ import java.util.stream.Collectors;
 public class AlertController {
     @Autowired
     private IAlertService aS;
+    // El PADRE solo ve las alertas de SUS hijos; doctor y admin ven todas
     @GetMapping("/listar")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<List<AlertDTO>> listar(){
+    public ResponseEntity<List<AlertDTO>> listar(Authentication auth){
         ModelMapper m=new ModelMapper();
         List<AlertDTO> listaAlert=aS.list().stream()
+                .filter(y -> !esPadre(auth) || esDeSuHijo(y, auth))
                 .map(y->m.map(y,AlertDTO.class))
                 .collect(Collectors.toList());
 
@@ -42,11 +45,15 @@ public class AlertController {
     }
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+    public ResponseEntity<?> buscarPorId(@PathVariable int id, Authentication auth) {
         ModelMapper m = new ModelMapper();
         Optional<Alert> alerta = aS.listId(id);
 
         if (alerta.isPresent()) {
+            if (esPadre(auth) && !esDeSuHijo(alerta.get(), auth)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Solo puede ver las alertas de sus propios hijos");
+            }
             AlertDTO dto = m.map(alerta.get(), AlertDTO.class);
             return ResponseEntity.ok(dto);
         } else {
@@ -88,8 +95,9 @@ public class AlertController {
                     .body("Alerta no encontrado");
         }
     }
+    // Panel clinico de alertas criticas sin leer: solo doctor y admin
     @GetMapping("/criticas")
-    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> obtenerAlertasCriticas(
             @RequestParam(required = false, defaultValue = "3") Integer umbralRiesgo) {
         if (umbralRiesgo < 1 || umbralRiesgo > 5) {
@@ -107,21 +115,16 @@ public class AlertController {
         return ResponseEntity.ok(alertasCriticas);
     }
 
-    @GetMapping("/conteo-por-estado")
-    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('PADRE') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> contarPorEstado() {
-        List<Object[]> resultados = aS.contarPorEstado();
-        if (resultados.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No hay alertas registradas");
-        }
-        List<AlertaPorEstadoDTO> respuesta = new ArrayList<>();
-        for (Object[] fila : resultados) {
-            AlertaPorEstadoDTO dto = new AlertaPorEstadoDTO();
-            dto.setEstado((String) fila[0]);
-            dto.setCantidad(((Number) fila[1]).intValue());
-            respuesta.add(dto);
-        }
-        return ResponseEntity.ok(respuesta);
+    // El autenticado tiene rol PADRE (no ADMIN ni DOCTOR)
+    private boolean esPadre(Authentication auth) {
+        return auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("PADRE"));
+    }
+
+    // La alerta corresponde a una medicion de un hijo del padre autenticado
+    private boolean esDeSuHijo(Alert alerta, Authentication auth) {
+        return alerta.getMedicion() != null && alerta.getMedicion().getHijo() != null
+                && alerta.getMedicion().getHijo().getUser() != null
+                && auth.getName().equals(alerta.getMedicion().getHijo().getUser().getEmail());
     }
 }

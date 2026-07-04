@@ -33,6 +33,7 @@ export class Reporteshub {
     {
       entidad: 'Consulta Virtual',
       icono: 'event_available',
+      roles: ['ADMIN', 'DOCTOR'],
       reportes: [
         { titulo: 'Consultas por estado', icono: 'donut_large', ruta: '/app/reportes/consultas-por-estado' },
       ],
@@ -48,38 +49,22 @@ export class Reporteshub {
       ],
     },
     {
-      entidad: 'Ejercicio Recomendado',
-      icono: 'directions_run',
-      reportes: [
-        { titulo: 'Ejercicios por dificultad', icono: 'bar_chart', ruta: '/app/ejercicio-recomendado/reporte-conteo-dificultad' },
-        { titulo: 'Filtrar por duración', icono: 'filter_alt', ruta: '/app/ejercicio-recomendado/reporte-filtrar-duracion' },
-      ],
-    },
-    {
-      entidad: 'Limitación Física',
-      icono: 'accessibility_new',
-      roles: ['ADMIN', 'DOCTOR'],
-      reportes: [
-        { titulo: 'Limitaciones por categoría', icono: 'pie_chart', ruta: '/app/limitacion-fisica/reporte-conteo-categoria' },
-        { titulo: 'Filtrar por intensidad', icono: 'filter_alt', ruta: '/app/limitacion-fisica/reporte-filtrar-intensidad' },
-      ],
-    },
-    {
-      entidad: 'Contenido Educativo',
-      icono: 'menu_book',
-      reportes: [
-        { titulo: 'Contenido por tipo', icono: 'pie_chart', ruta: '/app/contenido-educativo/reporte-conteo-tipo' },
-        { titulo: 'Buscar por tipo', icono: 'filter_alt', ruta: '/app/contenido-educativo/reporte-filtrar-tipo' },
-      ],
-    },
-    {
+      // Reportes clinicos agregados (todas las mediciones): solo doctor y admin
       entidad: 'Medición',
       icono: 'monitor_weight',
+      roles: ['ADMIN', 'DOCTOR'],
       reportes: [
         { titulo: 'Prioridad por IMC', icono: 'bar_chart', ruta: '/app/mediciones/reporte-prioridad-imc' },
         { titulo: 'Signos vitales', icono: 'pie_chart', ruta: '/app/mediciones/reporte-signos-vitales' },
         { titulo: 'Riesgo nutricional', icono: 'pie_chart', ruta: '/app/mediciones/reporte-riesgo-nutricional' },
-        { titulo: 'Filtrar por hijo', icono: 'filter_alt', ruta: '/app/mediciones/reporte-filtrar-usuario' },
+      ],
+    },
+    {
+      // El padre puede ver el progreso de SUS hijos (el backend valida la propiedad)
+      entidad: 'Progreso del niño',
+      icono: 'child_care',
+      reportes: [
+        { titulo: 'Mediciones por hijo', icono: 'filter_alt', ruta: '/app/mediciones/reporte-filtrar-usuario' },
       ],
     },
     {
