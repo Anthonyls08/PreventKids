@@ -1,4 +1,4 @@
-mat-form-field {
+﻿mat-form-field {
 
  width: 60%;
 
@@ -8,7 +8,7 @@ mat-form-field {
 
 button[matButton='elevated'] {
 
- background-color:#2e7d32;
+ background-color:#1565c0;
 
  color: white;
 

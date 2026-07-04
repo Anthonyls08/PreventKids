@@ -80,17 +80,17 @@ public class UserController {
         Role role = rR.findById(dto.getIdRole())
                 .orElseThrow(() -> new RuntimeException("Role no encontrado con id: " + dto.getIdRole()));
 
-        // El registro público (sin token) solo puede elegir rol PACIENTE o PADRE.
-        // Un ADMIN autenticado sí puede crear usuarios con cualquier rol.
+        // El registro público (sin token) solo puede crear cuentas PADRE:
+        // los niños no tienen cuenta (el padre los registra como hijos dentro
+        // de la app) y los doctores/admins los crea el administrador.
         String nombreRol = role.getNombre() == null ? "" : role.getNombre().toUpperCase();
-        boolean esRolPublico = nombreRol.equals("PACIENTE") || nombreRol.equals("PADRE");
-        if (!esRolPublico) {
+        if (!nombreRol.equals("PADRE")) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             boolean esAdmin = auth != null && auth.getAuthorities().stream()
                     .anyMatch(a -> a.getAuthority().equals("ADMIN"));
             if (!esAdmin) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body("Solo puede registrarse con el rol PACIENTE o PADRE");
+                        .body("El registro público solo permite crear cuentas de PADRE");
             }
         }
 

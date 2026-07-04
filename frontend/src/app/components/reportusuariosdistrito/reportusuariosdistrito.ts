@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+﻿import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,8 +45,8 @@ export class Reportusuariosdistrito implements OnInit {
             data: data.map((item) => item.cantidadUsuarios),
             label: 'Cantidad de usuarios',
             backgroundColor: 'rgba(38, 166, 154, 0.3)', // Turquesa claro
-            borderColor: '#00897b', // Turquesa
-            pointBackgroundColor: '#2e7d32', // Verde intenso
+            borderColor: '#1e88e5', // Turquesa
+            pointBackgroundColor: '#1565c0', // Verde intenso
             fill: true,
           },
         ];

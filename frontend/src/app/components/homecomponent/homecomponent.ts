@@ -16,7 +16,7 @@ export class Homecomponent {
       titulo: 'Control de dieta',
       texto: 'Busca alimentos y controla calorías y azúcar de tu día.',
       link: '/app/dieta',
-      color: '#2e7d32',
+      color: '#1565c0',
     },
     {
       icono: 'fitness_center',
@@ -37,7 +37,7 @@ export class Homecomponent {
       titulo: 'Videollamada',
       texto: 'Consulta en línea con un especialista de la salud.',
       link: '/app/videollamada',
-      color: '#00897b',
+      color: '#1e88e5',
     },
   ];
 
@@ -68,7 +68,7 @@ export class Homecomponent {
       titulo: 'Especialidades',
       texto: 'Especialidades de los profesionales de salud.',
       link: '/app/specialties/listar',
-      color: '#00897b',
+      color: '#1e88e5',
     },
     {
       icono: 'manage_accounts',

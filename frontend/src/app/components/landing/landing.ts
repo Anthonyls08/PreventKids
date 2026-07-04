@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -57,7 +57,7 @@ export class Landing {
         'Busca cualquier alimento y conoce sus calorias, azucar y grasa con datos reales de Open Food Facts.',
       imagen:
         'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=70',
-      color: '#2e7d32',
+      color: '#1565c0',
     },
     {
       titulo: 'Actividad fisica',
@@ -81,7 +81,7 @@ export class Landing {
         'Conecta con especialistas en una videollamada segura, sin instalar nada.',
       imagen:
         'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=70',
-      color: '#00897b',
+      color: '#1e88e5',
     },
   ];
 

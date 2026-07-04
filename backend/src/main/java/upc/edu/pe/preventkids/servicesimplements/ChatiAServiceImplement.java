@@ -1,13 +1,13 @@
 package upc.edu.pe.preventkids.servicesimplements;
 
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.messages.Message;
-import com.anthropic.models.messages.MessageCreateParams;
-import com.anthropic.models.messages.Model;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 import upc.edu.pe.preventkids.entities.chatIA;
 import upc.edu.pe.preventkids.repositories.IChatIARepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IChatIAService;
@@ -18,15 +18,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ChatiAServiceImplement implements IChatIAService {
     @Autowired
     private IChatIARepository cR;
 
-    @Value("${anthropic.api.key:}")
-    private String anthropicApiKey;
+    // API key gratuita de Google AI Studio (https://aistudio.google.com/apikey)
+    @Value("${gemini.api.key:}")
+    private String geminiApiKey;
+
+    @Value("${gemini.api.model:gemini-2.5-flash}")
+    private String geminiModel;
+
+    private static final String GEMINI_URL =
+            "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent";
 
     // Umbral de similitud (0 a 1): si una pregunta guardada se parece al menos
     // en este porcentaje, se reutiliza su respuesta en vez de llamar a la API.
@@ -39,9 +45,13 @@ public class ChatiAServiceImplement implements IChatIAService {
             "Eres el asistente de salud de PreventKids, una aplicacion de prevencion " +
             "de salud infantil (nutricion, ejercicio, habitos saludables y bienestar de ninos). " +
             "Responde siempre en espanol, de forma clara y amable para padres y pacientes. " +
+            "Responde en texto plano, en un solo parrafo, sin markdown, sin asteriscos y sin listas. " +
             "Tu respuesta debe tener como maximo 250 caracteres. " +
-            "Si la consulta describe una emergencia o algo grave, recomienda acudir a un " +
-            "profesional de salud. No des diagnosticos definitivos.";
+            "Da siempre primero un consejo practico y concreto basado en recomendaciones " +
+            "generales de salud infantil; nunca respondas unicamente que consulten al medico. " +
+            "Despues del consejo, si el tema lo amerita, agrega que pueden confirmarlo con un especialista. " +
+            "Solo ante una emergencia o sintomas graves prioriza la atencion medica inmediata. " +
+            "No des diagnosticos definitivos ni recomiendes medicamentos con dosis.";
 
     @Override
     public List<chatIA> list() {return cR.findAll();}
@@ -105,40 +115,74 @@ public class ChatiAServiceImplement implements IChatIAService {
         return (double) interseccion.size() / union.size();
     }
 
-    // ===== Llamada a la API de Claude =====
+    // ===== Llamada a la API de Gemini (capa gratuita de Google AI Studio) =====
 
-//    @Override
-//    public chatIA preguntarIA(String pregunta) {
-//        AnthropicClient client = AnthropicOkHttpClient.builder()
-//                .apiKey(anthropicApiKey)
-//                .build();
-//
-//        MessageCreateParams params = MessageCreateParams.builder()
-//                .model(Modelo .CLAUDE_OPUS_4_8)
-//                .maxTokens(500L)
-//                .system(SYSTEM_PROMPT)
-//                .addUserMessage(pregunta)
-//                .build();
-//
-//        Message response = client.messages().create(params);
-//
-//        String respuesta = response.content().stream()
-//                .flatMap(block -> block.text().stream())
-//                .map(textBlock -> textBlock.text())
-//                .collect(Collectors.joining("\n"))
-//                .trim();
-//
-//        if (respuesta.isEmpty()) {
-//            respuesta = "No se pudo obtener una respuesta. Intenta nuevamente.";
-//        }
-//        if (respuesta.length() > MAX_RESPUESTA) {
-//            respuesta = respuesta.substring(0, MAX_RESPUESTA - 3) + "...";
-//        }
-//
-//        // Se guarda la pregunta y la respuesta para reutilizarlas (cache)
-//        chatIA registro = new chatIA();
-//        registro.setPregunta(pregunta);
-//        registro.setRespuesta(respuesta);
-//        return cR.save(registro);
-//    }
+    @Override
+    public chatIA preguntarIA(String pregunta) {
+        if (geminiApiKey == null || geminiApiKey.trim().isEmpty()) {
+            // Sin API key: el controller responde el mensaje de respaldo.
+            // Si la variable GEMINI_API_KEY existe pero igual sale este mensaje,
+            // reiniciar el IDE/terminal (los procesos abiertos no ven variables nuevas).
+            System.err.println("[ChatIA] GEMINI_API_KEY no configurada: se responde el mensaje de respaldo");
+            return null;
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            // Cuerpo de la peticion segun la API REST de Gemini (generateContent)
+            ObjectNode body = mapper.createObjectNode();
+            body.putObject("system_instruction")
+                    .putArray("parts").addObject().put("text", SYSTEM_PROMPT);
+            body.putArray("contents").addObject()
+                    .putArray("parts").addObject().put("text", pregunta);
+            ObjectNode generationConfig = body.putObject("generationConfig");
+            generationConfig.put("maxOutputTokens", 1024);
+            // Sin "razonamiento" interno: respuesta directa y mas rapida
+            generationConfig.putObject("thinkingConfig").put("thinkingBudget", 0);
+
+            String url = String.format(GEMINI_URL, geminiModel);
+            String json = RestClient.create().post()
+                    .uri(url)
+                    .header("x-goog-api-key", geminiApiKey)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(mapper.writeValueAsString(body))
+                    .retrieve()
+                    .body(String.class);
+
+            JsonNode root = mapper.readTree(json);
+            String respuesta = root.path("candidates").path(0).path("content")
+                    .path("parts").path(0).path("text").asText("").trim();
+
+            if (respuesta.isEmpty()) {
+                return null;
+            }
+            respuesta = recortarEnOracion(respuesta);
+
+            // Se guarda la pregunta y la respuesta para reutilizarlas (cache)
+            chatIA registro = new chatIA();
+            registro.setPregunta(pregunta);
+            registro.setRespuesta(respuesta);
+            return cR.save(registro);
+        } catch (Exception e) {
+            // Sin internet, key invalida o limite diario agotado
+            System.err.println("[ChatIA] Error llamando a Gemini: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Si el texto supera el limite de la columna (300), corta en la ultima
+    // oracion completa para no dejar frases a medias; si no hay punto,
+    // corta en el ultimo espacio y agrega puntos suspensivos
+    private String recortarEnOracion(String texto) {
+        if (texto.length() <= MAX_RESPUESTA) {
+            return texto;
+        }
+        String corte = texto.substring(0, MAX_RESPUESTA);
+        int ultimaOracion = Math.max(corte.lastIndexOf('.'),
+                Math.max(corte.lastIndexOf('!'), corte.lastIndexOf('?')));
+        if (ultimaOracion >= 100) {
+            return corte.substring(0, ultimaOracion + 1);
+        }
+        return corte.substring(0, corte.lastIndexOf(' ')) + "...";
+    }
 }

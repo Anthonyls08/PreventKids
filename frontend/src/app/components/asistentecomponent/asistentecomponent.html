@@ -1,0 +1,92 @@
+<div class="container">
+  <section class="asistente-head">
+    <div>
+      <h2>Asistente de salud</h2>
+      <p>
+        Pregunta sobre nutrición, ejercicio, sueño y hábitos saludables para
+        niños. Respuestas de nuestra base de conocimiento e inteligencia
+        artificial.
+      </p>
+    </div>
+    <mat-icon class="asistente-head-icon" aria-hidden="true">smart_toy</mat-icon>
+  </section>
+
+  <div class="chat-panel">
+    <div class="aviso-ia">
+      <mat-icon aria-hidden="true">smart_toy</mat-icon>
+      Estás conversando con un asistente virtual (inteligencia artificial)
+    </div>
+    <div class="chat-area" #chatArea>
+      @if (mensajes().length === 0) {
+        <div class="chat-bienvenida">
+          <mat-icon aria-hidden="true">waving_hand</mat-icon>
+          <p>¡Hola! Soy el asistente de PreventKids. Prueba con una de estas preguntas:</p>
+          <div class="chat-sugeridas">
+            @for (s of sugeridas; track s) {
+              <button type="button" class="chip-sugerida" (click)="enviar(s)">
+                {{ s }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      @for (m of mensajes(); track $index) {
+        <div class="burbuja-fila" [class.fila-usuario]="m.autor === 'usuario'">
+          @if (m.autor === 'bot') {
+            <mat-icon class="avatar-bot" aria-hidden="true">smart_toy</mat-icon>
+          }
+          <div
+            class="burbuja"
+            [class.burbuja-usuario]="m.autor === 'usuario'"
+            [class.burbuja-bot]="m.autor === 'bot'">
+            <p>{{ m.texto }}</p>
+            @if (m.desdeCache) {
+              <span class="badge-cache" title="Respuesta reutilizada de la base de conocimiento">
+                ⚡ respuesta guardada
+              </span>
+            }
+          </div>
+        </div>
+      }
+
+      @if (escribiendo()) {
+        <div class="burbuja-fila">
+          <mat-icon class="avatar-bot" aria-hidden="true">smart_toy</mat-icon>
+          <div class="burbuja burbuja-bot burbuja-escribiendo">
+            <span class="punto"></span><span class="punto"></span><span class="punto"></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <form class="chat-input" (ngSubmit)="enviar()">
+      <mat-form-field class="chat-campo" appearance="outline">
+        <mat-label>Escribe tu pregunta</mat-label>
+        <input
+          matInput
+          [ngModel]="pregunta()"
+          (ngModelChange)="pregunta.set($event)"
+          (keydown.enter)="$event.preventDefault(); enviar()"
+          [readonly]="escribiendo()"
+          name="pregunta"
+          maxlength="300"
+          autocomplete="off"
+          [placeholder]="escribiendo() ? 'El asistente está escribiendo...' : 'Ej: ¿cuánta agua debe tomar mi hijo?'" />
+      </mat-form-field>
+      <button
+        class="chat-btn"
+        type="submit"
+        aria-label="Enviar pregunta"
+        [disabled]="escribiendo()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </div>
+
+  <p class="chat-disclaimer">
+    <mat-icon aria-hidden="true">info</mat-icon>
+    Este asistente no reemplaza a un profesional de salud. Ante cualquier duda,
+    <a routerLink="/app/videollamada">consulta con un especialista por videollamada</a>.
+  </p>
+</div>

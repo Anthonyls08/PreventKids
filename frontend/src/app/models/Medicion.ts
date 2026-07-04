@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { Hijo } from "./Hijo";
 
 export class Medicion {
 
@@ -11,9 +11,9 @@ export class Medicion {
   temperatura: number = 0;
   fechamedicion: Date = new Date();
 
-  // FK enviada al backend al registrar/actualizar
-  idUser: number = 0;
+  // FK enviada al backend al registrar/actualizar (el nino monitoreado)
+  idHijo: number = 0;
 
   // Objeto devuelto por el backend al listar (solo lectura)
-  user: User = new User();
+  hijo: Hijo = new Hijo();
 }

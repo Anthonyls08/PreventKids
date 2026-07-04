@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+﻿import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,11 +45,11 @@ export class Reportperfilesespecialidad implements OnInit {
             data: data.map((item) => item.cantidadPerfiles),
             label: 'Cantidad de perfiles profesionales',
             backgroundColor: [
-              '#2e7d32', // Verde intenso
-              '#00897b', // Turquesa
+              '#1565c0', // Verde intenso
+              '#1e88e5', // Turquesa
               '#66bb6a', // Verde claro
               '#26a69a', // Turquesa claro
-              '#1b5e20', // Verde oscuro
+              '#0d47a1', // Verde oscuro
               '#80cbc4', // Turquesa suave
             ],
           },

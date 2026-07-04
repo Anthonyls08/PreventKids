@@ -5,15 +5,15 @@
       Regresar
     </a>
   </div>
-  <h2 class="chart-title">Mediciones filtradas por usuario</h2>
+  <h2 class="chart-title">Mediciones filtradas por hijo</h2>
   <p class="chart-subtitle">
-    Query de filtro: mediciones de un usuario específico agrupadas por clasificación del IMC.
+    Query de filtro: mediciones de un niño específico agrupadas por clasificación del IMC.
   </p>
 
   <form class="chart-form" (ngSubmit)="consultar()">
     <div class="campo">
-      <label for="idUser">ID de usuario</label>
-      <input id="idUser" name="idUser" type="number" min="1" [(ngModel)]="idUser" />
+      <label for="idHijo">ID del hijo</label>
+      <input id="idHijo" name="idHijo" type="number" min="1" [(ngModel)]="idHijo" />
     </div>
     <button type="submit">Filtrar</button>
   </form>
@@ -36,12 +36,12 @@
     @if (buscado && !hasData) {
       <div class="no-data">
         <mat-icon class="no-data-icon">info_outline</mat-icon>
-        <p class="no-data-message">Este usuario no tiene mediciones registradas.</p>
+        <p class="no-data-message">Este niño no tiene mediciones registradas.</p>
       </div>
     }
   </div>
 
   @if (hasData) {
-    <p class="chart-total">Total de mediciones del usuario: <strong>{{ total }}</strong></p>
+    <p class="chart-total">Total de mediciones del niño: <strong>{{ total }}</strong></p>
   }
 </div>

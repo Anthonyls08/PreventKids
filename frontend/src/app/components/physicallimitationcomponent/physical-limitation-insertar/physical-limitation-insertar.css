@@ -1,9 +1,9 @@
-mat-form-field {
+﻿mat-form-field {
   width: 60%;
 }
 
 .btn-rojo {
-  background-color: #2e7d32;
+  background-color: #1565c0;
   color: white;
   border: none;
   padding: 0.5rem 1.25rem;

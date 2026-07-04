@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.ChatPreguntaDTO;
+import upc.edu.pe.preventkids.dtos.ChatRespuestaDTO;
 import upc.edu.pe.preventkids.dtos.chatIADTO;
 import upc.edu.pe.preventkids.dtos.chatIAInsertDTO;
 import upc.edu.pe.preventkids.entities.chatIA;
@@ -66,6 +68,45 @@ public class chatIAController {
         cS.update(a);
         return ResponseEntity.ok("Chat actualizado correctamente");
     }
+    // Flujo del asistente: 1) busca una pregunta parecida ya respondida (cache),
+    // 2) si no hay, llama a la API de Gemini, 3) si la API falla, mensaje de respaldo
+    @PostMapping("/preguntar")
+    public ResponseEntity<?> preguntar(@RequestBody ChatPreguntaDTO dto) {
+        if (dto.getPregunta() == null || dto.getPregunta().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("La pregunta no puede estar vacía");
+        }
+        String pregunta = dto.getPregunta().trim();
+        if (pregunta.length() > 300) {
+            return ResponseEntity.badRequest().body("La pregunta no puede superar los 300 caracteres");
+        }
+
+        ChatRespuestaDTO respuesta = new ChatRespuestaDTO();
+        respuesta.setPregunta(pregunta);
+
+        // 1. Cache: pregunta similar ya respondida (similitud de Jaccard)
+        Optional<chatIA> similar = cS.buscarSimilar(pregunta);
+        if (similar.isPresent()) {
+            respuesta.setIdchatIA(similar.get().getIdchatIA());
+            respuesta.setRespuesta(similar.get().getRespuesta());
+            respuesta.setDesdeCache(true);
+            return ResponseEntity.ok(respuesta);
+        }
+
+        // 2. API de Gemini (guarda la nueva pregunta y respuesta en la tabla)
+        chatIA nuevo = cS.preguntarIA(pregunta);
+        if (nuevo == null) {
+            // 3. Respaldo: sin API key, sin internet o limite agotado
+            respuesta.setRespuesta("El asistente no está disponible en este momento. " +
+                    "Te recomendamos consultar con un especialista desde el módulo de videollamada.");
+            respuesta.setDesdeCache(false);
+            return ResponseEntity.ok(respuesta);
+        }
+        respuesta.setIdchatIA(nuevo.getIdchatIA());
+        respuesta.setRespuesta(nuevo.getRespuesta());
+        respuesta.setDesdeCache(false);
+        return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<chatIA> autor = cS.listId(id);

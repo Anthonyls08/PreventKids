@@ -1,4 +1,4 @@
-.videos-head {
+﻿.videos-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,7 +65,7 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  border: 1px solid #e6ece8;
+  border: 1px solid #e2eaf4;
   background: #fff;
   border-radius: 12px;
   padding: 8px;
@@ -81,7 +81,7 @@
 
 .video-item.activo {
   border-color: var(--pk-primary);
-  background: rgba(46, 125, 50, 0.08);
+  background: rgba(21, 101, 192, 0.08);
 }
 
 .video-thumb {

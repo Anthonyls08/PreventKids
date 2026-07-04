@@ -15,5 +15,5 @@ public interface IMedicionService {
     public List<Medicion> decidirAtencionPrioritaria(float imcMinimo);
     public List<Medicion> decidirEvaluacionSignosVitales(float presionMaxima, float temperaturaMaxima);
     public List<Medicion> decidirRiesgoNutricional();
-    public List<Medicion> filtrarPorUsuario(int idUser);
+    public List<Medicion> filtrarPorHijo(int idHijo);
 }

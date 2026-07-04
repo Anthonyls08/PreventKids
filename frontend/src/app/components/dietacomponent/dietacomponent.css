@@ -47,20 +47,20 @@
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #fff;
-  background: linear-gradient(135deg, var(--pk-primary), var(--pk-secondary));
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+  background: var(--pk-primary);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 .dieta-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
+  box-shadow: 0 6px 16px rgba(21, 101, 192, 0.35);
   filter: brightness(1.06);
 }
 
 .dieta-btn:active {
   transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(46, 125, 50, 0.25);
+  box-shadow: 0 3px 8px rgba(21, 101, 192, 0.25);
 }
 
 .dieta-btn:focus-visible {
@@ -93,7 +93,7 @@
 }
 
 .alimento-card {
-  border: 1px solid #e6ece8;
+  border: 1px solid #e2eaf4;
   border-radius: 14px;
   padding: 14px;
   background: #fff;
@@ -104,7 +104,7 @@
 }
 
 .alimento-card:hover {
-  box-shadow: 0 8px 22px rgba(46, 125, 50, 0.12);
+  box-shadow: 0 8px 22px rgba(21, 101, 192, 0.12);
   transform: translateY(-3px);
 }
 
@@ -129,7 +129,7 @@
   font-size: 48px;
   width: 48px;
   height: 48px;
-  color: #b7c9bd;
+  color: #b3c3d9;
 }
 
 .nutriscore {
@@ -216,7 +216,7 @@
 
 .macro-barra {
   height: 6px;
-  background: #eef2ef;
+  background: #edf2f9;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -230,6 +230,13 @@
 
 .macro-barra-proteina {
   background-color: var(--pk-secondary);
+}
+
+.dieta-paginator {
+  margin-top: 14px;
+  border-radius: 12px;
+  border: 1px solid #e2eaf4;
+  background: #fff;
 }
 
 /* Leyenda del semaforo */
@@ -252,6 +259,7 @@
 }
 
 .leyenda-verde {
+  /* verde semantico del semaforo nutricional (no es color de tema) */
   background: #2e7d32;
 }
 
@@ -267,70 +275,214 @@
 .dieta-midia {
   position: sticky;
   top: 16px;
-  border: 1px solid #e6ece8;
-  border-radius: 14px;
+  border: 1px solid #e2eaf4;
+  border-radius: 16px;
   padding: 16px;
   background: #fff;
+  box-shadow: 0 4px 14px rgba(21, 101, 192, 0.06);
 }
 
-.dieta-midia h3 {
-  margin: 0 0 10px;
+.midia-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.midia-head h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
   color: var(--pk-primary-dark);
 }
 
-.midia-total {
-  background: linear-gradient(135deg, var(--pk-primary), var(--pk-secondary));
-  color: #fff;
+.midia-head h3 mat-icon {
+  color: var(--pk-secondary);
+}
+
+.midia-contador {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pk-primary-dark);
+  background: #e3f2fd;
   border-radius: 12px;
-  padding: 14px;
-  text-align: center;
+  padding: 3px 10px;
+}
+
+/* Tarjeta de totales con metas del dia */
+.midia-total {
+  background: var(--pk-primary);
+  color: #fff;
+  border-radius: 14px;
+  padding: 16px 14px;
   margin-bottom: 12px;
 }
 
+.midia-kcal-fila {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
 .midia-kcal {
-  display: block;
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: 800;
   line-height: 1;
 }
 
 .midia-kcal-label {
-  display: block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   opacity: 0.9;
 }
 
-.midia-azucar {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.85rem;
+/* Selector de hijo (mat-select) */
+.midia-selector {
+  width: 100%;
+  margin-bottom: 4px;
 }
 
+/* Barras de progreso Material dentro de la tarjeta degradada */
+.midia-progreso {
+  border-radius: 4px;
+  margin: 8px 0 12px;
+  --mdc-linear-progress-track-color: rgba(255, 255, 255, 0.25);
+  --mdc-linear-progress-track-height: 8px;
+  --mdc-linear-progress-active-indicator-height: 8px;
+}
+
+.midia-progreso-fino {
+  margin: 6px 0 0;
+  --mdc-linear-progress-track-height: 6px;
+  --mdc-linear-progress-active-indicator-height: 6px;
+}
+
+.midia-azucar-fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  opacity: 0.95;
+}
+
+.midia-aviso {
+  margin: 10px 0 0;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+/* Chips Material de grasa y proteina */
+.midia-macros {
+  margin-bottom: 10px;
+  --mdc-chip-label-text-size: 0.75rem;
+  --mdc-chip-elevated-container-color: var(--pk-bg);
+}
+
+/* Estado vacio */
+.midia-vacio {
+  text-align: center;
+  color: #98a6ba;
+  padding: 18px 8px;
+}
+
+.midia-vacio mat-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+}
+
+.midia-vacio p {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* Lista de alimentos del dia */
 .midia-lista {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.midia-lista li {
+.midia-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 0;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 0.88rem;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.midia-item:hover {
+  background: var(--pk-bg);
+}
+
+.midia-item + .midia-item {
+  border-top: 1px solid #f0f4fa;
+}
+
+.midia-thumb {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: var(--pk-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.midia-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.midia-thumb mat-icon {
+  color: #b3c3d9;
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.midia-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .midia-nombre {
-  flex: 1;
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.midia-cal {
-  color: var(--pk-primary);
-  font-weight: 600;
+.midia-detalle {
+  display: block;
+  font-size: 0.73rem;
+  color: #8a8a8a;
+}
+
+.midia-quitar {
+  flex-shrink: 0;
+}
+
+/* Boton vaciar (mat-stroked-button) */
+.midia-vaciar {
+  width: 100%;
+  margin-top: 10px;
+  color: #8a8a8a;
+}
+
+.midia-vaciar:hover {
+  color: #e53935;
 }
 
 @media (max-width: 860px) {

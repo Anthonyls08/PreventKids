@@ -12,17 +12,17 @@
       <br />
 
       <mat-form-field class="example-full-width">
-        <mat-label>Paciente</mat-label>
-        <mat-select formControlName="user">
-          @for (u of listaUsuarios; track u.idUser) {
-            <mat-option [value]="u.idUser">
-              {{ u.nombre }} {{ u.apellido }}
+        <mat-label>Niño</mat-label>
+        <mat-select formControlName="hijo">
+          @for (h of listaHijos; track h.idHijo) {
+            <mat-option [value]="h.idHijo">
+              {{ h.nombre }} {{ h.apellido }}
             </mat-option>
           }
         </mat-select>
         <mat-error>
-          @if (form.get('user')?.hasError('required')) {
-            Seleccione un paciente!!
+          @if (form.get('hijo')?.hasError('required')) {
+            Seleccione un niño!!
           }
         </mat-error>
       </mat-form-field>

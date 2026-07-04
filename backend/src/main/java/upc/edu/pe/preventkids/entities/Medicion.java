@@ -31,14 +31,15 @@ public class Medicion {
     @Column(name = "fecha_medicion", nullable = false)
     private LocalDate fechamedicion;
 
+    // La medicion pertenece al hijo (nino monitoreado), no al usuario que inicia sesion
     @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
-    private User user;
+    @JoinColumn(name = "idHijo", nullable = false)
+    private Hijo hijo;
 
     public Medicion() {
     }
 
-    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacionimc, float presion, float temperatura, LocalDate fechamedicion, User user) {
+    public Medicion(int idMedicion, float pesoKg, float tallaCm, float imc, String clasificacionimc, float presion, float temperatura, LocalDate fechamedicion, Hijo hijo) {
         this.idMedicion = idMedicion;
         this.pesoKg = pesoKg;
         this.tallaCm = tallaCm;
@@ -47,7 +48,7 @@ public class Medicion {
         this.presion = presion;
         this.temperatura = temperatura;
         this.fechamedicion = fechamedicion;
-        this.user = user;
+        this.hijo = hijo;
     }
 
     public int getIdMedicion() {
@@ -114,11 +115,11 @@ public class Medicion {
         this.fechamedicion = fechamedicion;
     }
 
-    public User getUser() {
-        return user;
+    public Hijo getHijo() {
+        return hijo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setHijo(Hijo hijo) {
+        this.hijo = hijo;
     }
 }
