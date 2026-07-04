@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { ChatIA } from '../models/ChatIA';
+import { ChatRespuesta } from '../models/ChatRespuesta';
 
 const base_url = environment.base;
 @Injectable({
@@ -30,5 +31,10 @@ export class Chatiaservice {
 
   update(c: ChatIA) {
     return this.http.put(`${this.url}/actualizar`, c, { responseType: 'text' });
+  }
+
+  // Asistente: cache de similitud primero, luego API de Gemini
+  preguntar(pregunta: string) {
+    return this.http.post<ChatRespuesta>(`${this.url}/preguntar`, { pregunta });
   }
 }

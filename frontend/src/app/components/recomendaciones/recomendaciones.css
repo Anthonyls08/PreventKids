@@ -1,4 +1,4 @@
-.reco-panel {
+﻿.reco-panel {
   background: #ffffff;
   border-radius: 14px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #2e7d32;
+  color: #1565c0;
 }
 
 .reco-header h3 {
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #2e7d32 0%, #00897b 100%);
+  background: #1565c0;
 }
 
 .reco-img-placeholder mat-icon {
@@ -117,6 +117,6 @@
 }
 
 .reco-punto.activo {
-  background: #2e7d32;
+  background: #1565c0;
   transform: scale(1.25);
 }

@@ -11,7 +11,7 @@ public class MedicionInsertDTO {
     private float presion;
     private float temperatura;
     private LocalDate fechamedicion;
-    private int idUser;
+    private int idHijo;
 
     public int getIdMedicion() {
         return idMedicion;
@@ -77,11 +77,11 @@ public class MedicionInsertDTO {
         this.fechamedicion = fechamedicion;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getIdHijo() {
+        return idHijo;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setIdHijo(int idHijo) {
+        this.idHijo = idHijo;
     }
 }

@@ -44,8 +44,4 @@ export class Menucomponent {
   isPadre() {
     return this.role === 'PADRE';
   }
-
-  isPaciente() {
-    return this.role === 'PACIENTE';
-  }
 }

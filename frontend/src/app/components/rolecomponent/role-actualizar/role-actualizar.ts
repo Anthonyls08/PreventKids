@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Role } from '../../../models/Role';
 import { Roleservice } from '../../../services/roleservice';
@@ -28,7 +28,7 @@ export class RoleActualizar implements OnInit {
   role: Role = new Role();
   id: number = 0;
 
-  nombresRol: string[] = ['ADMIN', 'PACIENTE', 'DOCTOR', 'PADRE'];
+  nombresRol: string[] = ['ADMIN', 'DOCTOR', 'PADRE'];
 
   constructor(
     private rS: Roleservice,

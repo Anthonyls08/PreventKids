@@ -1,0 +1,251 @@
+﻿.asistente-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.asistente-head p {
+  color: #5a5a5a;
+  max-width: 620px;
+  margin: 6px 0 0;
+}
+
+.asistente-head-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: var(--pk-secondary);
+  flex-shrink: 0;
+}
+
+.chat-panel {
+  border: 1px solid #e2eaf4;
+  border-radius: 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.aviso-ia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  color: var(--pk-primary-dark);
+  background: #eaf3fc;
+  border-bottom: 1px solid #e2eaf4;
+}
+
+.aviso-ia mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.chat-area {
+  height: 420px;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--pk-bg);
+}
+
+/* Bienvenida y chips de preguntas sugeridas */
+.chat-bienvenida {
+  margin: auto;
+  text-align: center;
+  color: #666;
+  max-width: 480px;
+}
+
+.chat-bienvenida mat-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: var(--pk-primary);
+}
+
+.chat-sugeridas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.chip-sugerida {
+  border: 1px solid var(--pk-primary);
+  color: var(--pk-primary-dark);
+  background: #fff;
+  border-radius: 18px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.chip-sugerida:hover {
+  background: var(--pk-primary);
+  color: #fff;
+}
+
+/* Burbujas */
+.burbuja-fila {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.fila-usuario {
+  justify-content: flex-end;
+}
+
+.avatar-bot {
+  color: var(--pk-secondary);
+  flex-shrink: 0;
+}
+
+.burbuja {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.burbuja p {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.burbuja-usuario {
+  background: var(--pk-primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.burbuja-bot {
+  background: #fff;
+  border: 1px solid #e2eaf4;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.badge-cache {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--pk-primary-dark);
+  background: #e3f2fd;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+/* Indicador escribiendo */
+.burbuja-escribiendo {
+  display: flex;
+  gap: 4px;
+  padding: 14px;
+}
+
+.punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pk-secondary);
+  animation: rebotar 1.2s infinite;
+}
+
+.punto:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.punto:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes rebotar {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Input */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px 4px;
+  border-top: 1px solid #e2eaf4;
+  background: #fff;
+}
+
+.chat-campo {
+  flex: 1;
+}
+
+.chat-btn {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--pk-primary);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
+  transition: transform 0.15s ease, filter 0.15s ease;
+  flex-shrink: 0;
+}
+
+.chat-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.chat-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.chat-btn:focus-visible {
+  outline: 3px solid var(--pk-secondary);
+  outline-offset: 2px;
+}
+
+/* Disclaimer */
+.chat-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #888;
+  font-size: 0.82rem;
+  margin-top: 12px;
+}
+
+.chat-disclaimer mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.chat-disclaimer a {
+  color: var(--pk-primary-dark);
+}
+
+@media (max-width: 640px) {
+  .chat-area {
+    height: 55vh;
+  }
+  .burbuja {
+    max-width: 88%;
+  }
+}

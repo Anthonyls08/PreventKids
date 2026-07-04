@@ -23,6 +23,10 @@
                 <mat-icon>video_camera_front</mat-icon>
                 <span>Videollamada</span>
             </a>
+            <a class="nav-link" routerLink="/app/asistente" routerLinkActive="activo">
+                <mat-icon>smart_toy</mat-icon>
+                <span>Asistente</span>
+            </a>
             @if (isAdmin() || isDoctor() || isPadre()) {
             <a class="nav-link" routerLink="/app/reportes" routerLinkActive="activo">
                 <mat-icon>bar_chart</mat-icon>
@@ -110,6 +114,10 @@
             Perfil Profesional
         </button>
         @if (isAdmin() || isDoctor() || isPadre()) {
+        <button mat-menu-item [matMenuTriggerFor]="menuHijo">
+            <mat-icon>child_care</mat-icon>
+            Hijos
+        </button>
         <button mat-menu-item [matMenuTriggerFor]="menuMedicion">
             <mat-icon>monitor_weight</mat-icon>
             Medición
@@ -258,6 +266,19 @@
         </button>
         }
         <button mat-menu-item routerLink="/app/perfil-profesional/listar">
+            <mat-icon>list</mat-icon>
+            Listar
+        </button>
+    </mat-menu>
+
+    <mat-menu #menuHijo="matMenu">
+        @if (isAdmin() || isPadre()) {
+        <button mat-menu-item routerLink="/app/hijos/nuevo">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+        }
+        <button mat-menu-item routerLink="/app/hijos/listar">
             <mat-icon>list</mat-icon>
             Listar
         </button>

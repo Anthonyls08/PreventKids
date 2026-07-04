@@ -1,9 +1,9 @@
-.home-hero {
+﻿.home-hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: linear-gradient(120deg, #2e7d32 0%, #00897b 100%);
+  background: #1565c0;
   color: #ffffff;
   border-radius: 14px;
   padding: 28px 32px;
@@ -61,7 +61,7 @@
 
 .destacado-card {
   border: 1px solid #d6e8da;
-  background: linear-gradient(180deg, #ffffff 0%, #f3faf4 100%);
+  background: #ffffff;
 }
 
 .acceso-card {
@@ -112,7 +112,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #2e7d32;
+  color: #1565c0;
   font-weight: 600;
   font-size: 0.9rem;
 }

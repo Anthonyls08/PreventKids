@@ -7,10 +7,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 import { Medicion } from '../../../models/Medicion';
-import { User } from '../../../models/User';
+import { Hijo } from '../../../models/Hijo';
 
 import { Medicionservice } from '../../../services/medicionservice';
-import { Userservice } from '../../../services/userservice';
+import { Hijoservice } from '../../../services/hijoservice';
 
 @Component({
   selector: 'app-medicion-insertar',
@@ -27,13 +27,13 @@ export class MedicionInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
   medicion: Medicion = new Medicion();
 
-  listaUsuarios: User[] = [];
+  listaHijos: Hijo[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private medicionService: Medicionservice,
-    private userService: Userservice,
+    private hijoService: Hijoservice,
   ) {}
 
   ngOnInit(): void {
@@ -45,15 +45,15 @@ export class MedicionInsertar implements OnInit {
       presion: ['', [Validators.required, Validators.min(0)]],
       temperatura: ['', [Validators.required, Validators.min(0)]],
       fechamedicion: ['', Validators.required],
-      user: ['', Validators.required],
+      hijo: ['', Validators.required],
     });
 
     // Recalcular el IMC automáticamente al cambiar peso o talla
     this.form.get('pesoKg')?.valueChanges.subscribe(() => this.calcularImc());
     this.form.get('tallaCm')?.valueChanges.subscribe(() => this.calcularImc());
 
-    this.userService.list().subscribe((data) => {
-      this.listaUsuarios = data;
+    this.hijoService.list().subscribe((data) => {
+      this.listaHijos = data;
     });
   }
 
@@ -95,8 +95,8 @@ export class MedicionInsertar implements OnInit {
       this.medicion.temperatura = this.form.value.temperatura;
       this.medicion.fechamedicion = this.form.value.fechamedicion;
 
-      // FK: enviamos el id del usuario seleccionado
-      this.medicion.idUser = this.form.value.user;
+      // FK: enviamos el id del hijo seleccionado
+      this.medicion.idHijo = this.form.value.hijo;
 
       this.medicionService.insert(this.medicion).subscribe(() => {
         this.router.navigate(['/app/mediciones/listar']);

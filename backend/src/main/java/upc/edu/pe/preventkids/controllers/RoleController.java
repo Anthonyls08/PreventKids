@@ -2,6 +2,7 @@ package upc.edu.pe.preventkids.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
+
+    // Toda la seguridad (@PreAuthorize, menu por rol) depende del nombre
+    // exacto del rol, por eso solo se permiten estos tres.
+    private static final List<String> ROLES_PERMITIDOS = List.of("ADMIN", "DOCTOR", "PADRE");
 
     @Autowired
     private IRoleService rS;
@@ -41,6 +46,10 @@ public class RoleController {
         if (dto.getDescripcion() == null ) {
             return ResponseEntity.badRequest()
                     .body("La descripción no puede ser nula");
+        }
+        if (!ROLES_PERMITIDOS.contains(dto.getNombre().toUpperCase().trim())) {
+            return ResponseEntity.badRequest()
+                    .body("Solo se permiten los roles ADMIN, DOCTOR y PADRE");
         }
 
         ModelMapper m = new ModelMapper();
@@ -78,6 +87,10 @@ public class RoleController {
             return ResponseEntity.badRequest()
                     .body("El nombre no puede ser nulo");
         }
+        if (!ROLES_PERMITIDOS.contains(dto.getNombre().toUpperCase().trim())) {
+            return ResponseEntity.badRequest()
+                    .body("Solo se permiten los roles ADMIN, DOCTOR y PADRE");
+        }
 
         Role r = existente.get();
 
@@ -95,7 +108,12 @@ public class RoleController {
         Optional<Role> role = rS.listId(id);
 
         if (role.isPresent()) {
-            rS.delete(id);
+            try {
+                rS.delete(id);
+            } catch (DataIntegrityViolationException e) {
+                return ResponseEntity.badRequest()
+                        .body("No se puede eliminar un rol que tiene usuarios asignados");
+            }
             return ResponseEntity.ok("Rol eliminado correctamente");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

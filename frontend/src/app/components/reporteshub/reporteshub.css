@@ -1,4 +1,4 @@
-/* Contenedor principal */
+﻿/* Contenedor principal */
 .hub-container {
   width: 95%;
   max-width: 1200px;
@@ -19,7 +19,7 @@
   gap: 10px;
   font-size: 2rem;
   font-weight: 700;
-  color: #1b5e20;
+  color: #0d47a1;
   margin: 0 0 0.5rem;
 }
 
@@ -27,7 +27,7 @@
   font-size: 2.2rem;
   width: 2.2rem;
   height: 2.2rem;
-  color: #2e7d32;
+  color: #1565c0;
 }
 
 .hub-subtitle {
@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #2e7d32 0%, #00897b 100%);
+  background: #1565c0;
   border-radius: 12px;
 }
 
@@ -76,7 +76,7 @@
 .hub-card mat-card-title {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #1b5e20;
+  color: #0d47a1;
 }
 
 .hub-card mat-card-subtitle {
@@ -105,11 +105,11 @@
 
 .hub-report-link:hover {
   background-color: #f1f8e9;
-  color: #1b5e20;
+  color: #0d47a1;
 }
 
 .hub-report-link mat-icon {
-  color: #00897b;
+  color: #1e88e5;
 }
 
 /* Empuja el chevron al final */

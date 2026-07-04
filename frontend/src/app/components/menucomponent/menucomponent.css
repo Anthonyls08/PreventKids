@@ -1,6 +1,6 @@
-/* --- Toolbar --- */
+﻿/* --- Toolbar --- */
 .custom-toolbar.mat-toolbar {
-  background: linear-gradient(90deg, #2e7d32 0%, #00897b 100%);
+  background: #1565c0;
   display: flex;
   align-items: center;
   gap: 6px;
