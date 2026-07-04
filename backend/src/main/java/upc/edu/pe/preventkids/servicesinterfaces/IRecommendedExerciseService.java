@@ -13,6 +13,8 @@ public interface IRecommendedExerciseService{
     public void update(RecommendedExercise re);
     public void delete(int id);
     public List<RecommendedExercise> buscarPorNombre(String nombre);
+    public List<Object[]> contarPorDificultad();
+    public List<RecommendedExercise> decidirPorDuracion(int duracionMinima);
 
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.ContenidoPorTipoDTO;
 import upc.edu.pe.preventkids.dtos.EducationalContentDTO;
 import upc.edu.pe.preventkids.dtos.EducationalContentInsertDTO;
 import upc.edu.pe.preventkids.entities.ProfessionalProfile;
@@ -15,6 +16,7 @@ import upc.edu.pe.preventkids.repositories.IProfessionalProfileRepository;
 import upc.edu.pe.preventkids.repositories.ITipoContenidoRepository;
 import upc.edu.pe.preventkids.servicesinterfaces.IEducationalContentService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -158,5 +160,23 @@ public class EducationalContentController {
                 .map(y -> m.map(y, EducationalContentDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(lista);
+    }
+
+    // GRAFICO: cantidad de contenidos educativos por tipo
+    @GetMapping("/conteo-por-tipo")
+    public ResponseEntity<?> contarPorTipo() {
+        List<Object[]> resultados = eS.contarPorTipo();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay contenido educativo registrado");
+        }
+        List<ContenidoPorTipoDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            ContenidoPorTipoDTO dto = new ContenidoPorTipoDTO();
+            dto.setTipo((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
     }
 }

@@ -33,4 +33,14 @@ public class PhysicalLimitationImplement implements IPhysicalLimitationService {
     public List<PhysicalLimitation> buscarPorCategoria(String categoria) {
         return phR.buscarPorCategoria(categoria);
     }
+
+    @Override
+    public List<Object[]> contarPorCategoria() {
+        return phR.contarPorCategoria();
+    }
+
+    @Override
+    public List<PhysicalLimitation> filtrarPorIntensidad(String intensidad) {
+        return phR.filtrarPorIntensidad(intensidad);
+    }
 }

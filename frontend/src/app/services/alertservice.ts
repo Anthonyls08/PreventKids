@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Alert } from '../models/Alert';
+import { AlertaPorEstadoDTO } from '../models/AlertaPorEstadoDTO';
 
 const base_url = environment.base;
 
@@ -37,7 +38,13 @@ export class Alertservice {
     });
   }
 
-  criticas() {
-    return this.http.get<Alert[]>(`${this.url}/criticas`);
+  criticas(umbralRiesgo: number = 3) {
+    return this.http.get<Alert[]>(`${this.url}/criticas`, {
+      params: { umbralRiesgo },
+    });
+  }
+
+  getConteoPorEstado() {
+    return this.http.get<AlertaPorEstadoDTO[]>(`${this.url}/conteo-por-estado`);
   }
 }

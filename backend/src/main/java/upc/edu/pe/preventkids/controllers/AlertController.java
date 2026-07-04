@@ -8,9 +8,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.AlertDTO;
+import upc.edu.pe.preventkids.dtos.AlertaPorEstadoDTO;
 import upc.edu.pe.preventkids.entities.Alert;
 import upc.edu.pe.preventkids.servicesinterfaces.IAlertService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

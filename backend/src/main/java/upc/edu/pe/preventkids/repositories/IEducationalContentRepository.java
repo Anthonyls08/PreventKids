@@ -13,4 +13,8 @@ import java.util.List;
 public interface IEducationalContentRepository extends JpaRepository<educationalContent, Integer> {
     @Query("SELECT e FROM educationalContent e WHERE UPPER(e.typeEC) = UPPER(:tipo)")
     List<educationalContent> buscarPorTipo(@Param("tipo") String tipo);
+
+    // GRAFICO: cantidad de contenidos agrupados por tipo
+    @Query("SELECT e.typeEC, COUNT(e) FROM educationalContent e GROUP BY e.typeEC ORDER BY e.typeEC")
+    List<Object[]> contarPorTipo();
 }

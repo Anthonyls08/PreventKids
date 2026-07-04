@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import upc.edu.pe.preventkids.dtos.EjercicioPorDificultadDTO;
 import upc.edu.pe.preventkids.dtos.RecommendedExerciseDTO;
 import upc.edu.pe.preventkids.dtos.RecommendedExerciseInsertDTO;
 import upc.edu.pe.preventkids.entities.RecommendedExercise;
 import upc.edu.pe.preventkids.servicesinterfaces.IRecommendedExerciseService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -132,6 +134,38 @@ public class RecommendedExerciseController {
         return ResponseEntity.ok(lista);
     }
 
+    // GRAFICO: cantidad de ejercicios por dificultad
+    @GetMapping("/conteo-por-dificultad")
+    public ResponseEntity<?> contarPorDificultad() {
+        List<Object[]> resultados = reS.contarPorDificultad();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay ejercicios recomendados registrados");
+        }
+        List<EjercicioPorDificultadDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            EjercicioPorDificultadDTO dto = new EjercicioPorDificultadDTO();
+            dto.setDificultad((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
 
+    // FILTRO (decision): ejercicios con duracion mayor o igual al minimo indicado
+    @GetMapping("/decidir-por-duracion")
+    public ResponseEntity<?> decidirPorDuracion(@RequestParam int duracionMinima) {
+        if (duracionMinima <= 0) {
+            return ResponseEntity.badRequest().body("Error: La duracion minima debe ser mayor a 0.");
+        }
+        ModelMapper m = new ModelMapper();
+        List<RecommendedExerciseDTO> lista = reS.decidirPorDuracion(duracionMinima).stream()
+                .map(y -> m.map(y, RecommendedExerciseDTO.class))
+                .collect(Collectors.toList());
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(lista);
+    }
 
 }

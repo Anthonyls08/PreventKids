@@ -1,0 +1,55 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Alertas críticas por nivel de riesgo</h2>
+  <p class="chart-subtitle">
+    Query de filtro: alertas no leídas cuyo tipo de alerta tiene un nivel de riesgo mayor o
+    igual al umbral indicado, distribuidas por tipo de alerta.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="umbral">Umbral de riesgo (1-5)</label>
+      <input
+        id="umbral"
+        name="umbral"
+        type="number"
+        min="1"
+        max="5"
+        [(ngModel)]="umbralRiesgo"
+      />
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay alertas críticas con ese umbral de riesgo.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de alertas críticas: <strong>{{ total }}</strong></p>
+  }
+</div>

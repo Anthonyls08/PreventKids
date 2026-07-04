@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { EducationalContent } from '../models/EducationalContent';
+import { ContenidoPorTipoDTO } from '../models/ContenidoPorTipoDTO';
 
 const base_url = environment.base;
 
@@ -37,5 +38,10 @@ export class Educationalcontentservice {
     return this.http.get<EducationalContent[]>(`${this.url}/buscartipo`, {
       params: { tipo },
     });
+  }
+
+  // GRAFICO: cantidad de contenidos por tipo
+  getConteoPorTipo() {
+    return this.http.get<ContenidoPorTipoDTO[]>(`${this.url}/conteo-por-tipo`);
   }
 }

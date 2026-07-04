@@ -10,4 +10,6 @@ public interface IPhysicalLimitationService {
     public void update(PhysicalLimitation p);
     public void delete(int id);
     public List<PhysicalLimitation> buscarPorCategoria(String categoria);
+    public List<Object[]> contarPorCategoria();
+    public List<PhysicalLimitation> filtrarPorIntensidad(String intensidad);
 }
