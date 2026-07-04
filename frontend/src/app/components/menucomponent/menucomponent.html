@@ -65,10 +65,12 @@
             Alertas
         </button>
         }
+        @if (isAdmin()) {
         <button mat-menu-item [matMenuTriggerFor]="menuChatIA">
             <mat-icon>smart_toy</mat-icon>
             Chat IA
         </button>
+        }
         @if (isAdmin() || isDoctor()) {
         <button mat-menu-item [matMenuTriggerFor]="menuDistrict">
             <mat-icon>location_city</mat-icon>

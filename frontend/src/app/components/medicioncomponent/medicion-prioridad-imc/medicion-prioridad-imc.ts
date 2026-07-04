@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,7 +29,8 @@ export class MedicionPrioridadImc {
   chartLabels: string[] = [];
   chartData: ChartDataset[] = [];
 
-  constructor(private mS: Medicionservice) {}
+  // La app es zoneless: hay que avisar a Angular cuando llega la data del backend.
+  constructor(private mS: Medicionservice, private cdr: ChangeDetectorRef) {}
 
   consultar(): void {
     if (!this.imc || this.imc <= 0) {
@@ -68,6 +69,7 @@ export class MedicionPrioridadImc {
         this.hasData = false;
         this.total = 0;
       }
+      this.cdr.markForCheck();
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,7 +29,8 @@ export class DistrictPrioridadUbigeo {
   chartLabels: string[] = [];
   chartData: ChartDataset[] = [];
 
-  constructor(private dS: Districtservice) {}
+  // La app es zoneless: hay que avisar a Angular cuando llega la data del backend.
+  constructor(private dS: Districtservice, private cdr: ChangeDetectorRef) {}
 
   consultar(): void {
     if (!this.ubigeo || this.ubigeo <= 0) {
@@ -65,6 +66,7 @@ export class DistrictPrioridadUbigeo {
         this.hasData = false;
         this.total = 0;
       }
+      this.cdr.markForCheck();
     });
   }
 }

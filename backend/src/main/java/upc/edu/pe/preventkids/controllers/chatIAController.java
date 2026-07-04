@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import upc.edu.pe.preventkids.dtos.ChatPreguntaDTO;
 import upc.edu.pe.preventkids.dtos.ChatRespuestaDTO;
@@ -21,7 +22,9 @@ import java.util.stream.Collectors;
 public class chatIAController {
     @Autowired
     private IChatIAService cS;
+    // El CRUD directo del chat es moderacion de respuestas: solo ADMIN
     @GetMapping("/listar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<chatIAInsertDTO>> listar(){
         ModelMapper m=new ModelMapper();
         List<chatIAInsertDTO> listaChat=cS.list().stream()
@@ -31,6 +34,7 @@ public class chatIAController {
         return ResponseEntity.ok(listaChat);
     }
     @PostMapping("/ingresar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> registrar(@RequestBody chatIAInsertDTO dto){
         ModelMapper m=new ModelMapper();
         chatIA c=m.map(dto, chatIA.class);
@@ -39,6 +43,7 @@ public class chatIAController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         ModelMapper m = new ModelMapper();
         Optional<chatIA> chat = cS.listId(id);
@@ -52,6 +57,7 @@ public class chatIAController {
         }
     }
     @PutMapping("/actualizar")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> actualizar(@RequestBody chatIAInsertDTO dto) {
 
         Optional<chatIA> existente = cS.listId(dto.getIdchatIA());
@@ -69,8 +75,10 @@ public class chatIAController {
         return ResponseEntity.ok("Chat actualizado correctamente");
     }
     // Flujo del asistente: 1) busca una pregunta parecida ya respondida (cache),
-    // 2) si no hay, llama a la API de Gemini, 3) si la API falla, mensaje de respaldo
+    // 2) si no hay, llama a la API de Gemini, 3) si la API falla, mensaje de respaldo.
+    // Cualquier rol puede preguntarle al asistente.
     @PostMapping("/preguntar")
+    @PreAuthorize("hasAuthority('PADRE') OR hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
     public ResponseEntity<?> preguntar(@RequestBody ChatPreguntaDTO dto) {
         if (dto.getPregunta() == null || dto.getPregunta().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("La pregunta no puede estar vacía");
@@ -108,6 +116,7 @@ public class chatIAController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<chatIA> autor = cS.listId(id);
 
