@@ -33,7 +33,7 @@ public class Medicion {
 
     // La medicion pertenece al hijo (nino monitoreado), no al usuario que inicia sesion
     @ManyToOne
-    @JoinColumn(name = "idHijo", nullable = false)
+    @JoinColumn(name = "idHijo", nullable = true)
     private Hijo hijo;
 
     public Medicion() {
