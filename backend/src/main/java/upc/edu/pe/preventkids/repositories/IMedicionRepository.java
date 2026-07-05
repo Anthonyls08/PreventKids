@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface IMedicionRepository extends JpaRepository<Medicion,Integer> {
-    @Query("SELECT m FROM Medicion m WHERE m.imc >= :imcMinimo AND m.clasificacionimc = 'Sobrepeso'")
+    // DECISIÓN: mediciones con IMC alto (sobrepeso u obesidad) mayor o igual al umbral
+    @Query("SELECT m FROM Medicion m WHERE m.imc >= :imcMinimo AND m.clasificacionimc IN ('Sobrepeso', 'Obesidad')")
     List<Medicion> decidirAtencionPrioritaria(@Param("imcMinimo") float imcMinimo);
 
     // DECISIÓN: mediciones con signos vitales fuera de rango (requieren evaluación médica)
