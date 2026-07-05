@@ -115,6 +115,25 @@ public class AlertController {
         return ResponseEntity.ok(alertasCriticas);
     }
 
+    // GRAFICO: cantidad de alertas leidas vs no leidas (reporte agregado: solo doctor y admin)
+    @GetMapping("/conteo-por-estado")
+    @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
+    public ResponseEntity<?> contarPorEstado() {
+        List<Object[]> resultados = aS.contarPorEstado();
+        if (resultados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay alertas registradas");
+        }
+        List<AlertaPorEstadoDTO> respuesta = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            AlertaPorEstadoDTO dto = new AlertaPorEstadoDTO();
+            dto.setEstado((String) fila[0]);
+            dto.setCantidad(((Number) fila[1]).intValue());
+            respuesta.add(dto);
+        }
+        return ResponseEntity.ok(respuesta);
+    }
+
     // El autenticado tiene rol PADRE (no ADMIN ni DOCTOR)
     private boolean esPadre(Authentication auth) {
         return auth.getAuthorities().stream()

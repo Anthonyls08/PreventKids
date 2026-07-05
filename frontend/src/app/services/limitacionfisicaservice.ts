@@ -45,4 +45,11 @@ export class PhysicalLimitationService {
       params: { intensidad },
     });
   }
+
+  // QUERY (filtro): limitaciones por categoria
+  filtrarPorCategoria(categoria: string) {
+    return this.http.get<PhysicalLimitation[]>(`${this.url}/filtrarcategoria`, {
+      params: { categoria },
+    });
+  }
 }

@@ -1,0 +1,58 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Tipos de alerta por nivel de riesgo</h2>
+  <p class="chart-subtitle">
+    Query de filtro: tipos de alerta desde un nivel de riesgo mínimo y si requieren atención profesional.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="nivelRiesgo">Nivel de riesgo mínimo</label>
+      <select id="nivelRiesgo" name="nivelRiesgo" [(ngModel)]="nivelRiesgo">
+        @for (op of niveles; track op) {
+          <option [value]="op">{{ op }}</option>
+        }
+      </select>
+    </div>
+    <div class="campo">
+      <label for="requiereAtencion">¿Requiere atención profesional?</label>
+      <select id="requiereAtencion" name="requiereAtencion" [(ngModel)]="requiereAtencion">
+        <option value="true">Sí</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay tipos de alerta para esos criterios.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de tipos de alerta: <strong>{{ total }}</strong></p>
+  }
+</div>

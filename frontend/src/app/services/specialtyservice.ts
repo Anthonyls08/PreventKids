@@ -32,4 +32,18 @@ export class Specialtyservice {
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
+
+  // QUERY (busqueda): especialidades por area
+  buscarPorArea(area: string) {
+    return this.http.get<Specialty[]>(`${this.url}/buscar-area`, {
+      params: { area },
+    });
+  }
+
+  // QUERY (filtro): especialidades con o sin atencion virtual
+  buscarPorAtencionVirtual(virtual: boolean) {
+    return this.http.get<Specialty[]>(`${this.url}/buscar-atencion-virtual`, {
+      params: { virtual },
+    });
+  }
 }

@@ -107,21 +107,21 @@ INSERT INTO alert (generationdate, leida, id_medicion, id_tipoalerta) VALUES
 ('2026-06-05', true,  6,  (SELECT id_tipoalerta FROM tipo_alerta WHERE nombre='IMC elevado'      LIMIT 1)),
 ('2026-07-03', true,  9,  (SELECT id_tipoalerta FROM tipo_alerta WHERE nombre='Control rutinario' LIMIT 1));
 
--- 9) ESPECIALIDADES ------------------------------------------------------------------
+-- 9) ESPECIALIDADES (nombres y areas identicos a los selects del frontend) -------------
 INSERT INTO specialty (nombre, descripcion, area, atencionvirtual) VALUES
-('Pediatria',           'Atencion integral de la salud del nino',         'Medicina',       true),
-('Nutricion Infantil',  'Evaluacion y planes de alimentacion para ninos', 'Nutricion',      true),
-('Fisioterapia',        'Rehabilitacion fisica y ejercicios adaptados',   'Rehabilitacion', false),
-('Psicologia Infantil', 'Salud mental y desarrollo emocional del nino',   'Psicologia',     true);
+('Pediatría',           'Atencion integral de la salud del nino',         'Medicina General',       true),
+('Nutrición Infantil',  'Evaluacion y planes de alimentacion para ninos', 'Nutrición y Dietética',  true),
+('Fisioterapia',        'Rehabilitacion fisica y ejercicios adaptados',   'Rehabilitación y Terapia', false),
+('Psicología Infantil', 'Salud mental y desarrollo emocional del nino',   'Salud Mental',           true);
 
 -- 10) PERFILES PROFESIONALES (los 3 doctores) -----------------------------------------
 INSERT INTO professional_profile (numerocolegiatura, institucion, id_user, id_specialty) VALUES
 ('CMP-45821',  'Hospital del Nino',
    (SELECT id_user FROM users WHERE email='doctor1@preventkids.com' LIMIT 1),
-   (SELECT id_specialty FROM specialty WHERE nombre='Pediatria' LIMIT 1)),
+   (SELECT id_specialty FROM specialty WHERE nombre='Pediatría' LIMIT 1)),
 ('CNP-11234',  'Clinica San Felipe',
    (SELECT id_user FROM users WHERE email='doctor2@preventkids.com' LIMIT 1),
-   (SELECT id_specialty FROM specialty WHERE nombre='Nutricion Infantil' LIMIT 1)),
+   (SELECT id_specialty FROM specialty WHERE nombre='Nutrición Infantil' LIMIT 1)),
 ('CTMP-30877', 'Centro de Rehabilitacion Infantil',
    (SELECT id_user FROM users WHERE email='andrea@preventkids.com' LIMIT 1),
    (SELECT id_specialty FROM specialty WHERE nombre='Fisioterapia' LIMIT 1));
@@ -132,7 +132,7 @@ INSERT INTO virtual_consultation (estado, fechacita, proveedor, urlsala, id_prof
    1, (SELECT id_user FROM users WHERE email='padre1@preventkids.com' LIMIT 1)),
 ('Confirmada', '2026-07-08 16:30:00', 'Jitsi', 'https://meet.jit.si/PreventKids-Valentina-Nutricion',
    2, (SELECT id_user FROM users WHERE email='padre2@preventkids.com' LIMIT 1)),
-('Atendida',   '2026-06-28 11:00:00', 'Jitsi', 'https://meet.jit.si/PreventKids-Diego-Fisioterapia',
+('Finalizada', '2026-06-28 11:00:00', 'Jitsi', 'https://meet.jit.si/PreventKids-Diego-Fisioterapia',
    3, (SELECT id_user FROM users WHERE email='camila@preventkids.com' LIMIT 1));
 
 -- 12) TIPOS DE CONTENIDO -------------------------------------------------------------

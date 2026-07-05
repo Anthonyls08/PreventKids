@@ -22,7 +22,7 @@ INSERT INTO role (nombre, descripcion) VALUES
 -- name_district y zone son varchar(20); ubigeo es entero.
 INSERT INTO district (name_district, name_department, zone, ubigeo) VALUES
 ('Miraflores',  'Lima', 'Lima Centro', 150122),
-('San Isidro',  'Lima', 'Lima Centro', 150131),Ñ
+('San Isidro',  'Lima', 'Lima Centro', 150131),
 ('Barranco',    'Lima', 'Lima Sur',    150104),
 ('Surco',       'Lima', 'Lima Sur',    150140),
 ('La Molina',   'Lima', 'Lima Este',   150114),

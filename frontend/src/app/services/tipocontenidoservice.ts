@@ -32,4 +32,11 @@ export class Tipocontenidoservice {
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
+
+  // QUERY (decision): tipos de contenido rapidos (duracion maxima y categoria)
+  decidirContenidoRapido(minutos: number, categoria: string) {
+    return this.http.get<TipoContenido[]>(`${this.url}/decidir-contenido-rapido`, {
+      params: { minutos, categoria },
+    });
+  }
 }
