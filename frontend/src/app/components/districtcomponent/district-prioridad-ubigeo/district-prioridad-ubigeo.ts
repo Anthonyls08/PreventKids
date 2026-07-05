@@ -16,6 +16,8 @@ import { District } from '../../../models/district';
 })
 export class DistrictPrioridadUbigeo {
   ubigeo = 150000;
+  // Sentido del orden por ubigeo (asc = menor primero)
+  orden = 'asc';
   buscado = false;
   hasData = false;
   total = 0;
@@ -39,7 +41,10 @@ export class DistrictPrioridadUbigeo {
 
     // QUERY DE DECISIÓN: distritos prioritarios con ubigeo <= umbral
     this.dS.decidirPrioridadUbigeo(this.ubigeo).subscribe((data) => {
-      const lista: District[] = data ?? [];
+      // El backend ordena ascendente; aqui se puede alternar el sentido
+      const lista: District[] = (data ?? []).sort((a, b) =>
+        this.orden === 'desc' ? b.ubigeo - a.ubigeo : a.ubigeo - b.ubigeo
+      );
       this.buscado = true;
 
       if (lista.length > 0) {

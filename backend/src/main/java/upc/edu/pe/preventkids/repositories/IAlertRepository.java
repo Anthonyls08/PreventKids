@@ -12,7 +12,8 @@ import java.util.List;
 public interface IAlertRepository extends JpaRepository<Alert,Integer> {
     @Query(value = "SELECT a.* FROM alert a " +
                     "INNER JOIN tipo_alerta t ON a.id_tipoalerta = t.id_tipoalerta " +
-                    "WHERE a.leida = false AND t.nivelriesgo >= :umbralRiesgo",
+                    "WHERE a.leida = false AND t.nivelriesgo >= :umbralRiesgo " +
+                    "ORDER BY t.nivelriesgo DESC",
             nativeQuery = true
     )
     List<Alert> obtenerAlertasNoLeidasCriticas(@Param("umbralRiesgo") int umbralRiesgo);

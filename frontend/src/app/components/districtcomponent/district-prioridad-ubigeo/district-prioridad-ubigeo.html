@@ -12,6 +12,13 @@
       <label for="ubigeo">Umbral de ubigeo</label>
       <input id="ubigeo" name="ubigeo" type="number" min="1" [(ngModel)]="ubigeo" />
     </div>
+    <div class="campo">
+      <label for="orden">Orden por ubigeo</label>
+      <select id="orden" name="orden" [(ngModel)]="orden">
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+    </div>
     <button type="submit">Consultar</button>
   </form>
 

@@ -49,9 +49,12 @@ export class Medicionservice {
     });
   }
 
-  // QUERY (decision): mediciones con riesgo nutricional (bajo peso / obesidad)
-  decidirRiesgoNutricional() {
-    return this.http.get<Medicion[]>(`${this.url}/decidir-riesgo-nutricional`);
+  // QUERY (decision): mediciones con riesgo nutricional (bajo peso / obesidad).
+  // clasificacion vacia = ambos niveles de riesgo.
+  decidirRiesgoNutricional(clasificacion: string = '') {
+    return this.http.get<Medicion[]>(`${this.url}/decidir-riesgo-nutricional`, {
+      params: { clasificacion },
+    });
   }
 
   // QUERY (filtro): mediciones de un hijo especifico

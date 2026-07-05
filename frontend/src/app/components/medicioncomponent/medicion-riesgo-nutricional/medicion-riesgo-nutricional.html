@@ -7,6 +7,19 @@
   </div>
   <h2 class="chart-title">Mediciones con riesgo nutricional</h2>
 
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="clasificacion">Nivel de riesgo</label>
+      <select id="clasificacion" name="clasificacion" [(ngModel)]="clasificacion">
+        <option value="">Todos</option>
+        @for (op of clasificaciones; track op) {
+          <option [value]="op">{{ op }}</option>
+        }
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
   <div class="chart-wrapper">
     @if (hasData) {
       <div class="chart-wrapper chart-pie">
