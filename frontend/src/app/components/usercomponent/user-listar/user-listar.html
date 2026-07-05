@@ -57,13 +57,13 @@
       <!-- Rol -->
       <ng-container matColumnDef="c9">
         <th mat-header-cell *matHeaderCellDef>Rol</th>
-        <td mat-cell *matCellDef="let element">{{ element.idRole }}</td>
+        <td mat-cell *matCellDef="let element">{{ nombreRol(element.idRole) }}</td>
       </ng-container>
 
       <!-- Distrito -->
       <ng-container matColumnDef="c10">
         <th mat-header-cell *matHeaderCellDef>Distrito</th>
-        <td mat-cell *matCellDef="let element">{{ element.idDistrict }}</td>
+        <td mat-cell *matCellDef="let element">{{ nombreDistrito(element.idDistrict) }}</td>
       </ng-container>
 
       <!-- Editar -->
@@ -90,4 +90,11 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
+
+  <mat-paginator
+    [pageSize]="6"
+    [pageSizeOptions]="[6, 10, 20]"
+    showFirstLastButtons
+    aria-label="Paginación de usuarios">
+  </mat-paginator>
 </div>

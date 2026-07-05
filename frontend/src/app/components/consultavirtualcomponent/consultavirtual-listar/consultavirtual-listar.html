@@ -12,8 +12,8 @@
           <p class="card-field"><strong>Estado:</strong> {{ item.estado }}</p>
           <p class="card-field"><strong>Proveedor:</strong> {{ item.proveedor }}</p>
           <p class="card-field"><strong>URL sala:</strong> {{ item.urlsala }}</p>
-          <p class="card-field"><strong>ID Usuario:</strong> {{ item.idUser }}</p>
-          <p class="card-field"><strong>ID Perfil Prof.:</strong> {{ item.idProfessionalProfile }}</p>
+          <p class="card-field"><strong>Paciente:</strong> {{ nombrePaciente(item.idUser) }}</p>
+          <p class="card-field"><strong>Profesional:</strong> {{ nombrePerfil(item.idProfessionalProfile) }}</p>
         </mat-card-content>
         <mat-card-actions align="end">
           <button matButton (click)="eliminar(item.idVirtualConsultation)" class="btn-eliminar">

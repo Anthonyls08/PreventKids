@@ -167,9 +167,14 @@ public class MedicionController {
 
     @GetMapping("/decidir-riesgo-nutricional")
     @PreAuthorize("hasAuthority('DOCTOR') OR hasAuthority('ADMIN')")
-    public ResponseEntity<?> decidirRiesgoNutricional() {
+    public ResponseEntity<?> decidirRiesgoNutricional(
+            @RequestParam(required = false, defaultValue = "") String clasificacion) {
+        if (!clasificacion.isEmpty() && !clasificacion.equals("Bajo peso") && !clasificacion.equals("Obesidad")) {
+            return ResponseEntity.badRequest()
+                    .body("La clasificacion debe ser 'Bajo peso' u 'Obesidad'");
+        }
         ModelMapper m = new ModelMapper();
-        List<MedicionDTO> lista = mS.decidirRiesgoNutricional()
+        List<MedicionDTO> lista = mS.decidirRiesgoNutricional(clasificacion)
                 .stream()
                 .map(y -> m.map(y, MedicionDTO.class))
                 .collect(Collectors.toList());

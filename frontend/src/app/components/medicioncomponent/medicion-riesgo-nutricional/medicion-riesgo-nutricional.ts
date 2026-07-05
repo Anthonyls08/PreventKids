@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -9,11 +10,15 @@ import { Medicion } from '../../../models/Medicion';
 
 @Component({
   selector: 'app-medicion-riesgo-nutricional',
-  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink],
+  imports: [BaseChartDirective, MatIconModule, MatButtonModule, RouterLink, FormsModule],
   templateUrl: './medicion-riesgo-nutricional.html',
   styleUrl: './medicion-riesgo-nutricional.css',
 })
 export class MedicionRiesgoNutricional implements OnInit {
+  // Nivel de riesgo a filtrar; vacio = ambos (Bajo peso y Obesidad)
+  clasificaciones: string[] = ['Bajo peso', 'Obesidad'];
+  clasificacion = '';
+
   hasData = false;
   total = 0;
 
@@ -27,8 +32,12 @@ export class MedicionRiesgoNutricional implements OnInit {
   constructor(private mS: Medicionservice, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.consultar();
+  }
+
+  consultar(): void {
     // QUERY DE DECISIÓN: mediciones con riesgo nutricional (bajo peso / obesidad)
-    this.mS.decidirRiesgoNutricional().subscribe((data) => {
+    this.mS.decidirRiesgoNutricional(this.clasificacion).subscribe((data) => {
       const lista: Medicion[] = data ?? [];
       if (lista.length > 0) {
         this.hasData = true;
@@ -50,6 +59,7 @@ export class MedicionRiesgoNutricional implements OnInit {
         ];
       } else {
         this.hasData = false;
+        this.total = 0;
       }
       this.cdr.markForCheck();
     });
