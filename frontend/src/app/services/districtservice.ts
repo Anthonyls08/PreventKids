@@ -51,4 +51,11 @@ export class Districtservice {
       params: { departamento },
     });
   }
+
+  // QUERY (busqueda): distritos por nombre (LIKE)
+  buscarPorNombre(nombre: string) {
+    return this.http.get<District[]>(`${this.url}/buscar-por-nombre`, {
+      params: { nombre },
+    });
+  }
 }

@@ -40,4 +40,11 @@ export class Tipoalertaservice {
   getConteoPorNivelRiesgo() {
     return this.http.get<AlertaPorNivelRiesgoDTO[]>(`${this.url}/conteo-por-nivelriesgo`);
   }
+
+  // QUERY (filtro): tipos de alerta por nivel de riesgo minimo y atencion profesional
+  filtrarPorNivelRiesgo(nivelRiesgo: number, requiereAtencion: boolean) {
+    return this.http.get<TipoAlerta[]>(`${this.url}/filtrar-por-nivelriesgo`, {
+      params: { nivelRiesgo, requiereAtencion },
+    });
+  }
 }

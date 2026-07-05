@@ -1,0 +1,50 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Especialidades por atención virtual</h2>
+  <p class="chart-subtitle">
+    Query de filtro: distribución por área de las especialidades según su modalidad de atención.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="virtual">¿Atención virtual?</label>
+      <select id="virtual" name="virtual" [(ngModel)]="virtual">
+        <option value="true">Sí</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-pie">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay especialidades para esa modalidad.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de especialidades: <strong>{{ total }}</strong></p>
+  }
+</div>

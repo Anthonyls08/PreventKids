@@ -37,4 +37,11 @@ export class Virtualconsultationservice {
   getConteoPorEstado() {
     return this.http.get<ConsultaPorEstadoDTO[]>(`${this.url}/conteo-por-estado`);
   }
+
+  // QUERY (decision): consultas por estado y nombre del paciente
+  decidirPrioridad(estado: string, nombrePaciente: string) {
+    return this.http.get<VirtualConsultation[]>(`${this.url}/decidir-prioridad`, {
+      params: { estado, nombrePaciente },
+    });
+  }
 }

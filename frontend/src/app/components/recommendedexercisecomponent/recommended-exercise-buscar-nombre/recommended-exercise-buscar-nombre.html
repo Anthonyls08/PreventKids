@@ -1,0 +1,47 @@
+<div class="chart-container">
+  <div class="report-volver">
+    <a matButton class="btn-form" routerLink="/app/reportes">
+      <mat-icon>arrow_back</mat-icon>
+      Regresar
+    </a>
+  </div>
+  <h2 class="chart-title">Ejercicios buscados por nombre</h2>
+  <p class="chart-subtitle">
+    Query de búsqueda: ejercicios cuyo nombre contiene el texto, con su duración.
+  </p>
+
+  <form class="chart-form" (ngSubmit)="consultar()">
+    <div class="campo">
+      <label for="nombre">Nombre del ejercicio</label>
+      <input id="nombre" name="nombre" type="text" placeholder="Ej. Yoga" [(ngModel)]="nombre" />
+    </div>
+    <button type="submit">Buscar</button>
+  </form>
+
+  <div class="chart-wrapper">
+    @if (hasData) {
+      <div class="chart-wrapper chart-bar">
+        <canvas
+          baseChart
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="chartLegend"
+          [type]="chartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (buscado && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon">info_outline</mat-icon>
+        <p class="no-data-message">No hay ejercicios con ese nombre.</p>
+      </div>
+    }
+  </div>
+
+  @if (hasData) {
+    <p class="chart-total">Total de ejercicios: <strong>{{ total }}</strong></p>
+  }
+</div>

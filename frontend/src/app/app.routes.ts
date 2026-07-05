@@ -106,6 +106,14 @@ import { PhysicalLimitationConteoCategoria } from './components/physicallimitati
 import { PhysicalLimitationFiltrarIntensidad } from './components/physicallimitationcomponent/physical-limitation-filtrar-intensidad/physical-limitation-filtrar-intensidad';
 import { EducationalContentConteoTipo } from './components/educationalcontentcomponent/educational-content-conteo-tipo/educational-content-conteo-tipo';
 import { EducationalContentFiltrarTipo } from './components/educationalcontentcomponent/educational-content-filtrar-tipo/educational-content-filtrar-tipo';
+import { DistrictBuscarNombre } from './components/districtcomponent/district-buscar-nombre/district-buscar-nombre';
+import { PhysicalLimitationFiltrarCategoria } from './components/physicallimitationcomponent/physical-limitation-filtrar-categoria/physical-limitation-filtrar-categoria';
+import { EspecialidadBuscarArea } from './components/especialidadcomponent/especialidad-buscar-area/especialidad-buscar-area';
+import { EspecialidadAtencionVirtual } from './components/especialidadcomponent/especialidad-atencion-virtual/especialidad-atencion-virtual';
+import { TipocontenidoDecidirRapido } from './components/tipocontenidocomponent/tipocontenido-decidir-rapido/tipocontenido-decidir-rapido';
+import { ConsultavirtualDecidirPrioridad } from './components/consultavirtualcomponent/consultavirtual-decidir-prioridad/consultavirtual-decidir-prioridad';
+import { TipoAlertaFiltrarNivelriesgo } from './components/tipoalertacomponent/tipo-alerta-filtrar-nivelriesgo/tipo-alerta-filtrar-nivelriesgo';
+import { RecommendedExerciseBuscarNombre } from './components/recommendedexercisecomponent/recommended-exercise-buscar-nombre/recommended-exercise-buscar-nombre';
 export const routes: Routes = [
     {
         path: '',
@@ -169,6 +177,10 @@ export const routes: Routes = [
             {
                 path:'edits/:id',
                 component:TipoAlertaActualizar
+            },
+            {
+                path:'reporte-filtrar-nivelriesgo',
+                component:TipoAlertaFiltrarNivelriesgo
             }
         ]
     },
@@ -217,6 +229,10 @@ export const routes: Routes = [
             {
                 path:'reporte-filtrar-departamento',
                 component: DistrictFiltrarDepartamento
+            },
+            {
+                path:'reporte-buscar-nombre',
+                component: DistrictBuscarNombre
             }
         ]
     },
@@ -253,6 +269,10 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: TipocontenidoActualizar
+        },
+        {
+            path:'reporte-contenido-rapido',
+            component: TipocontenidoDecidirRapido
         }
     ]
 },
@@ -297,6 +317,14 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: EspecialidadActualizar
+        },
+        {
+            path:'reporte-buscar-area',
+            component: EspecialidadBuscarArea
+        },
+        {
+            path:'reporte-atencion-virtual',
+            component: EspecialidadAtencionVirtual
         }
     ]
 },
@@ -323,6 +351,10 @@ export const routes: Routes = [
         {
             path:'reporte-filtrar-intensidad',
             component: PhysicalLimitationFiltrarIntensidad
+        },
+        {
+            path:'reporte-filtrar-categoria',
+            component: PhysicalLimitationFiltrarCategoria
         }
     ]
 },
@@ -341,6 +373,10 @@ export const routes: Routes = [
         {
             path:'edits/:id',
             component: ConsultaVirtualActualizar
+        },
+        {
+            path:'reporte-decidir-prioridad',
+            component: ConsultavirtualDecidirPrioridad
         }
     ]
 },
@@ -393,6 +429,10 @@ export const routes: Routes = [
         {
             path:'reporte-filtrar-duracion',
             component: RecommendedExerciseFiltrarDuracion
+        },
+        {
+            path:'reporte-buscar-nombre',
+            component: RecommendedExerciseBuscarNombre
         }
     ]
 },

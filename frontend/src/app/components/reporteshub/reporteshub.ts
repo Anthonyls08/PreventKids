@@ -36,6 +36,7 @@ export class Reporteshub {
       roles: ['ADMIN', 'DOCTOR'],
       reportes: [
         { titulo: 'Consultas por estado', icono: 'donut_large', ruta: '/app/reportes/consultas-por-estado' },
+        { titulo: 'Prioridad por estado y paciente', icono: 'filter_alt', ruta: '/app/consultas-virtuales/reporte-decidir-prioridad' },
       ],
     },
     {
@@ -46,6 +47,48 @@ export class Reporteshub {
         { titulo: 'Zonas de riesgo', icono: 'pie_chart', ruta: '/app/district/reporte-zonas-riesgo' },
         { titulo: 'Prioridad por ubigeo', icono: 'bar_chart', ruta: '/app/district/reporte-prioridad-ubigeo' },
         { titulo: 'Filtrar por departamento', icono: 'filter_alt', ruta: '/app/district/reporte-filtrar-departamento' },
+        { titulo: 'Buscar por nombre', icono: 'search', ruta: '/app/district/reporte-buscar-nombre' },
+      ],
+    },
+    {
+      entidad: 'Limitación Física',
+      icono: 'accessibility',
+      reportes: [
+        { titulo: 'Limitaciones por categoría', icono: 'pie_chart', ruta: '/app/limitacion-fisica/reporte-conteo-categoria' },
+        { titulo: 'Filtrar por intensidad', icono: 'filter_alt', ruta: '/app/limitacion-fisica/reporte-filtrar-intensidad' },
+        { titulo: 'Filtrar por categoría', icono: 'filter_alt', ruta: '/app/limitacion-fisica/reporte-filtrar-categoria' },
+      ],
+    },
+    {
+      entidad: 'Contenido Educativo',
+      icono: 'menu_book',
+      reportes: [
+        { titulo: 'Contenidos por tipo', icono: 'pie_chart', ruta: '/app/contenido-educativo/reporte-conteo-tipo' },
+        { titulo: 'Filtrar por tipo', icono: 'filter_alt', ruta: '/app/contenido-educativo/reporte-filtrar-tipo' },
+      ],
+    },
+    {
+      entidad: 'Ejercicio Recomendado',
+      icono: 'fitness_center',
+      reportes: [
+        { titulo: 'Ejercicios por dificultad', icono: 'bar_chart', ruta: '/app/ejercicio-recomendado/reporte-conteo-dificultad' },
+        { titulo: 'Filtrar por duración', icono: 'filter_alt', ruta: '/app/ejercicio-recomendado/reporte-filtrar-duracion' },
+        { titulo: 'Buscar por nombre', icono: 'search', ruta: '/app/ejercicio-recomendado/reporte-buscar-nombre' },
+      ],
+    },
+    {
+      entidad: 'Especialidad',
+      icono: 'medical_services',
+      reportes: [
+        { titulo: 'Buscar por área', icono: 'search', ruta: '/app/specialties/reporte-buscar-area' },
+        { titulo: 'Atención virtual', icono: 'videocam', ruta: '/app/specialties/reporte-atencion-virtual' },
+      ],
+    },
+    {
+      entidad: 'Tipo Contenido',
+      icono: 'category',
+      reportes: [
+        { titulo: 'Contenido rápido', icono: 'timer', ruta: '/app/tipos-contenido/reporte-contenido-rapido' },
       ],
     },
     {
@@ -80,12 +123,14 @@ export class Reporteshub {
       roles: ['ADMIN', 'DOCTOR'],
       reportes: [
         { titulo: 'Alertas por nivel de riesgo', icono: 'bar_chart', ruta: '/app/reportes/alertas-por-nivelriesgo' },
+        { titulo: 'Filtrar por nivel de riesgo', icono: 'filter_alt', ruta: '/app/tipos-alerta/reporte-filtrar-nivelriesgo' },
       ],
     },
     {
+      // Los endpoints de estos reportes son solo DOCTOR/ADMIN en el backend
       entidad: 'Alertas',
       icono: 'notifications_active',
-      roles: ['ADMIN', 'DOCTOR', 'PADRE'],
+      roles: ['ADMIN', 'DOCTOR'],
       reportes: [
         { titulo: 'Alertas por estado', icono: 'donut_large', ruta: '/app/alertas/reporte-conteo-estado' },
         { titulo: 'Filtrar alertas críticas', icono: 'filter_alt', ruta: '/app/alertas/reporte-filtrar-criticas' },
