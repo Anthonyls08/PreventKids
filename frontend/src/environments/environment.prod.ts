@@ -1,8 +1,7 @@
 // Produccion. El build de produccion reemplaza environment.development.ts
 // por este archivo (ver fileReplacements en angular.json).
-// IMPORTANTE: reemplaza esta URL por la del backend real que te de Koyeb
-// (formato: https://<servicio>-<tu-org>.koyeb.app) antes de desplegar el frontend.
+// Backend desplegado en Render (Docker) conectado a la BD de Neon.
 export const environment = {
     production: true,
-    base: 'https://preventkids-backend-TU-ORG.koyeb.app'
+    base: 'https://preventkids.onrender.com'
 }
