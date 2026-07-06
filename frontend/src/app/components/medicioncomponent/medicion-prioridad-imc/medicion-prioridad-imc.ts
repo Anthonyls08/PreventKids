@@ -29,7 +29,7 @@ export class MedicionPrioridadImc {
   chartLabels: string[] = [];
   chartData: ChartDataset[] = [];
 
-  // La app es zoneless: hay que avisar a Angular cuando llega la data del backend.
+  
   constructor(private mS: Medicionservice, private cdr: ChangeDetectorRef) {}
 
   consultar(): void {
@@ -37,7 +37,7 @@ export class MedicionPrioridadImc {
       return;
     }
 
-    // QUERY DE DECISIÓN: mediciones con atencion prioritaria (sobrepeso, IMC >= umbral)
+    
     this.mS.decidirPrioridadImc(this.imc).subscribe((data) => {
       const lista: Medicion[] = data ?? [];
       this.buscado = true;
