@@ -65,7 +65,7 @@ videollamada, integrando **APIs externas reales**.
 | Sprint 3 (Frontend) | CRUD de entidades independientes | Listar / Insertar / Actualizar / Eliminar de 7 entidades | ✅ |
 | Sprint 3 (Frontend) | Autenticación | Login y registro con JWT, guard de rutas | ✅ |
 | Sprint 3 (Frontend) | Módulos con APIs externas | Dieta, Ejercicios, Videos, Videollamada | ✅ |
-| Sprint 3 (Frontend) | Identidad visual | Tema verde salud + turquesa, landing, navegación | ✅ |
+| Sprint 3 (Frontend) | Identidad visual | Tema azul + turquesa, landing, navegación | ✅ |
 | Sprint 3 (Frontend) | Documentación | Tablero Trello con 36 historias de usuario (HU66–HU101) | ✅ |
 | Sprint 4 (Backend) | Autorización por roles | `anyRequest().authenticated()` + `@PreAuthorize` con `hasAuthority` (ADMIN/DOCTOR/PADRE/PACIENTE) en todos los controllers | ✅ |
 | Sprint 4 (Backend) | Registro público seguro | `POST /users/web` sin token solo acepta rol PACIENTE o PADRE; un ADMIN autenticado puede crear cualquier rol | ✅ |
@@ -113,7 +113,7 @@ videollamada, integrando **APIs externas reales**.
 | 3 | La barra de menú se desbordaba con muchos botones | Se agruparon las 7 entidades en un menú "Gestión" y se rediseñó la navegación |
 | 4 | Los enlaces nuevos del menú salían de otro color (no blanco) | Se ajustó la regla CSS para incluir las etiquetas `<a>` |
 | 5 | El formulario de login "saltaba" al mostrar errores | Animación suave del mensaje y espaciado uniforme |
-| 6 | Colores rojos residuales tras cambiar el tema a verde | Reemplazo global de los colores rojos por verde/turquesa |
+| 6 | Colores rojos residuales tras cambiar el tema a azul | Reemplazo global de los colores rojos por azul/turquesa |
 | 7 | Acentos rotos al crear tarjetas en Trello (Latin-1 de Git Bash) | Envío de los datos como JSON con los acentos escapados a ASCII |
 | 8 | `alert()` de depuración que aparecían en la demo | Se eliminaron del código del frontend |
 | 9 | Cualquier visitante podía registrarse con rol ADMIN | El registro público ahora solo acepta PACIENTE/PADRE (backend responde 403 y el combo del formulario se filtró); un ADMIN autenticado sí puede crear cualquier rol |
