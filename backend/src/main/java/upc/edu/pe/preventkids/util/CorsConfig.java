@@ -15,8 +15,12 @@ public class CorsConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
+        // Local (ng serve) y el frontend desplegado en Vercel (*.vercel.app).
+        // Se usan patrones porque allowCredentials=true no admite "*" literal.
         configuration.setAllowedOriginPatterns(List.of(
-                "http://localhost:4200"
+                "http://localhost:4200",
+                "https://*.vercel.app",
+                "https://*.koyeb.app"
         ));
 
         configuration.setAllowedMethods(List.of(
