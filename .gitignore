@@ -35,3 +35,7 @@ build/
 
 ### Respaldos locales de la BD ###
 /backups/
+
+# Build output (IntelliJ / Gradle)
+backend/out/
+out/
